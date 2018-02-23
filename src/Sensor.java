@@ -1,2 +1,3 @@
-public interface Sensor {
+public abstract class Sensor {
+    abstract void trigger();
 }

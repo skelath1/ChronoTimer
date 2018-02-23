@@ -53,7 +53,6 @@ public class Event {
      * Used to toggle a channel on or off
      * @param channelNum: Channel number to toggle
      */
-
     public void toggleChannel(int channelNum){
         _channels[channelNum-1].toggle();
     }
