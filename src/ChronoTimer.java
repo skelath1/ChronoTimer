@@ -1,3 +1,5 @@
+import Util.*;
+
 public class ChronoTimer {
 
     public ChronoTimer(){
