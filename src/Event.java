@@ -22,15 +22,15 @@ public class Event {
     /**
      * Default Constructor to handle default Event type
      */
-    public Event(){
-        this("IND");
+    public Event(Channel[] channels){
+        this("IND",channels);
     }
 
     /**
      * Constructor to create Event
      * @param racetype: Type of event to be created
      */
-    public Event(String racetype){
+    public Event(String racetype, Channel[] channels){
         switch(racetype){
             case "IND":
                 _racetype = RACETYPE.IND;
@@ -46,7 +46,7 @@ public class Event {
                 break;
         }
         _racers = new LinkedList<>();
-        _channels = new Channel[8];
+        _channels = channels;
         _racerQueue = new LinkedList<>();
     }
 
@@ -97,7 +97,11 @@ public class Event {
         _racers.add(r);
     }
 
+    public Racer getRacer(){
+        return _racers.peek();
+    }
 
-
-
+    public Racer getQRacer(){
+        return _racerQueue.peek();
+    }
 }

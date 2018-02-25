@@ -7,6 +7,7 @@ public class Channel {
     private Sensor _sensor;
 
     public Channel(int channelNum){
+        _state = STATE.OFF;
         _channelNum = channelNum;
     }
 
@@ -20,5 +21,11 @@ public class Channel {
             _state = STATE.OFF;
         else
             _state = STATE.ON;
+    }
+
+    public boolean getState(){
+        if(_state == STATE.ON)
+            return true;
+        return false;
     }
 }
