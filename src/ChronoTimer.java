@@ -54,26 +54,40 @@ public class ChronoTimer {
                 }
                 break;
             case "NUM":
-                if(curState.equals(State.INPUTRACERS)){
+                if(curState.equals(State.INPUTRACERS) || event.ch){
                     event.addRacer(Integer.parseInt(value));
+                    //dont change the state because may need to enter multiple racers.
                 }
                 break;
             case "TRIG":
-                if(curState.equals(State.INPUTRACERS)){
+                if(curState.equals(State.INPUTRACERS) || curState.equals(State.INPROGRESS)){
                     int channelNum = Integer.parseInt(value);
 
                     //if it is odd then it is the start
-                    if(channelNum % 2 != 0) {
+                    if((channelNum % 2) != 0) {
                         event.setStartTime(Time.getTime());
+                        curState = State.INPROGRESS;
                     }
-                    else
+                    else{
+                        event.setFinishTime(Time.getTime());
+                        curState = State.INPROGRESS;
+                    }
+                }
+                break;
+            case "PRINT":
+                if(curState.equals(State.INPROGRESS)){
+                    //print the results of the race
+                }
+                break;
+            case "ENDRUN":
+                if(curState.equals(State.INPROGRESS)){
 
                 }
                 break;
-
 
 
         }
 
     }
+    //method for channel error checking
 }
