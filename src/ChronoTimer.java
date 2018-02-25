@@ -6,6 +6,7 @@ public class ChronoTimer {
     private State curState;
     private Time sysTime;
     private Event event;
+    private Channel channels[];
 
 
     public enum State{
@@ -15,6 +16,7 @@ public class ChronoTimer {
 
     public ChronoTimer(){
         curState = State.OFF;
+        channels = new Channel[8];
 
 
 
