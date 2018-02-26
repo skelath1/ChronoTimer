@@ -3,8 +3,13 @@ package Util;
 public class Time {
 
 
-    public static long getTime(){
-        return 0;
+    public static long getSysTime(){
+
     }
+
+    public static long getElapsed(long start, long finish){
+
+    }
+
 }
 
