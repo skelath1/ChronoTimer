@@ -112,6 +112,14 @@ public class ChronoTimer {
                     event.getRacer();
                 }
                 break;
+            case "EXIT":
+                if(curState.equals(State.INPROGRESS)){
+                    //just reset the fields so its like restarting at
+                    clearFields();
+                    //print that you exited the simulator?
+
+                }
+                break;
 
 
 
@@ -119,4 +127,11 @@ public class ChronoTimer {
 
     }
     //method for channel error checking
+    //method for reseting all the fields? for EXIT
+    private void clearFields(){
+        curState = State.OFF;
+        channels = new Channel[8];
+        eventList = new ArrayList<>();
+        event = null;
+    }
 }
