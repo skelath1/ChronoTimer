@@ -103,11 +103,11 @@ public class Event {
         _racers.addFirst(r);
     }
 
-    public Racer getRacer(){
-        return _racers.peek();
-    }
-
-    public Racer getQRacer(){
-        return _racerQueue.peek();
+    public String printResults(){
+        String s = "";
+        for(Racer r : _racers) {
+            s += r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + "\n";
+        }
+        return s;
     }
 }
