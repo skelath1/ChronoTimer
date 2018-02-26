@@ -4,9 +4,14 @@ import java.text.SimpleDateFormat;
 public class Time {
 
     private Calendar _cal;
-    boolean getSetSysTime;
+    private int[] offsetArray;
+
+
     public Time(){
-        getSetSysTime = false;
+        offsetArray = new int[4];
+        for(int i = 0;i < offsetArray.length; i++)
+            offsetArray[i] = 0;
+
     }
     /**
      * This method gets the current system time
@@ -14,12 +19,11 @@ public class Time {
      * @return time: the current/set time in HH:mm:ss:XX
      */
     public String getSysTime(){
-       // String time = _cal.get(Calendar.HOUR_OF_DAY)+":"+ _cal.get(Calendar.MINUTE)+":"+ _cal.get(Calendar.SECOND)+"."+ _cal.get(Calendar.MILLISECOND);
-        //if(getSetSysTime)
-         //   return time;
-       // else
-         //   return time.substring(0,time.length()-1);
-        _cal  = Calendar.getInstance();
+        _cal = Calendar.getInstance();
+        _cal.add(Calendar.HOUR_OF_DAY, offsetArray[0]);
+        _cal.add(Calendar.MINUTE, offsetArray[1]);
+        _cal.add(Calendar.SECOND, offsetArray[2]);
+        _cal.add(Calendar.MILLISECOND, offsetArray[3]);
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss.SS");
         return timeFormat.format(_cal.getTime());
     }
@@ -37,11 +41,11 @@ public class Time {
         String hour = bodyParts[0];
         String min = bodyParts[1];
         String sec = bodyParts[2];
-        _cal.set(Calendar.HOUR, Integer.parseInt(hour));
-        _cal.set(Calendar.MINUTE, Integer.parseInt(min));
-        _cal.set(Calendar.SECOND, Integer.parseInt(sec));
-        _cal.set(Calendar.MILLISECOND, Integer.parseInt(milli));
-        getSetSysTime = true;
+        //calculating offsets
+        offsetArray[0] = Integer.parseInt(hour)-_cal.get(Calendar.HOUR_OF_DAY);
+        offsetArray[1] = Integer.parseInt(min)- _cal.get(Calendar.MINUTE);
+        offsetArray[2] = Integer.parseInt(sec)-_cal.get(Calendar.SECOND);
+        offsetArray[3] = Integer.parseInt(milli)-_cal.get(Calendar.MILLISECOND);
     }
     /**
      * This method returns the elapsed time from the start and finish times
@@ -50,7 +54,7 @@ public class Time {
      * @return: a string with elapsed time
      */
     public static String getElapsed(long start, long finish){
-
+        //TODO:
     }
 
 }
