@@ -23,7 +23,7 @@ public class Channel {
             _state = STATE.ON;
     }
 
-    public boolean getState(){
+    public boolean isOn(){
         if(_state == STATE.ON)
             return true;
         return false;

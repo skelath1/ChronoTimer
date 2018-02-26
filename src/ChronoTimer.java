@@ -11,7 +11,7 @@ public class ChronoTimer {
 
 
     public enum State{
-        ON,OFF,EVENT,RUN,TOG1,TOG2,INPUTRACERS,INPROGRESS,ENDRUN
+        ON,OFF,EVENT,RUN,TOG1,TOG2,INPUTRACERS,INPROGRESS
     }
 
 
@@ -96,8 +96,10 @@ public class ChronoTimer {
             case "ENDRUN":
                 if(curState.equals(State.INPROGRESS)){
                     //go to the ON state when the run is over so that there can be another run
+                    eventList.add(event);
                     curState = State.ON;
-                    //do you print after the event is over
+                    //print all the racers after the run
+
                 }
                 break;
             case "DNF":
@@ -108,30 +110,36 @@ public class ChronoTimer {
                 break;
             case "CANCEL":
                 if(curState.equals(State.INPROGRESS)){
-                   //put the race back in the queue at the beginning
-                    event.getRacer();
+                   //put the racer back in the queue at the beginning
+                    event.cancelRacer();
                 }
                 break;
             case "EXIT":
                 if(curState.equals(State.INPROGRESS)){
                     //just reset the fields so its like restarting at
-                    clearFields();
-                    //print that you exited the simulator?
-
+                    System.out.println("EXITING SIMULATOR...");
                 }
                 break;
-
-
-
+            case "TIME":
+                if(curState.equals(State.INPROGRESS)){
+                    //when can TIME be called?
+                    //do something with the system time
+                }
+                break;
         }
 
     }
     //method for channel error checking
-    //method for reseting all the fields? for EXIT
+
+    //method for reseting all the fields for RESET
     private void clearFields(){
         curState = State.OFF;
         channels = new Channel[8];
         eventList = new ArrayList<>();
         event = null;
+    }
+    public Time getSysTime()
+    {
+        return sysTime;
     }
 }
