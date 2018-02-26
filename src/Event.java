@@ -1,7 +1,6 @@
 import Util.*;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class Event {
     private enum RACETYPE{
@@ -11,11 +10,12 @@ public class Event {
     private Channel[] _channels;
 
     // Will be used to return the racers
-    private Queue<Racer> _racers;
+    //private Queue<Racer> _racers;
+    private Deque<Racer> _racers;
 
 
     // WIll be a linked list
-    private Queue<Racer> _racerQueue;
+    private Deque<Racer> _racerQueue;
 
     private RACETYPE _racetype;
 
@@ -46,6 +46,7 @@ public class Event {
                 break;
         }
         _racers = new LinkedList<>();
+
         _channels = channels;
         _racerQueue = new LinkedList<>();
     }
@@ -95,6 +96,11 @@ public class Event {
         Racer r = _racerQueue.remove();
         r.setFinishTime(finishTime);
         _racers.add(r);
+    }
+    public void cancelRacer(){
+        Racer r = _racerQueue.removeLast();
+        r.setStartTime(0);
+        _racers.addFirst(r);
     }
 
     public Racer getRacer(){
