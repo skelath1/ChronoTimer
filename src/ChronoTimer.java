@@ -11,13 +11,16 @@ public class ChronoTimer {
 
 
     public enum State{
-        ON,OFF,EVENT,RUN,TOG1,TOG2,INPUTRACERS,INPROGRESS
+        ON,OFF,EVENT,RUN,TOG,INPUTRACERS,INPROGRESS
     }
 
 
     public ChronoTimer(){
         curState = State.OFF;
         channels = new Channel[8];
+        for(int i = 0; i < 7; ++i) {
+            channels[i] = new Channel(i+1);
+        }
         eventList = new ArrayList<>();
 
     }
@@ -47,16 +50,20 @@ public class ChronoTimer {
                 break;
             case "TOG":
                 if(curState.equals(State.RUN)){
-                    event.toggleChannel(Integer.parseInt(value));
-                    curState = State.TOG1;
+                    //-1 for the index
+                    int channelIndex = Integer.parseInt(value) - 1;
+                    channels[channelIndex].toggle();
+
+                    curState = State.TOG;
                 }
-                else if(curState.equals(State.TOG2)){
-                    event.toggleChannel(Integer.parseInt(value));
+                else if(curState.equals(State.TOG)){
+                    int channelIndex = Integer.parseInt(value) - 1;
+                    channels[channelIndex].toggle();
                     curState = State.INPUTRACERS;
                 }
                 break;
             case "NUM":
-                if(curState.equals(State.INPUTRACERS) ){
+                if(curState.equals(State.INPUTRACERS) || curState.equals(State.RUN)){
                     event.addRacer(Integer.parseInt(value));
                     //dont change the state because may need to enter multiple racers.
                 }
