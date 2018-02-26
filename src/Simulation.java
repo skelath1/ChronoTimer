@@ -7,7 +7,10 @@ public class Simulation {
 
     }
 
-    public void execute(){
+    public void execute(String command, String value){
+        if(command.equalsIgnoreCase("PRINT")){
+            System.out.println(value);
+        }
 
     }
 }

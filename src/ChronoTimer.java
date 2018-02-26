@@ -98,6 +98,8 @@ public class ChronoTimer {
             case "PRINT":
                 if(curState.equals(State.INPROGRESS)){
                     //print the results of the race
+                    //send to simulation to print
+                    execute("PRINT",event.printResults());
                 }
                 break;
             case "ENDRUN":
