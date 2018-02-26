@@ -58,6 +58,7 @@ public class Parser {
                 arr[0] = time;
                 arr[1] = cmd;
                 arr[2] = val1;
+                break;
         }
         return arr;
     }
