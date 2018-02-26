@@ -7,6 +7,7 @@ public class ChronoTimer {
     private Time sysTime;
     private Event event;
     private Channel channels[];
+    private ArrayList<Event> eventList;     //used to store all the previous events
 
 
     public enum State{
@@ -17,8 +18,7 @@ public class ChronoTimer {
     public ChronoTimer(){
         curState = State.OFF;
         channels = new Channel[8];
-
-
+        eventList = new ArrayList<>();
 
     }
 
@@ -36,7 +36,7 @@ public class ChronoTimer {
                 break;
             case "EVENT":
                 if(curState.equals(State.ON)) {
-                     event = new Event(value);
+                     event = new Event(channels);
                      curState = State.EVENT;
                 }
                 break;
@@ -56,7 +56,7 @@ public class ChronoTimer {
                 }
                 break;
             case "NUM":
-                if(curState.equals(State.INPUTRACERS) || event.ch){
+                if(curState.equals(State.INPUTRACERS) ){
                     event.addRacer(Integer.parseInt(value));
                     //dont change the state because may need to enter multiple racers.
                 }
@@ -70,10 +70,22 @@ public class ChronoTimer {
                         event.setStartTime(Time.getTime());
                         curState = State.INPROGRESS;
                     }
-                    else{
+                    //only finish if the there was already a start
+                    else if(curState.equals(State.INPROGRESS))
                         event.setFinishTime(Time.getTime());
-                        curState = State.INPROGRESS;
-                    }
+                }
+                break;
+            //same as TRIG 1
+            case "START":
+                if(curState.equals(State.INPUTRACERS) || curState.equals(State.INPROGRESS)){
+                    event.setStartTime(Time.getTime());
+                    curState = State.INPROGRESS;
+                }
+                break;
+            //same as TRIG 2
+            case "FINISH":
+                if(curState.equals(State.INPUTRACERS)){
+                    event.setFinishTime(Time.getTime());
                 }
                 break;
             case "PRINT":
@@ -83,9 +95,24 @@ public class ChronoTimer {
                 break;
             case "ENDRUN":
                 if(curState.equals(State.INPROGRESS)){
-
+                    //go to the ON state when the run is over so that there can be another run
+                    curState = State.ON;
+                    //do you print after the event is over
                 }
                 break;
+            case "DNF":
+                if(curState.equals(State.INPROGRESS)){
+                    //assign the next up racer the DNF tag represented by -1 right now
+                    event.setFinishTime(-1);
+                }
+                break;
+            case "CANCEL":
+                if(curState.equals(State.INPROGRESS)){
+                   //put the race back in the queue at the beginning
+                    event.getRacer();
+                }
+                break;
+
 
 
         }
