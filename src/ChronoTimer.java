@@ -27,7 +27,7 @@ public class ChronoTimer {
     }
 
     public void execute(String command, String value){
-
+        Simulation.execute("PRINT",sysTime.getSysTime() + " "+ command + " STATE: " + curState.toString());
         switch(command)
         {
             case "POWER":
@@ -66,6 +66,7 @@ public class ChronoTimer {
             case "NUM":
                 if(curState.equals(State.INPUTRACERS) || curState.equals(State.RUN)){
                     event.addRacer(Integer.parseInt(value));
+                    curState = State.INPUTRACERS; // in the case there is another event
                     //dont change the state because may need to enter multiple racers.
                 }
                 break;
@@ -109,6 +110,7 @@ public class ChronoTimer {
                     eventList.add(event);
                     curState = State.ON;
                     System.out.println(event.printResults());
+                    System.out.println("I\n\nN END RUN");
                 }
                 break;
             case "DNF":
@@ -186,7 +188,7 @@ public class ChronoTimer {
 
                     //if it is odd then it is the start
                     if((channelNum % 2) != 0) {
-                        event.setStartTime(time);
+                        event.setStartTime(System.currentTimeMillis());
                         curState = State.INPROGRESS;
                     }
                     //only finish if the there was already a start
