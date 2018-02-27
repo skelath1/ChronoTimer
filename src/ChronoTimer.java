@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 public class ChronoTimer {
     private State curState;
-    private Time sysTime;
+    private Util.Time sysTime;
     private Event event;
     private Channel channels[];
     private ArrayList<Event> eventList;     //used to store all the previous events
+    private boolean timeSet = false;
 
 
     public enum State{
@@ -27,7 +28,7 @@ public class ChronoTimer {
     }
 
     public void execute(String command, String value){
-       Simulation.execute("PRINT",sysTime.getSysTime() + " COMMAND: "+ command + " STATE: " + curState.toString());
+       Simulation.execute("PRINT",sysTime.getSysTime() + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
         switch(command)
         {
             case "POWER":
@@ -140,7 +141,7 @@ public class ChronoTimer {
 
     }
     public void execute(String time, String command, String value){
-        Simulation.execute("PRINT",sysTime.getSysTime() + " COMMAND: "+ command + " STATE: " + curState.toString());
+        Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
         switch(command)
         {
             case "POWER":

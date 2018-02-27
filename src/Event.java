@@ -51,22 +51,14 @@ public class Event {
         _racerQueue = new LinkedList<>();
     }
 
-    /**
-     * Used to toggle a channel on or off
-     * @param channelNum: Channel number to toggle
-     */
-    public void toggleChannel(int channelNum){
-        _channels[channelNum-1].toggle();
-    }
-
-    /**
-     * Used to connect a sensor to a channel
-     * @param channelNum: Channel number to connect sensor to
-     * @param sensor: Sensor to connect to the channel
-     */
-    public void connectChannel(int channelNum, Sensor sensor){
-        _channels[channelNum-1].connectSensor(sensor);
-    }
+//    /**
+//     * Used to connect a sensor to a channel
+//     * @param channelNum: Channel number to connect sensor to
+//     * @param sensor: Sensor to connect to the channel
+//     */
+//    public void connectChannel(int channelNum, Sensor sensor){
+//        _channels[channelNum-1].connectSensor(sensor);
+//    }
 
     /**
      * Creates new Racer and adds it to the Racer Queue
@@ -96,6 +88,7 @@ public class Event {
         Racer r = _racerQueue.remove();
         r.setFinishTime(finishTime);
         _racers.add(r);
+        System.out.println("\n" + Time.getElapsed(r.getStartTime(), finishTime) + "\n");
     }
     public void cancelRacer(){
         Racer r = _racerQueue.removeLast();

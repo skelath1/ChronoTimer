@@ -1,13 +1,13 @@
 import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.io.File;
+import Util.*;
 public class Simulation {
     public static void main(String[] args) {
         ChronoTimer chronoTimer = new ChronoTimer();
         Scanner stdIn = new Scanner(System.in);
 
-
-        //
         String s;
         do{
             System.out.print("[f]ile or [c]onsole: ");

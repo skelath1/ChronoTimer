@@ -11,6 +11,7 @@ public class Time {
         offsetArray = new int[4];
         for(int i = 0;i < offsetArray.length; i++)
             offsetArray[i] = 0;
+        _cal = Calendar.getInstance();
 
     }
     /**
