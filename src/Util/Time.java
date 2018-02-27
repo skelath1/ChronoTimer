@@ -62,7 +62,7 @@ public class Time {
      * @param str: a string with format HH:mm:ss.SS
      * @return a long value in milliseconds
      */
-    public static long StringToMilliseconds(String str){
+    public static long stringToMilliseconds(String str){
             String[] arr = splitComponents(str);
             //converting each component into milliseconds and summing up
             long milliseconds = Long.parseLong(arr[0]) * 3600000L
