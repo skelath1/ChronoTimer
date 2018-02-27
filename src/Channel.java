@@ -15,7 +15,6 @@ public class Channel {
         _sensor = sensor;
     }
 
-
     public void toggle(){
         if(_state == STATE.ON)
             _state = STATE.OFF;
@@ -27,5 +26,9 @@ public class Channel {
         if(_state == STATE.ON)
             return true;
         return false;
+    }
+
+    public long triggerSensor(){
+        return _sensor.trigger();
     }
 }

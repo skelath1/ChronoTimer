@@ -4,14 +4,10 @@ import java.text.SimpleDateFormat;
 public class Time {
 
     private Calendar _cal;
-    private int[] offsetArray;
-
+    boolean getSetSysTime;
 
     public Time(){
-        offsetArray = new int[4];
-        for(int i = 0;i < offsetArray.length; i++)
-            offsetArray[i] = 0;
-
+        getSetSysTime = false;
     }
     /**
      * This method gets the current system time
@@ -19,11 +15,12 @@ public class Time {
      * @return time: the current/set time in HH:mm:ss:XX
      */
     public String getSysTime(){
-        _cal = Calendar.getInstance();
-        _cal.add(Calendar.HOUR_OF_DAY, offsetArray[0]);
-        _cal.add(Calendar.MINUTE, offsetArray[1]);
-        _cal.add(Calendar.SECOND, offsetArray[2]);
-        _cal.add(Calendar.MILLISECOND, offsetArray[3]);
+       // String time = _cal.get(Calendar.HOUR_OF_DAY)+":"+ _cal.get(Calendar.MINUTE)+":"+ _cal.get(Calendar.SECOND)+"."+ _cal.get(Calendar.MILLISECOND);
+        //if(getSetSysTime)
+         //   return time;
+       // else
+         //   return time.substring(0,time.length()-1);
+        _cal  = Calendar.getInstance();
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss.SS");
         return timeFormat.format(_cal.getTime());
     }
@@ -41,27 +38,20 @@ public class Time {
         String hour = bodyParts[0];
         String min = bodyParts[1];
         String sec = bodyParts[2];
-        //calculating offsets
-        offsetArray[0] = Integer.parseInt(hour)-_cal.get(Calendar.HOUR_OF_DAY);
-        offsetArray[1] = Integer.parseInt(min)- _cal.get(Calendar.MINUTE);
-        offsetArray[2] = Integer.parseInt(sec)-_cal.get(Calendar.SECOND);
-        offsetArray[3] = Integer.parseInt(milli)-_cal.get(Calendar.MILLISECOND);
+        _cal.set(Calendar.HOUR, Integer.parseInt(hour));
+        _cal.set(Calendar.MINUTE, Integer.parseInt(min));
+        _cal.set(Calendar.SECOND, Integer.parseInt(sec));
+        _cal.set(Calendar.MILLISECOND, Integer.parseInt(milli));
+        getSetSysTime = true;
     }
     /**
-     * This method returns the elapsed time (HH:mm:ss:SS) from the start and finish times (should be in milliseconds)
+     * This method returns the elapsed time from the start and finish times
      * @param start: the start time
      * @param finish: the finish time
      * @return: a string with elapsed time
      */
     public static String getElapsed(long start, long finish){
-        long resultMilli = finish-start;
-        //get components of time
-        long hours = (resultMilli/(1000*3600)) % 24;
-        long minutes = (resultMilli / (1000 * 60)) % 60;
-        long seconds = (resultMilli/1000) % 60;
-        long milliseconds = resultMilli % 1000;
-        System.out.println(minutes);
-        return String.format("%02d:%02d:%02d.%02d", hours, minutes, seconds, milliseconds);
+        return new SimpleDateFormat("HH:mm:ss.SS").format(finish - start);
     }
 
 }
