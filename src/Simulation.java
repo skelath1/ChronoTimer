@@ -25,14 +25,16 @@ public class Simulation {
                     String[] strArr = str.split("\t");
                     String st = strArr[0];
                     String[] strArr1 = strArr[1].split(" ");
-                    strArr = new String[3];
 
                     if(strArr1.length > 1){
+                        strArr = new String[3];
+
                         strArr[0] = st;
                         strArr[1] = strArr1[0];
                         strArr[2] = strArr1[1];
                     }
                     else{
+                        strArr = new String[2];
                         strArr[0] = st;
                         strArr[1] = strArr1[0];
                     }

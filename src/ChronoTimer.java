@@ -40,7 +40,10 @@ public class ChronoTimer {
                 break;
             case "EVENT":
                 if(curState.equals(State.ON)) {
-                     event = new Event(channels);
+                    if(value == null)
+                        event = new Event(channels);
+                    else
+                        event = new Event(value, channels);
                      curState = State.EVENT;
                 }
                 break;
@@ -154,7 +157,10 @@ public class ChronoTimer {
                 break;
             case "EVENT":
                 if(curState.equals(State.ON)) {
-                    event = new Event(channels);
+                    if(value == null)
+                        event = new Event(channels);
+                    else
+                        event = new Event(value, channels);
                     curState = State.EVENT;
                 }
                 break;
@@ -184,17 +190,20 @@ public class ChronoTimer {
                 }
                 break;
             case "TRIG":
-                if(curState.equals(State.INPUTRACERS) || curState.equals(State.INPROGRESS)){
+                if(curState.equals(State.INPUTRACERS) || curState.equals(State.INPROGRESS) || curState.equals(State.EVENT)){
                     int channelNum = Integer.parseInt(value);
 
-                    //if it is odd then it is the start
-                    if((channelNum % 2) != 0) {
-                        event.setStartTime(Time.StringToMilliseconds(time));
-                        curState = State.INPROGRESS;
+                    if(channels[channelNum-1].isOn()){
+                        //if it is odd then it is the start
+                        if((channelNum % 2) != 0) {
+                            event.setStartTime(Time.StringToMilliseconds(time));
+                            curState = State.INPROGRESS;
+                        }
+                        //only finish if the there was already a start
+                        else if(curState.equals(State.INPROGRESS))
+                            event.setFinishTime(Time.StringToMilliseconds(time));
                     }
-                    //only finish if the there was already a start
-                    else if(curState.equals(State.INPROGRESS))
-                        event.setFinishTime(Time.StringToMilliseconds(time));
+
                 }
                 break;
             //same as TRIG 1
@@ -211,7 +220,7 @@ public class ChronoTimer {
                 }
                 break;
             case "PRINT":
-                if(curState.equals(State.INPROGRESS)){
+                if(curState.equals(State.INPROGRESS) || curState.equals(State.EVENT)){
                     //print the results of the race
                     //send to simulation to print
                     Simulation.execute("PRINT",event.printResults());
