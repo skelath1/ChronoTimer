@@ -56,21 +56,10 @@ public class Simulation {
             // Console
             while(true){
                 String str = stdIn.nextLine();
-                String[] strArr = str.split("\t");
-                String st = strArr[0];
-                String[] strArr1 = strArr[1].split(" ");
-                strArr = new String[3];
-
-                if(strArr1.length > 1){
-                    strArr[0] = st;
-                    strArr[1] = strArr1[0];
-                    strArr[2] = strArr1[1];
-                }
-                else{
-                    strArr[0] = st;
-                    strArr[1] = strArr1[0];
-                }
-                if(strArr.length < 3)
+                String[] strArr = str.split(" ");
+                if(strArr.length == 1)
+                    chronoTimer.execute(strArr[0], null);
+                else if(strArr.length < 3)
                     chronoTimer.execute(strArr[0], strArr[1]);
                 else if(strArr.length == 3){
                     chronoTimer.execute(strArr[0], strArr[1],strArr[2]); //0 - Time, 1- - Command, 2 - Value

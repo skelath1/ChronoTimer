@@ -27,8 +27,8 @@ public class ChronoTimer {
     }
 
     public void execute(String command, String value){
-//        Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
-        switch(command)
+        Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
+        switch(command.toUpperCase())
         {
             case "POWER":
                 if(curState.equals(State.OFF)){
@@ -46,11 +46,11 @@ public class ChronoTimer {
                 break;
             case "NEWRUN":
                 if(curState.equals(State.EVENT)){
-                    curState = State.RUN;
+                    //curState = State.RUN;
                 }
                 break;
             case "TOG":
-                if(curState.equals(State.RUN)){
+                if(curState.equals(State.EVENT)){
                     //-1 for the index
                     int channelIndex = Integer.parseInt(value) - 1;
                     channels[channelIndex].toggle();
@@ -64,7 +64,7 @@ public class ChronoTimer {
                 }
                 break;
             case "NUM":
-                if(curState.equals(State.INPUTRACERS) || curState.equals(State.RUN)){
+                if(curState.equals(State.INPUTRACERS) || curState.equals(State.EVENT)){
                     event.addRacer(Integer.parseInt(value));
                     curState = State.INPUTRACERS; // in the case there is another event
                     //dont change the state because may need to enter multiple racers.
@@ -76,12 +76,12 @@ public class ChronoTimer {
 
                     //if it is odd then it is the start
                     if((channelNum % 2) != 0) {
-                        event.setStartTime(channels[channelNum-1].triggerSensor());
+                        event.setStartTime(System.currentTimeMillis());
                         curState = State.INPROGRESS;
                     }
                     //only finish if the there was already a start
                     else if(curState.equals(State.INPROGRESS))
-                        event.setFinishTime(channels[channelNum-1].triggerSensor());
+                        event.setFinishTime(System.currentTimeMillis());
                 }
                 break;
             //same as TRIG 1
@@ -140,8 +140,8 @@ public class ChronoTimer {
 
     }
     public void execute(String time, String command, String value){
-//        Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
-        switch(command)
+        Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
+        switch(command.toUpperCase())
         {
             case "POWER":
                 if(curState.equals(State.OFF)){
@@ -159,11 +159,11 @@ public class ChronoTimer {
                 break;
             case "NEWRUN":
                 if(curState.equals(State.EVENT)){
-                    curState = State.RUN;
+                    //curState = State.RUN;
                 }
                 break;
             case "TOG":
-                if(curState.equals(State.RUN)){
+                if(curState.equals(State.EVENT)){
                     //-1 for the index
                     int channelIndex = Integer.parseInt(value) - 1;
                     channels[channelIndex].toggle();
@@ -177,7 +177,7 @@ public class ChronoTimer {
                 }
                 break;
             case "NUM":
-                if(curState.equals(State.INPUTRACERS) || curState.equals(State.RUN)){
+                if(curState.equals(State.INPUTRACERS) || curState.equals(State.EVENT)){
                     event.addRacer(Integer.parseInt(value));
                     //dont change the state because may need to enter multiple racers.
                 }
