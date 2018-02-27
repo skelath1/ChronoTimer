@@ -128,7 +128,7 @@ public class ChronoTimer {
             case "EXIT":
                 if(curState.equals(State.INPROGRESS)){
                     //just reset the fields so its like restarting at
-                    System.out.println("EXITING SIMULATOR...");
+                   Simulation.execute("PRINT","EXITING SIMULATOR...");
                 }
                 break;
             case "TIME":
@@ -222,7 +222,7 @@ public class ChronoTimer {
                     //go to the ON state when the run is over so that there can be another run
                     eventList.add(event);
                     curState = State.ON;
-                    event.clear();;
+                    event.clear();
                 }
                 break;
             case "DNF":
@@ -240,7 +240,7 @@ public class ChronoTimer {
             case "EXIT":
                 if(curState.equals(State.INPROGRESS)){
                     //just reset the fields so its like restarting at
-                    System.out.println("EXITING SIMULATOR...");
+                    Simulation.execute("PRINT","EXITING SIMULATOR...");
                 }
                 break;
             case "TIME":
