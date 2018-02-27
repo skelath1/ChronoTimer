@@ -12,7 +12,7 @@ public class Gate extends Sensor {
 
     @Override
     void trigger() {
-       if(_channel.getState()){
+       if(_channel.isOn()){
            if(_state == STATE.OFF){
 
            } else{
