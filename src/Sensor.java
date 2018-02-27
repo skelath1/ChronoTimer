@@ -1,4 +1,4 @@
 public abstract class Sensor {
-    abstract long trigger();
+    abstract void trigger();
 
 }

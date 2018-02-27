@@ -47,14 +47,7 @@ public class Time {
      * @return: a string with elapsed time
      */
     public static String getElapsed(long start, long finish){
-        long resultMilli = finish-start;
-        //get components of time
-        long hours = (resultMilli/(1000*3600)) % 24;
-        long minutes = (resultMilli / (1000 * 60)) % 60;
-        long seconds = (resultMilli/1000) % 60;
-        long milliseconds = resultMilli % 1000;
-        System.out.println(minutes);
-        return String.format("%02d:%02d:%02d.%02d", hours, minutes, seconds, milliseconds);
+        return new SimpleDateFormat("HH:mm:ss:SS").format(finish-start);
     }
 
     /**

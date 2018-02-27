@@ -11,7 +11,7 @@ public class Gate extends Sensor {
     }
 
     @Override
-    public long trigger() {
-        return System.currentTimeMillis();
+    public void trigger() {
+
     }
 }

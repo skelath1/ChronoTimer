@@ -29,6 +29,6 @@ public class Channel {
     }
 
     public long triggerSensor(){
-        return _sensor.trigger();
+        return 0;
     }
 }
