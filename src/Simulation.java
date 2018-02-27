@@ -23,8 +23,15 @@ public class Simulation {
                     String str = stdIn.nextLine();
                     System.out.println(str);
                     String[] strArr = str.split(" ");
-                    if(strArr.length < 3)
+                    if(strArr.length ==1)
+                        chronoTimer.execute(strArr[0], null);
+
+                    //need to determine if it has a command value or Time command
+                    else if(strArr.length ==2 && !strArr[0].contains(":"))
                         chronoTimer.execute(strArr[0], strArr[1]);
+                    //means it has no value just time + command
+                    else if(strArr.length ==2 && strArr[0].contains(":"))
+                        chronoTimer.execute(strArr[0], strArr[1],null);
                     else if(strArr.length == 3){
                         chronoTimer.execute(strArr[0], strArr[1],strArr[2]); //0 - Time, 1- - Command, 2 - Value
                     }
@@ -49,7 +56,7 @@ public class Simulation {
 
     public static void execute(String command, String value){
         if(command.equalsIgnoreCase("PRINT")){
-            System.out.println(value);
+            System.out.println("\n"+value);
         }
 
     }

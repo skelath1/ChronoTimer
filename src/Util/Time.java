@@ -4,10 +4,14 @@ import java.text.SimpleDateFormat;
 public class Time {
 
     private Calendar _cal;
-    boolean getSetSysTime;
+    private int[] offsetArray;
+
 
     public Time(){
-        getSetSysTime = false;
+        offsetArray = new int[4];
+        for(int i = 0;i < offsetArray.length; i++)
+            offsetArray[i] = 0;
+
     }
     /**
      * This method gets the current system time
@@ -15,12 +19,11 @@ public class Time {
      * @return time: the current/set time in HH:mm:ss:XX
      */
     public String getSysTime(){
-       // String time = _cal.get(Calendar.HOUR_OF_DAY)+":"+ _cal.get(Calendar.MINUTE)+":"+ _cal.get(Calendar.SECOND)+"."+ _cal.get(Calendar.MILLISECOND);
-        //if(getSetSysTime)
-         //   return time;
-       // else
-         //   return time.substring(0,time.length()-1);
-        _cal  = Calendar.getInstance();
+        _cal = Calendar.getInstance();
+        _cal.add(Calendar.HOUR_OF_DAY, offsetArray[0]);
+        _cal.add(Calendar.MINUTE, offsetArray[1]);
+        _cal.add(Calendar.SECOND, offsetArray[2]);
+        _cal.add(Calendar.MILLISECOND, offsetArray[3]);
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss.SS");
         return timeFormat.format(_cal.getTime());
     }
@@ -30,29 +33,61 @@ public class Time {
      * @param time: the users specified time
      */
     public void setSysTime(String time){
-        String[] arr = time.split("\\.");
-        String milli = arr[1];
-        //hours, min, and sec split below
-        String body = arr[0];
-        String[] bodyParts = body.split(":");
-        String hour = bodyParts[0];
-        String min = bodyParts[1];
-        String sec = bodyParts[2];
-        _cal.set(Calendar.HOUR, Integer.parseInt(hour));
-        _cal.set(Calendar.MINUTE, Integer.parseInt(min));
-        _cal.set(Calendar.SECOND, Integer.parseInt(sec));
-        _cal.set(Calendar.MILLISECOND, Integer.parseInt(milli));
-        getSetSysTime = true;
+        String[] arr = splitComponents(time);
+        //calculating offsets
+        offsetArray[0] = Integer.parseInt(arr[0])-_cal.get(Calendar.HOUR_OF_DAY);
+        offsetArray[1] = Integer.parseInt(arr[1])- _cal.get(Calendar.MINUTE);
+        offsetArray[2] = Integer.parseInt(arr[2])-_cal.get(Calendar.SECOND);
+        offsetArray[3] = Integer.parseInt(arr[3])-_cal.get(Calendar.MILLISECOND);
     }
     /**
-     * This method returns the elapsed time from the start and finish times
+     * This method returns the elapsed time (HH:mm:ss:SS) from the start and finish times (should be in milliseconds)
      * @param start: the start time
      * @param finish: the finish time
      * @return: a string with elapsed time
      */
     public static String getElapsed(long start, long finish){
-        return new SimpleDateFormat("HH:mm:ss.SS").format(finish - start);
+        long resultMilli = finish-start;
+        //get components of time
+        long hours = (resultMilli/(1000*3600)) % 24;
+        long minutes = (resultMilli / (1000 * 60)) % 60;
+        long seconds = (resultMilli/1000) % 60;
+        long milliseconds = resultMilli % 1000;
+        System.out.println(minutes);
+        return String.format("%02d:%02d:%02d.%02d", hours, minutes, seconds, milliseconds);
     }
 
+    /**
+     * This method takes in a string and converts it to a long.
+     * @param str: a string with format HH:mm:ss.SS
+     * @return a long value in milliseconds
+     */
+    public static long StringToMilliseconds(String str){
+            String[] arr = splitComponents(str);
+            //converting each component into milliseconds and summing up
+            long milliseconds = Long.parseLong(arr[0]) * 3600000L
+                                + Long.parseLong(arr[1]) * 60000
+                                + Long.parseLong(arr[2]) * 1000
+                                + Long.parseLong(arr[3]);
+            return milliseconds;
+    }
+
+    /**
+     * Takes a string and splits into time components
+     * @param str timestamp
+     * @return array of strings
+     */
+    private static String[] splitComponents(String str){
+                String[] arr = str.split("\\.");
+                String milli = arr[1];
+                //hours, min, and sec split below
+                String body = arr[0];
+                String[] bodyParts = body.split(":");
+                String hour = bodyParts[0];
+                String min = bodyParts[1];
+                String sec = bodyParts[2];
+                String[] compArr = {hour, min, sec, milli};
+                return compArr;
+    }
 }
 
