@@ -110,7 +110,6 @@ public class ChronoTimer {
                     eventList.add(event);
                     curState = State.ON;
                     System.out.println(event.printResults());
-                    System.out.println("I\n\nN END RUN");
                 }
                 break;
             case "DNF":
@@ -188,25 +187,25 @@ public class ChronoTimer {
 
                     //if it is odd then it is the start
                     if((channelNum % 2) != 0) {
-                        event.setStartTime(System.currentTimeMillis());
+                        event.setStartTime(Time.StringToMilliseconds(value));
                         curState = State.INPROGRESS;
                     }
                     //only finish if the there was already a start
                     else if(curState.equals(State.INPROGRESS))
-                        event.setFinishTime(System.currentTimeMillis());
+                        event.setFinishTime(Time.StringToMilliseconds(value));
                 }
                 break;
             //same as TRIG 1
             case "START":
                 if(curState.equals(State.INPUTRACERS) || curState.equals(State.INPROGRESS)){
-                    event.setStartTime(System.currentTimeMillis());
+                    event.setStartTime(Time.StringToMilliseconds(value));
                     curState = State.INPROGRESS;
                 }
                 break;
             //same as TRIG 2
             case "FINISH":
                 if(curState.equals(State.INPUTRACERS)){
-                    event.setFinishTime(System.currentTimeMillis());
+                    event.setFinishTime(Time.StringToMilliseconds(value));
                 }
                 break;
             case "PRINT":
