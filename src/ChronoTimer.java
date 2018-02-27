@@ -27,7 +27,7 @@ public class ChronoTimer {
     }
 
     public void execute(String command, String value){
-       //Simulation.execute("PRINT",sysTime.getSysTime() + " COMMAND: "+ command + " STATE: " + curState.toString());
+       Simulation.execute("PRINT",sysTime.getSysTime() + " COMMAND: "+ command + " STATE: " + curState.toString());
         switch(command)
         {
             case "POWER":

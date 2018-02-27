@@ -23,7 +23,19 @@ public class Simulation {
                     String str = stdIn.nextLine();
                     //System.out.println(str);
                     String[] strArr = str.split("\t");
+                    String st = strArr[0];
+                    String[] strArr1 = strArr[1].split(" ");
+                    strArr = new String[3];
 
+                    if(strArr1.length > 1){
+                        strArr[0] = st;
+                        strArr[1] = strArr1[0];
+                        strArr[2] = strArr1[1];
+                    }
+                    else{
+                        strArr[0] = st;
+                        strArr[1] = strArr1[0];
+                    }
                     if(strArr.length ==1)
                         chronoTimer.execute(strArr[0], null);
                     //need to determine if it has a command value or Time command
@@ -43,11 +55,25 @@ public class Simulation {
         } else{
             // Console
             while(true){
-                String[] str = stdIn.nextLine().split(" ");
-                if(str.length < 3)
-                    chronoTimer.execute(str[0], str[1]);
-                else if(str.length == 3){
-                    chronoTimer.execute(str[0], str[1],str[2]); //0 - Time, 1- - Command, 2 - Value
+                String str = stdIn.nextLine();
+                String[] strArr = str.split("\t");
+                String st = strArr[0];
+                String[] strArr1 = strArr[1].split(" ");
+                strArr = new String[3];
+
+                if(strArr1.length > 1){
+                    strArr[0] = st;
+                    strArr[1] = strArr1[0];
+                    strArr[2] = strArr1[1];
+                }
+                else{
+                    strArr[0] = st;
+                    strArr[1] = strArr1[0];
+                }
+                if(strArr.length < 3)
+                    chronoTimer.execute(strArr[0], strArr[1]);
+                else if(strArr.length == 3){
+                    chronoTimer.execute(strArr[0], strArr[1],strArr[2]); //0 - Time, 1- - Command, 2 - Value
                 }
             }
         }
