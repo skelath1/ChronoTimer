@@ -21,11 +21,11 @@ public class Simulation {
 
                 while(stdIn.hasNext()){
                     String str = stdIn.nextLine();
-                    System.out.println(str);
-                    String[] strArr = str.split(" ");
+                    //System.out.println(str);
+                    String[] strArr = str.split("\t");
+
                     if(strArr.length ==1)
                         chronoTimer.execute(strArr[0], null);
-
                     //need to determine if it has a command value or Time command
                     else if(strArr.length ==2 && !strArr[0].contains(":"))
                         chronoTimer.execute(strArr[0], strArr[1]);

@@ -27,7 +27,7 @@ public class ChronoTimer {
     }
 
     public void execute(String command, String value){
-        Simulation.execute("PRINT",sysTime.getSysTime() + "COMMAND: "+ command + " STATE: " + curState.toString());
+       //Simulation.execute("PRINT",sysTime.getSysTime() + " COMMAND: "+ command + " STATE: " + curState.toString());
         switch(command)
         {
             case "POWER":
@@ -140,6 +140,7 @@ public class ChronoTimer {
 
     }
     public void execute(String time, String command, String value){
+        Simulation.execute("PRINT",sysTime.getSysTime() + " COMMAND: "+ command + " STATE: " + curState.toString());
         switch(command)
         {
             case "POWER":
@@ -187,25 +188,25 @@ public class ChronoTimer {
 
                     //if it is odd then it is the start
                     if((channelNum % 2) != 0) {
-                        event.setStartTime(Time.StringToMilliseconds(value));
+                        event.setStartTime(Time.StringToMilliseconds(time));
                         curState = State.INPROGRESS;
                     }
                     //only finish if the there was already a start
                     else if(curState.equals(State.INPROGRESS))
-                        event.setFinishTime(Time.StringToMilliseconds(value));
+                        event.setFinishTime(Time.StringToMilliseconds(time));
                 }
                 break;
             //same as TRIG 1
             case "START":
                 if(curState.equals(State.INPUTRACERS) || curState.equals(State.INPROGRESS)){
-                    event.setStartTime(Time.StringToMilliseconds(value));
+                    event.setStartTime(Time.StringToMilliseconds(time));
                     curState = State.INPROGRESS;
                 }
                 break;
             //same as TRIG 2
             case "FINISH":
                 if(curState.equals(State.INPUTRACERS)){
-                    event.setFinishTime(Time.StringToMilliseconds(value));
+                    event.setFinishTime(Time.StringToMilliseconds(time));
                 }
                 break;
             case "PRINT":
