@@ -76,12 +76,12 @@ public class ChronoTimer {
 
                     //if it is odd then it is the start
                     if((channelNum % 2) != 0) {
-                        event.setStartTime(channels[channelNum-1].triggerSensor());
+                        event.setStartTime(System.currentTimeMillis());
                         curState = State.INPROGRESS;
                     }
                     //only finish if the there was already a start
                     else if(curState.equals(State.INPROGRESS))
-                        event.setFinishTime(channels[channelNum-1].triggerSensor());
+                        event.setFinishTime(System.currentTimeMillis());
                 }
                 break;
             //same as TRIG 1
