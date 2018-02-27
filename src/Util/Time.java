@@ -49,7 +49,7 @@ public class Time {
     public static String getElapsed(long start, long finish){
         long resultMilli = finish-start;
         //get components of time
-        long hours = (resultMilli/(1000*3600)) % 24;
+        long hours = (resultMilli/(1000*3600));
         long minutes = (resultMilli / (1000 * 60)) % 60;
         long seconds = (resultMilli/1000) % 60;
         long milliseconds = resultMilli % 1000;
