@@ -1,5 +1,4 @@
-import Util.Time;
-
+import Util.*;
 import java.util.ArrayList;
 
 public class ChronoTimer {
@@ -28,7 +27,7 @@ public class ChronoTimer {
     }
 
     public void execute(String command, String value){
-       Simulation.execute("PRINT",sysTime.getSysTime() + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
+//        Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
         switch(command)
         {
             case "POWER":
@@ -110,7 +109,7 @@ public class ChronoTimer {
                     //go to the ON state when the run is over so that there can be another run
                     eventList.add(event);
                     curState = State.ON;
-                    System.out.println(event.printResults());
+                    //System.out.println(event.printResults());
                 }
                 break;
             case "DNF":
@@ -141,7 +140,7 @@ public class ChronoTimer {
 
     }
     public void execute(String time, String command, String value){
-        Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
+//        Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
         switch(command)
         {
             case "POWER":

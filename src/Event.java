@@ -88,7 +88,6 @@ public class Event {
         Racer r = _racerQueue.remove();
         r.setFinishTime(finishTime);
         _racers.add(r);
-        System.out.println("\n" + Time.getElapsed(r.getStartTime(), finishTime) + "\n");
     }
     public void cancelRacer(){
         Racer r = _racerQueue.removeLast();
@@ -99,7 +98,7 @@ public class Event {
     public String printResults(){
         String s = "";
         for(Racer r : _racers) {
-            s += r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + "\n";
+            s += "Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + "\n";
         }
         return s;
     }
