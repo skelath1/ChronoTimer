@@ -27,7 +27,7 @@ public class ChronoTimer {
     }
 
     public void execute(String command, String value){
-        Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
+//        Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
         switch(command.toUpperCase())
         {
             case "POWER":
@@ -109,6 +109,7 @@ public class ChronoTimer {
                     //go to the ON state when the run is over so that there can be another run
                     eventList.add(event);
                     curState = State.ON;
+                    event.clear();
                     //System.out.println(event.printResults());
                 }
                 break;
@@ -140,7 +141,7 @@ public class ChronoTimer {
 
     }
     public void execute(String time, String command, String value){
-        Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
+//        Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
         switch(command.toUpperCase())
         {
             case "POWER":
@@ -221,7 +222,7 @@ public class ChronoTimer {
                     //go to the ON state when the run is over so that there can be another run
                     eventList.add(event);
                     curState = State.ON;
-                    System.out.println(event.printResults());
+                    event.clear();;
                 }
                 break;
             case "DNF":

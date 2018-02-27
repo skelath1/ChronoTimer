@@ -102,4 +102,9 @@ public class Event {
         }
         return s;
     }
+
+    public void clear(){
+        _racerQueue = new LinkedList<>();
+        _racers = new LinkedList<>();
+    }
 }
