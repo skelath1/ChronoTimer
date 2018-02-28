@@ -1,3 +1,5 @@
+package Hardware;
+
 public class Gate extends Sensor {
     private enum STATE{
         OPEN, CLOSED

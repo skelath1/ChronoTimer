@@ -1,7 +1,9 @@
-public class Pad extends Sensor {
+package Hardware;
+
+public class ElectricEye extends Sensor {
     private Channel _channel;
 
-    public Pad(Channel channel){
+    public ElectricEye(Channel channel){
         _channel = channel;
     }
 

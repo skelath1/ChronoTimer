@@ -1,3 +1,5 @@
+package Hardware;
+
 public class PushButton extends Sensor {
    private Channel _channel;
 
