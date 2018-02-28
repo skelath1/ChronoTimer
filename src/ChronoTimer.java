@@ -26,8 +26,13 @@ public class ChronoTimer {
 
     }
 
+    /**
+     * @param command String
+     * @param value String
+     * Takes in command from Simulation and executes it.
+     */
     public void execute(String command, String value){
-//        Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
+        Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
         switch(command.toUpperCase())
         {
             case "POWER":
@@ -131,7 +136,7 @@ public class ChronoTimer {
             case "EXIT":
                 if(curState.equals(State.INPROGRESS)){
                     //just reset the fields so its like restarting at
-                   Simulation.execute("PRINT","EXITING SIMULATOR...");
+                   Simulation.execute("EXIT",null);
                 }
                 break;
             case "TIME":
@@ -143,8 +148,15 @@ public class ChronoTimer {
         }
 
     }
+
+    /**
+     * @param time String
+     * @param command String
+     * @param value String
+     * Takes in command from Simulation and executes it.
+     */
     public void execute(String time, String command, String value){
-//        Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
+       Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
         switch(command.toUpperCase())
         {
             case "POWER":
@@ -261,15 +273,22 @@ public class ChronoTimer {
         }
 
     }
-    //method for channel error checking
 
-    //method for reseting all the fields for RESET
+
+    /**
+     * resets all the fields for RESET
+     */
     private void clearFields(){
         curState = State.OFF;
         channels = new Channel[8];
         eventList = new ArrayList<>();
         event = null;
     }
+
+    /**
+     *
+     * @return sysTime
+     */
     public Time getSysTime()
     {
         return sysTime;

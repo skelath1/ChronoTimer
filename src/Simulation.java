@@ -3,6 +3,9 @@ import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.io.File;
 import Util.*;
+
+import static java.lang.System.exit;
+
 public class Simulation {
     public static void main(String[] args) {
         ChronoTimer chronoTimer = new ChronoTimer();
@@ -74,6 +77,9 @@ public class Simulation {
     public static void execute(String command, String value){
         if(command.equalsIgnoreCase("PRINT")){
             System.out.println("\n"+value);
+        }
+        else if(command.equalsIgnoreCase("EXIT")){
+            exit(1);
         }
 
     }
