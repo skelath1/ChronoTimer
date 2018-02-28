@@ -4,6 +4,7 @@ import org.junit.Test;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class TestRacer {
@@ -17,9 +18,15 @@ public class TestRacer {
     }
     @Test
     public void test2(){
+
         //-1 represents DNF
         assertEquals("Wrong finish time",-1,r1.getFinishTime());
         assertEquals("Wrong finish time",-1,r1.getStartTime());
+
+        r1.setStartTime(1234);
+        assertEquals("Racer hasn't finished yet so it is DNF",-1,r1.getFinishTime());
+        r1.setFinishTime(2345);
+        assertFalse("Should not be DNF",r1.getFinishTime() == -1);
 
     }
 }
