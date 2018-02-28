@@ -1,3 +1,5 @@
+package TimingSystem.Hardware;
+
 public class Channel {
     private enum STATE{
         ON, OFF
@@ -15,7 +17,6 @@ public class Channel {
         _sensor = sensor;
     }
 
-
     public void toggle(){
         if(_state == STATE.ON)
             _state = STATE.OFF;
@@ -27,5 +28,9 @@ public class Channel {
         if(_state == STATE.ON)
             return true;
         return false;
+    }
+
+    public long triggerSensor(){
+        return 0;
     }
 }

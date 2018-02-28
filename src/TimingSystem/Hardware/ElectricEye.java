@@ -1,3 +1,5 @@
+package TimingSystem.Hardware;
+
 public class ElectricEye extends Sensor {
     private Channel _channel;
 

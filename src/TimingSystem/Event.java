@@ -1,3 +1,6 @@
+package TimingSystem;
+
+import TimingSystem.Hardware.Channel;
 import Util.*;
 
 import java.util.*;
@@ -10,7 +13,7 @@ public class Event {
     private Channel[] _channels;
 
     // Will be used to return the racers
-    //private Queue<Racer> _racers;
+    //private Queue<TimingSystem.Racer> _racers;
     private Deque<Racer> _racers;
 
 
@@ -20,14 +23,14 @@ public class Event {
     private RACETYPE _racetype;
 
     /**
-     * Default Constructor to handle default Event type
+     * Default Constructor to handle default TimingSystem.Event type
      */
     public Event(Channel[] channels){
         this("IND",channels);
     }
 
     /**
-     * Constructor to create Event
+     * Constructor to create TimingSystem.Event
      * @param racetype: Type of event to be created
      */
     public Event(String racetype, Channel[] channels){
@@ -51,33 +54,26 @@ public class Event {
         _racerQueue = new LinkedList<>();
     }
 
-    /**
-     * Used to toggle a channel on or off
-     * @param channelNum: Channel number to toggle
-     */
-    public void toggleChannel(int channelNum){
-        _channels[channelNum-1].toggle();
-    }
+//    /**
+//     * Used to connect a sensor to a channel
+//     * @param channelNum: TimingSystem.Hardware.Channel number to connect sensor to
+//     * @param sensor: TimingSystem.Hardware.Sensor to connect to the channel
+//     */
+//    public void connectChannel(int channelNum, TimingSystem.Hardware.Sensor sensor){
+//        _channels[channelNum-1].connectSensor(sensor);
+//    }
 
     /**
-     * Used to connect a sensor to a channel
-     * @param channelNum: Channel number to connect sensor to
-     * @param sensor: Sensor to connect to the channel
-     */
-    public void connectChannel(int channelNum, Sensor sensor){
-        _channels[channelNum-1].connectSensor(sensor);
-    }
-
-    /**
-     * Creates new Racer and adds it to the Racer Queue
+     * Creates new TimingSystem.Racer and adds it to the TimingSystem.Racer Queue
      * @param bibNumber: bib number of racer
      */
     public void addRacer(int bibNumber){
+
         _racers.add(new Racer(bibNumber));
     }
 
     /**
-     *  Get/Removes first Racer from _racers, then sets start time and
+     *  Get/Removes first TimingSystem.Racer from _racers, then sets start time and
      *  Adds the racer to _racerQueue
      * @param startTime
      */
@@ -88,26 +84,36 @@ public class Event {
     }
 
     /**
-     * Get/Removes first Racer from _racerQueue, then sets finish time and
+     * Get/Removes first TimingSystem.Racer from _racerQueue, then sets finish time and
      * Adds the racer to _racers
      * @param finishTime
      */
     public void setFinishTime(long finishTime){
-        Racer r = _racerQueue.remove();
-        r.setFinishTime(finishTime);
-        _racers.add(r);
+        if(_racerQueue.peek().getStartTime() != -1) {
+            Racer r = _racerQueue.remove();
+            r.setFinishTime(finishTime);
+            _racers.add(r);
+        }
     }
     public void cancelRacer(){
         Racer r = _racerQueue.removeLast();
-        r.setStartTime(0);
+        r.setFinishTime(-1);
         _racers.addFirst(r);
     }
 
     public String printResults(){
         String s = "";
         for(Racer r : _racers) {
-            s += r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + "\n";
+            if(r.getFinishTime() == -1)
+                s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + "DNF\n";
+            else
+                s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + "\n";
         }
         return s;
+    }
+
+    public void clear(){
+        _racerQueue = new LinkedList<>();
+        _racers = new LinkedList<>();
     }
 }

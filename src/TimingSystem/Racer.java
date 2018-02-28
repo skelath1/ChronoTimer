@@ -1,3 +1,5 @@
+package TimingSystem;
+
 public class Racer {
     private long _startTime;
     private long _finishTime;
@@ -6,8 +8,8 @@ public class Racer {
 
     public Racer(int bibNumber){
         _bibNumber = bibNumber;
-        _startTime = 0;
-        _finishTime = 0;
+        _startTime = -1;
+        _finishTime = -1;
     }
 
     public long getStartTime() {

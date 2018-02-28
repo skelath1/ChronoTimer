@@ -1,3 +1,5 @@
+package TimingSystem.Hardware;
+
 public class Pad extends Sensor {
     private Channel _channel;
 

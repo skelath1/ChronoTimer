@@ -1,13 +1,15 @@
+
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.File;
+
+import static java.lang.System.exit;
+
 public class Simulation {
     public static void main(String[] args) {
         ChronoTimer chronoTimer = new ChronoTimer();
         Scanner stdIn = new Scanner(System.in);
 
-
-        //
         String s;
         do{
             System.out.print("[f]ile or [c]onsole: ");
@@ -21,11 +23,25 @@ public class Simulation {
 
                 while(stdIn.hasNext()){
                     String str = stdIn.nextLine();
-                    System.out.println(str);
-                    String[] strArr = str.split(" ");
+                    //System.out.println(str);
+                    String[] strArr = str.split("\t");
+                    String st = strArr[0];
+                    String[] strArr1 = strArr[1].split(" ");
+
+                    if(strArr1.length > 1){
+                        strArr = new String[3];
+
+                        strArr[0] = st;
+                        strArr[1] = strArr1[0];
+                        strArr[2] = strArr1[1];
+                    }
+                    else{
+                        strArr = new String[2];
+                        strArr[0] = st;
+                        strArr[1] = strArr1[0];
+                    }
                     if(strArr.length ==1)
                         chronoTimer.execute(strArr[0], null);
-
                     //need to determine if it has a command value or Time command
                     else if(strArr.length ==2 && !strArr[0].contains(":"))
                         chronoTimer.execute(strArr[0], strArr[1]);
@@ -43,11 +59,14 @@ public class Simulation {
         } else{
             // Console
             while(true){
-                String[] str = stdIn.nextLine().split(" ");
-                if(str.length < 3)
-                    chronoTimer.execute(str[0], str[1]);
-                else if(str.length == 3){
-                    chronoTimer.execute(str[0], str[1],str[2]); //0 - Time, 1- - Command, 2 - Value
+                String str = stdIn.nextLine();
+                String[] strArr = str.split(" ");
+                if(strArr.length == 1)
+                    chronoTimer.execute(strArr[0], null);
+                else if(strArr.length < 3)
+                    chronoTimer.execute(strArr[0], strArr[1]);
+                else if(strArr.length == 3){
+                    chronoTimer.execute(strArr[0], strArr[1],strArr[2]); //0 - Time, 1- - Command, 2 - Value
                 }
             }
         }
@@ -57,6 +76,9 @@ public class Simulation {
     public static void execute(String command, String value){
         if(command.equalsIgnoreCase("PRINT")){
             System.out.println("\n"+value);
+        }
+        else if(command.equalsIgnoreCase("EXIT")){
+            exit(1);
         }
 
     }

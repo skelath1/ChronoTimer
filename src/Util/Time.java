@@ -11,6 +11,7 @@ public class Time {
         offsetArray = new int[4];
         for(int i = 0;i < offsetArray.length; i++)
             offsetArray[i] = 0;
+        _cal = Calendar.getInstance();
 
     }
     /**
@@ -53,9 +54,7 @@ public class Time {
         long minutes = (resultMilli / (1000 * 60)) % 60;
         long seconds = (resultMilli/1000) % 60;
         long milliseconds = resultMilli % 1000;
-        System.out.println(minutes);
-        return String.format("%02d:%02d:%02d.%02d", hours, minutes, seconds, milliseconds);
-    }
+        return String.format("%02d:%02d:%02d.%02d", hours, minutes, seconds, milliseconds);    }
 
     /**
      * This method takes in a string and converts it to a long.
