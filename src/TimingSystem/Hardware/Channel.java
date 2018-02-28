@@ -1,3 +1,5 @@
+package TimingSystem.Hardware;
+
 public class Channel {
     private enum STATE{
         ON, OFF

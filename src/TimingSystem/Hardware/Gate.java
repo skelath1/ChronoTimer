@@ -1,4 +1,4 @@
-package Hardware;
+package TimingSystem.Hardware;
 
 public class Gate extends Sensor {
     private enum STATE{

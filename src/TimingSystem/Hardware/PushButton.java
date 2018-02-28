@@ -1,4 +1,4 @@
-package Hardware;
+package TimingSystem.Hardware;
 
 public class PushButton extends Sensor {
    private Channel _channel;

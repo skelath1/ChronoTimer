@@ -1,3 +1,5 @@
+package TimingSystem;
+
 public class Racer {
     private long _startTime;
     private long _finishTime;

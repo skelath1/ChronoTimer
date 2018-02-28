@@ -1,9 +1,9 @@
-package Hardware;
+package TimingSystem.Hardware;
 
-public class ElectricEye extends Sensor {
+public class Pad extends Sensor {
     private Channel _channel;
 
-    public ElectricEye(Channel channel){
+    public Pad(Channel channel){
         _channel = channel;
     }
 
