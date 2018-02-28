@@ -6,8 +6,8 @@ public class Racer {
 
     public Racer(int bibNumber){
         _bibNumber = bibNumber;
-        _startTime = 0;
-        _finishTime = 0;
+        _startTime = -1;
+        _finishTime = -1;
     }
 
     public long getStartTime() {

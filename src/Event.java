@@ -65,6 +65,7 @@ public class Event {
      * @param bibNumber: bib number of racer
      */
     public void addRacer(int bibNumber){
+
         _racers.add(new Racer(bibNumber));
     }
 
@@ -85,20 +86,25 @@ public class Event {
      * @param finishTime
      */
     public void setFinishTime(long finishTime){
-        Racer r = _racerQueue.remove();
-        r.setFinishTime(finishTime);
-        _racers.add(r);
+        if(_racerQueue.peek().getStartTime() != -1) {
+            Racer r = _racerQueue.remove();
+            r.setFinishTime(finishTime);
+            _racers.add(r);
+        }
     }
     public void cancelRacer(){
         Racer r = _racerQueue.removeLast();
-        r.setStartTime(0);
+        r.setFinishTime(-1);
         _racers.addFirst(r);
     }
 
     public String printResults(){
         String s = "";
         for(Racer r : _racers) {
-            s += "Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + "\n";
+            if(r.getFinishTime() == -1)
+                s += "Racer: " + r.getBibNumber() + " : " + "DNF\n";
+            else
+                s += "Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + "\n";
         }
         return s;
     }

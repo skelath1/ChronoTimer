@@ -94,7 +94,7 @@ public class ChronoTimer {
                 break;
             //same as TRIG 1
             case "START":
-                if(curState.equals(State.INPUTRACERS) || curState.equals(State.INPROGRESS)){
+                if(curState.equals(State.INPUTRACERS) || curState.equals(State.INPROGRESS) || curState.equals(State.EVENT)){
                     event.setStartTime(System.currentTimeMillis());
                     curState = State.INPROGRESS;
                 }
