@@ -219,7 +219,6 @@ public class ChronoTimer {
                         else if(curState.equals(State.INPROGRESS))
                             event.setFinishTime(Time.stringToMilliseconds(time));
                     }
-
                 }
                 break;
             //same as TRIG 1
@@ -275,9 +274,7 @@ public class ChronoTimer {
                 }
                 break;
         }
-
     }
-
 
     /**
      * resets all the fields for RESET
@@ -297,4 +294,5 @@ public class ChronoTimer {
     {
         return sysTime;
     }
+    public State getState(){return curState;}
 }
