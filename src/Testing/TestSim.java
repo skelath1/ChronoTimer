@@ -1,14 +1,14 @@
 package Testing;
 import org.junit.*;
-
-import static org.junit.Assert.assertTrue;
-
+import Util.*;
+import TimingSystem.*;
+i
 public class TestSim {
 
 
     @Test
-    public void testMain(){
-        assertTrue("True", 1==1);
+    public void testSIM(){
+        ChronoTimer = new ChronoTimer();
     }
 
 }
