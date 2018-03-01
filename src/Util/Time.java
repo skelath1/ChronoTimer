@@ -5,6 +5,7 @@ public class Time {
 
     private Calendar _cal;
     private int[] offsetArray;
+    private boolean timeSet;
 
 
     public Time(){
@@ -20,6 +21,8 @@ public class Time {
      * @return time: the current/set time in HH:mm:ss:XX
      */
     public String getSysTime(){
+        if(!timeSet)
+            return new SimpleDateFormat("HH:mm:ss.SS").format(System.currentTimeMillis());
         _cal = Calendar.getInstance();
         _cal.add(Calendar.HOUR_OF_DAY, offsetArray[0]);
         _cal.add(Calendar.MINUTE, offsetArray[1]);
@@ -40,7 +43,9 @@ public class Time {
         offsetArray[1] = Integer.parseInt(arr[1])- _cal.get(Calendar.MINUTE);
         offsetArray[2] = Integer.parseInt(arr[2])-_cal.get(Calendar.SECOND);
         offsetArray[3] = Integer.parseInt(arr[3])-_cal.get(Calendar.MILLISECOND);
+        timeSet = true;
     }
+
     /**
      * This method returns the elapsed time (HH:mm:ss:SS) from the start and finish times (should be in milliseconds)
      * @param start: the start time
