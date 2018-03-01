@@ -281,7 +281,11 @@ public class ChronoTimer {
     private void clearFields(){
         curState = State.OFF;
         channels = new Channel[8];
+        for(int i = 0; i < 7; ++i) {
+            channels[i] = new Channel(i+1);
+        }
         eventList = new ArrayList<>();
+        sysTime = new Time();
         event = null;
     }
 
@@ -293,5 +297,5 @@ public class ChronoTimer {
     {
         return sysTime;
     }
-    public State getState(){return curState;}
+    private String getState(){return curState.toString();}
 }
