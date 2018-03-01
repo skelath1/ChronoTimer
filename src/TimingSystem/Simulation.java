@@ -1,3 +1,6 @@
+package TimingSystem;
+
+import TimingSystem.ChronoTimer;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;

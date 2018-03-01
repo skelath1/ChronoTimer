@@ -1,3 +1,4 @@
+package TimingSystem;
 
 import TimingSystem.Event;
 import TimingSystem.Hardware.Channel;
@@ -32,7 +33,7 @@ public class ChronoTimer {
     /**
      * @param command String
      * @param value String
-     * Takes in command from Simulation and executes it.
+     * Takes in command from TimingSystem.Simulation and executes it.
      */
     public void execute(String command, String value){
         Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
@@ -156,7 +157,7 @@ public class ChronoTimer {
      * @param time String
      * @param command String
      * @param value String
-     * Takes in command from Simulation and executes it.
+     * Takes in command from TimingSystem.Simulation and executes it.
      */
     public void execute(String time, String command, String value){
        Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
