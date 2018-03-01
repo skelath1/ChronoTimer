@@ -1,6 +1,5 @@
 package Testing;
 import org.junit.*;
-import Util.*;
 import TimingSystem.*;
 
 public class TestSim {

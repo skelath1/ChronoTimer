@@ -1,6 +1,5 @@
 package TimingSystem;
 
-import TimingSystem.Event;
 import TimingSystem.Hardware.Channel;
 import Util.*;
 import java.util.ArrayList;

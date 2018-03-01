@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
-import java.text.SimpleDateFormat;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

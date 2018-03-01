@@ -68,7 +68,6 @@ public class Event {
      * @param bibNumber: bib number of racer
      */
     public void addRacer(int bibNumber){
-
         _racers.add(new Racer(bibNumber));
     }
 
@@ -78,9 +77,11 @@ public class Event {
      * @param startTime
      */
     public void setStartTime(long startTime){
-        Racer r = _racers.remove();
-        r.setStartTime(startTime);
-        _racerQueue.add(r);
+        if(!_racers.isEmpty()){
+            Racer r = _racers.remove();
+            r.setStartTime(startTime);
+            _racerQueue.add(r);
+        }
     }
 
     /**
@@ -89,14 +90,17 @@ public class Event {
      * @param finishTime
      */
     public void setFinishTime(long finishTime){
-        if(_racerQueue.peek().getStartTime() != -1) {
-            Racer r = _racerQueue.remove();
-            r.setFinishTime(finishTime);
-            _racers.add(r);
+        if(!_racerQueue.isEmpty()){
+            if(_racerQueue.peek().getStartTime() != -1) {
+                Racer r = _racerQueue.remove();
+                r.setFinishTime(finishTime);
+                _racers.add(r);
+            }
         }
     }
     public void cancelRacer(){
         Racer r = _racerQueue.removeLast();
+        r.setStartTime(-1);
         r.setFinishTime(-1);
         _racers.addFirst(r);
     }
