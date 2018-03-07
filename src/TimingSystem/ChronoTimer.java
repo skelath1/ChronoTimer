@@ -38,6 +38,9 @@ public class ChronoTimer {
         Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
         switch(command.toUpperCase())
         {
+            case "SAVE":
+                event.saveRun();
+                break;
             case "POWER":
                 if(curState.equals(State.OFF)){
                     curState = State.ON;
@@ -162,6 +165,9 @@ public class ChronoTimer {
        Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
         switch(command.toUpperCase())
         {
+            case "SAVE":
+                event.saveRun();
+                break;
             case "POWER":
                 if(curState.equals(State.OFF)){
                     curState = State.ON;

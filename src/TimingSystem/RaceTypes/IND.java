@@ -1,8 +1,8 @@
 package TimingSystem.RaceTypes;
 
-import TimingSystem.Event;
 import TimingSystem.Hardware.Channel;
 import TimingSystem.Racer;
+import TimingSystem.Run;
 import Util.Time;
 
 import java.util.Deque;
@@ -95,6 +95,18 @@ public class IND implements RaceType {
      */
 
     @Override
+    public Run saveRun(){
+        Run r = new Run(this.toString());
+        r.addResults(_racers);
+        return r;
+    }
+
+    /**
+     *
+     * @return
+     */
+
+    @Override
     public String printResults() {
         String s = "";
         for(Racer r : _racers) {
@@ -104,5 +116,15 @@ public class IND implements RaceType {
                 s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + "\n";
         }
         return s;
+    }
+
+    /**
+     *
+     * @return
+     */
+
+    @Override
+    public String toString(){
+        return "IND";
     }
 }

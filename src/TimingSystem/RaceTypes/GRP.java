@@ -1,6 +1,7 @@
 package TimingSystem.RaceTypes;
 
 import TimingSystem.Hardware.Channel;
+import TimingSystem.Run;
 
 public class GRP implements RaceType{
     public GRP(Channel[] channels){
@@ -32,8 +33,23 @@ public class GRP implements RaceType{
 
     }
 
+    /**
+     *
+     * @return
+     */
+
+    @Override
+    public Run saveRun(){
+        return null;
+    }
+
     @Override
     public String printResults() {
         return null;
+    }
+
+    @Override
+    public String toString(){
+        return "GRP";
     }
 }

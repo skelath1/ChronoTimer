@@ -28,7 +28,5 @@ public class Racer {
         this._startTime = _startTime;
     }
 
-    public void setFinishTime(long _finishTime) {
-        this._finishTime = _finishTime;
-    }
+    public void setFinishTime(long _finishTime) { this._finishTime = _finishTime; }
 }
