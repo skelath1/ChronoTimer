@@ -11,14 +11,19 @@ public class ChronoTimer {
     private Channel channels[];
     private ArrayList<Event> eventList;     //used to store all the previous events
     private boolean timeSet = false;
+    private boolean eventCalled;
+    private boolean runCalled;
 
 
     public enum State{
-        ON,OFF,EVENT,RUN,TOG,INPUTRACERS,INPROGRESS
+        ON,OFF,EVENT
     }
 
 
     public ChronoTimer(){
+        boolean eventCalled = false;
+        boolean runCalled = false;
+
         curState = State.OFF;
         channels = new Channel[8];
         for(int i = 0; i < 7; ++i) {
@@ -35,7 +40,7 @@ public class ChronoTimer {
      * Takes in command from TimingSystem.Simulation and executes it.
      */
     public void execute(String command, String value){
-        Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
+        Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString()+ " runCalled " + runCalled + " eventCalled " + eventCalled);
         switch(command.toUpperCase())
         {
             case "SAVE":
@@ -44,109 +49,99 @@ public class ChronoTimer {
             case "POWER":
                 if(curState.equals(State.OFF)){
                     curState = State.ON;
-                    //setting the interal clock
+
                 }
                 else
                     curState = State.OFF;
                 break;
             case "EVENT":
-                if(curState.equals(State.ON)) {
+                if(curState.equals(State.ON) && !eventCalled) {
                     if(value == null)
                         event = new Event(channels);
                     else
                         event = new Event(value, channels);
-                     curState = State.EVENT;
+
+                    curState = State.EVENT;
+                    eventCalled = true;
                 }
                 break;
             case "NEWRUN":
-                if(curState.equals(State.EVENT)){
-                    //curState = State.RUN;
+                if((curState.equals(State.EVENT) || curState.equals(State.ON)) && !runCalled){
+                    runCalled =true;
                 }
                 break;
             case "TOG":
-                if(curState.equals(State.EVENT)){
+                if(runCalled){
                     //-1 for the index
+                    eventCalled = true; // too late to call event
                     int channelIndex = Integer.parseInt(value) - 1;
                     channels[channelIndex].toggle();
 
-                    curState = State.TOG;
-                }
-                else if(curState.equals(State.TOG)){
-                    int channelIndex = Integer.parseInt(value) - 1;
-                    channels[channelIndex].toggle();
-                    curState = State.INPUTRACERS;
                 }
                 break;
             case "NUM":
-                if(curState.equals(State.INPUTRACERS) || curState.equals(State.EVENT)){
+                if(runCalled){
+                    eventCalled = true; // too late to call event
                     event.addRacer(Integer.parseInt(value));
-                    curState = State.INPUTRACERS; // in the case there is another event
-                    //dont change the state because may need to enter multiple racers.
                 }
                 break;
             case "TRIG":
-                if(curState.equals(State.INPUTRACERS) || curState.equals(State.INPROGRESS)){
+                if(runCalled){
                     int channelNum = Integer.parseInt(value);
-
                     //if it is odd then it is the start
-                    if((channelNum % 2) != 0) {
+                    if((channelNum % 2) != 0)
                         event.setStartTime(System.currentTimeMillis());
-                        curState = State.INPROGRESS;
-                    }
-                    //only finish if the there was already a start
-                    else if(curState.equals(State.INPROGRESS))
-                        event.setFinishTime(System.currentTimeMillis());
                 }
+                else
+                    event.setFinishTime(System.currentTimeMillis());
+
                 break;
             //same as TRIG 1
             case "START":
-                if(curState.equals(State.INPUTRACERS) || curState.equals(State.INPROGRESS) || curState.equals(State.EVENT)){
+                if(runCalled){
                     event.setStartTime(System.currentTimeMillis());
-                    curState = State.INPROGRESS;
                 }
                 break;
             //same as TRIG 2
             case "FINISH":
-                if(curState.equals(State.INPUTRACERS)){
+                if(runCalled){
                     event.setFinishTime(System.currentTimeMillis());
                 }
                 break;
             case "PRINT":
-                if(curState.equals(State.INPROGRESS)){
-                    //print the results of the race
+                if(runCalled){
                     //send to simulation to print
                     Simulation.execute("PRINT",event.printResults());
                 }
                 break;
             case "ENDRUN":
-                if(curState.equals(State.INPROGRESS)){
+                if(runCalled){
                     //go to the ON state when the run is over so that there can be another run
                     eventList.add(event);
                     curState = State.ON;
-                    event.clear();
-                    //System.out.println(event.printResults());
+                    runCalled =false;
+                    eventCalled = false;
                 }
                 break;
             case "DNF":
-                if(curState.equals(State.INPROGRESS)){
+                if(runCalled){
                     //assign the next up racer the DNF tag represented by -1 right now
                     event.setFinishTime(-1);
                 }
                 break;
             case "CANCEL":
-                if(curState.equals(State.INPROGRESS)){
-                   //put the racer back in the queue at the beginning
+                if(runCalled){
+                    //put the racer back in the queue at the beginning
                     event.cancelRacer();
                 }
                 break;
             case "EXIT":
-                if(curState.equals(State.INPROGRESS)){
-                    //just reset the fields so its like restarting at
-                   Simulation.execute("EXIT",null);
+                if(runCalled){
+                    Simulation.execute("EXIT",null);
                 }
                 break;
             case "TIME":
-                if(curState.equals(State.INPROGRESS)){
+                if(curState.equals(State.ON)){
                     //when can TIME be called?
                     //do something with the system time
                 }
@@ -162,7 +157,7 @@ public class ChronoTimer {
      * Takes in command from TimingSystem.Simulation and executes it.
      */
     public void execute(String time, String command, String value){
-       Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString());
+        Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString() + " runCalled " + runCalled + " eventCalled " + eventCalled);
         switch(command.toUpperCase())
         {
             case "SAVE":
@@ -171,109 +166,98 @@ public class ChronoTimer {
             case "POWER":
                 if(curState.equals(State.OFF)){
                     curState = State.ON;
-                    //setting the interal clock
                 }
                 else
                     curState = State.OFF;
                 break;
             case "EVENT":
-                if(curState.equals(State.ON)) {
+                if(curState.equals(State.ON) && !eventCalled) {
                     if(value == null)
                         event = new Event(channels);
                     else
                         event = new Event(value, channels);
                     curState = State.EVENT;
+                    eventCalled = true;
                 }
                 break;
             case "NEWRUN":
-                if(curState.equals(State.EVENT)){
-                    //curState = State.RUN;
+                if((curState.equals(State.EVENT) || curState.equals(State.ON)) && !runCalled){
+                    runCalled =true;
                 }
                 break;
             case "TOG":
-                if(curState.equals(State.EVENT)){
-                    //-1 for the index
+                if(runCalled){
+                    eventCalled = true; // too late to call event
                     int channelIndex = Integer.parseInt(value) - 1;
                     channels[channelIndex].toggle();
-
-                    curState = State.TOG;
-                }
-                else if(curState.equals(State.TOG)){
-                    int channelIndex = Integer.parseInt(value) - 1;
-                    channels[channelIndex].toggle();
-                    curState = State.INPUTRACERS;
                 }
                 break;
             case "NUM":
-                if(curState.equals(State.INPUTRACERS) || curState.equals(State.EVENT)){
+                if(runCalled){
+                    eventCalled = true; // too late to call event
                     event.addRacer(Integer.parseInt(value));
-                    //dont change the state because may need to enter multiple racers.
                 }
                 break;
             case "TRIG":
-                if(curState.equals(State.INPUTRACERS) || curState.equals(State.INPROGRESS) || curState.equals(State.EVENT)){
+                if(runCalled){
                     int channelNum = Integer.parseInt(value);
 
-                    if(channels[channelNum-1].isOn()){
-                        //if it is odd then it is the start
-                        if((channelNum % 2) != 0) {
-                            event.setStartTime(Time.stringToMilliseconds(time));
-                            curState = State.INPROGRESS;
-                        }
-                        //only finish if the there was already a start
-                        else if(curState.equals(State.INPROGRESS))
-                            event.setFinishTime(Time.stringToMilliseconds(time));
+                    //if it is odd then it is the start
+                    if((channelNum % 2) != 0) {
+                        event.setStartTime(Time.stringToMilliseconds(time));
+
                     }
+                    else
+                        event.setFinishTime(Time.stringToMilliseconds(time));
                 }
                 break;
             //same as TRIG 1
             case "START":
-                if(curState.equals(State.INPUTRACERS) || curState.equals(State.INPROGRESS)){
+                if(runCalled){
                     event.setStartTime(Time.stringToMilliseconds(time));
-                    curState = State.INPROGRESS;
                 }
                 break;
             //same as TRIG 2
             case "FINISH":
-                if(curState.equals(State.INPUTRACERS)){
+                if(runCalled){
                     event.setFinishTime(Time.stringToMilliseconds(time));
                 }
                 break;
             case "PRINT":
-                if(curState.equals(State.INPROGRESS) || curState.equals(State.EVENT)){
-                    //print the results of the race
+                if(runCalled){
                     //send to simulation to print
                     Simulation.execute("PRINT",event.printResults());
                 }
                 break;
             case "ENDRUN":
-                if(curState.equals(State.INPROGRESS)){
+                if(runCalled){
                     //go to the ON state when the run is over so that there can be another run
                     eventList.add(event);
                     curState = State.ON;
-                    event.clear();
+                    runCalled =false;
+                    eventCalled = false;
+
                 }
                 break;
             case "DNF":
-                if(curState.equals(State.INPROGRESS)){
+                if(runCalled){
                     //assign the next up racer the DNF tag represented by -1 right now
                     event.setFinishTime(-1);
                 }
                 break;
             case "CANCEL":
-                if(curState.equals(State.INPROGRESS)){
+                if(runCalled){
                     //put the racer back in the queue at the beginning
                     event.cancelRacer();
                 }
                 break;
             case "EXIT":
-                if(curState.equals(State.INPROGRESS)){
-                    //just reset the fields so its like restarting at
-                    Simulation.execute("PRINT","EXITING SIMULATOR...");
+                if(runCalled){
+                    Simulation.execute("EXIT",null);
                 }
                 break;
             case "TIME":
-                if(curState.equals(State.INPROGRESS)){
+                if(curState.equals(State.ON)){
                     //when can TIME be called?
                     //do something with the system time
                 }
