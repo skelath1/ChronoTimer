@@ -94,9 +94,11 @@ public class ChronoTimer {
                     //if it is odd then it is the start
                     if((channelNum % 2) != 0)
                         event.setStartTime(System.currentTimeMillis(), channelNum);
+                    else
+                        event.setFinishTime(System.currentTimeMillis(), Integer.parseInt(value));
                 }
-                else
-                    event.setFinishTime(System.currentTimeMillis(), Integer.parseInt(value));
+                //else
+                    //event.setFinishTime(System.currentTimeMillis(), Integer.parseInt(value));
 
                 break;
             //same as TRIG 1

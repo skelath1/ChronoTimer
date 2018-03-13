@@ -98,7 +98,7 @@ public class Simulation {
     public static void export(ArrayList<Run> runs, String runNumber){
         try(FileWriter writer = new FileWriter( "RUN" + runNumber + ".txt")){
            Gson gson = new Gson();
-            String out =gson.toJson(runs);
+            String out = gson.toJson(runs);
             writer.write(out);
         }catch(IOException ex){
             ex.printStackTrace();
