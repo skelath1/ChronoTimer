@@ -15,8 +15,7 @@ public class PARIND implements RaceType {
     private Deque<Racer> _left;
     private Deque<Racer> _right;
 
-    boolean _rightLane = false;
-    boolean _leftLane = true;
+    boolean isRight = false;
 
 
     public PARIND(Channel[] channels){
@@ -26,58 +25,102 @@ public class PARIND implements RaceType {
         _right = new LinkedList<>();
     }
 
+    /**
+     *
+     * @param bibNumber
+     */
     @Override
     public void addRacer(int bibNumber) {
         _racers.add(new Racer(bibNumber));
     }
 
+    /**
+     *
+     * @param startTime
+     * @param channelNum
+     */
     @Override
-    public void setStartTime(long startTime) {
-        if(!_rightLane){
+    public void setStartTime(long startTime, int channelNum) {
+        if(_racers.isEmpty() || _racers.peek().getStartTime() != -1) return;
+        if(channelNum == 1){
             Racer l = _racers.removeFirst();
             l.setStartTime(startTime);
             _left.add(l);
-        } else{
+        } else if(channelNum == 3){
             Racer r = _racers.removeFirst();
             r.setStartTime(startTime);
             _right.add(r);
         }
-        _rightLane = !_rightLane;
     }
 
+    /**
+     *
+     * @param finishTime
+     * @param channelNum
+     */
     @Override
-    public void setFinishTime(long finishTime) {
-        if(_leftLane){
-            Racer l = _left.removeFirst();
-            l.setFinishTime(finishTime);
-            _racers.add(l);
-        } else{
-            Racer r = _right.removeFirst();
-            r.setFinishTime(finishTime);
-            _racers.add(r);
+    public void setFinishTime(long finishTime, int channelNum) {
+        if(channelNum == 2){
+            if(!_left.isEmpty()){
+                if(_left.peek().getStartTime() != -1){
+                    Racer l = _left.removeFirst();
+                    l.setFinishTime(finishTime);
+                    _racers.add(l);
+                    isRight = true;
+                }
+            }
+        } else if(channelNum == 4){
+            if(!_right.isEmpty()){
+                if(_right.peek().getStartTime() != -1) {
+                    Racer r = _right.remove();
+                    r.setFinishTime(finishTime);
+                    _racers.add(r);
+                    isRight = false;
+                }
+            }
         }
-        _leftLane = !_leftLane;
     }
 
+    /**
+     *
+     */
     @Override
     public void cancelRacer() {
         // Don't know racers position
+        if(!isRight){
+            Racer l = _left.removeFirst();
+            l.setStartTime(-1);
+            _racers.addFirst(l);
+        } else{
+            Racer r = _left.removeFirst();
+            r.setStartTime(-1);
+            _racers.addFirst(r);
+        }
     }
 
+    /**
+     *
+     */
     @Override
     public void clear() {
-        _racers = new LinkedList<>();
-        _left = new LinkedList<>();
-        _right = new LinkedList<>();
-        _rightLane = false;
-        _leftLane = true;
+        _racers.clear();
+        _left.clear();
+        _right.clear();
+        isRight = false;
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void swap() {
+//        ???
     }
 
     /**
      *
      * @return
      */
-
     @Override
     public Run saveRun(){
         Run r = new Run(this.toString());
@@ -85,6 +128,10 @@ public class PARIND implements RaceType {
         return r;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String printResults() {
         String s = "";
@@ -97,6 +144,10 @@ public class PARIND implements RaceType {
         return s;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString(){
         return "PARIND";

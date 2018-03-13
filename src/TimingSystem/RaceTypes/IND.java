@@ -30,7 +30,6 @@ public class IND implements RaceType {
      * Creates new TimingSystem.Racer and adds it to the TimingSystem.Racer Queue
      * @param bibNumber: bib number of racer
      */
-
     @Override
     public void addRacer(int bibNumber) {
         _racers.add(new Racer(bibNumber));
@@ -41,9 +40,9 @@ public class IND implements RaceType {
      *  Adds the racer to _racerQueue
      * @param startTime
      */
-
     @Override
-    public void setStartTime(long startTime) {
+    public void setStartTime(long startTime, int channelNum) {
+        if(channelNum%2 == 0) return;
         if(!_racers.isEmpty()){
             Racer r = _racers.remove();
             r.setStartTime(startTime);
@@ -55,9 +54,9 @@ public class IND implements RaceType {
      * Sets the finish time of the racer
      * @param finishTime
      */
-
     @Override
-    public void setFinishTime(long finishTime) {
+    public void setFinishTime(long finishTime, int channelNum) {
+        if(channelNum%2 == 1) return;
         if(!_racerQueue.isEmpty()){
             if(_racerQueue.peek().getStartTime() != -1) {
                 Racer r = _racerQueue.remove();
@@ -70,7 +69,6 @@ public class IND implements RaceType {
     /**
      * Cancels racer and adds the racer back to start of queue
      */
-
     @Override
     public void cancelRacer() {
         Racer r = _racerQueue.removeLast();
@@ -82,18 +80,29 @@ public class IND implements RaceType {
     /**
      * Clears the queues
      */
-
     @Override
     public void clear() {
-        _racerQueue = new LinkedList<>();
-        _racers = new LinkedList<>();
+        _racerQueue.clear();
+        _racers.clear();
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void swap() {
+//        if(_racerQueue.size() >= 2) {
+//            Racer r1 = _racerQueue.removeFirst();
+//            Racer r2 = _racerQueue.removeFirst();
+//            _racerQueue.addFirst(r2);
+//            _racerQueue.addFirst(r1);
+//        }
     }
 
     /**
      *
      * @return
      */
-
     @Override
     public Run saveRun(){
         Run r = new Run(this.toString());
@@ -105,7 +114,6 @@ public class IND implements RaceType {
      *
      * @return
      */
-
     @Override
     public String printResults() {
         String s = "";
@@ -122,7 +130,6 @@ public class IND implements RaceType {
      *
      * @return
      */
-
     @Override
     public String toString(){
         return "IND";

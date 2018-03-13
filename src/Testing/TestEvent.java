@@ -40,8 +40,8 @@ public class TestEvent {
     public void testSetStart(){
         event.addRacer(123);
         event.addRacer(456);
-        event.setStartTime(500);
-        event.setStartTime(600);
+//        event.setStartTime(500);
+//        event.setStartTime(600);
         getLists();
 
         assertEquals("Racer 123 first in racerQueue", 123, racerQueue.removeFirst().getBibNumber());
@@ -53,10 +53,10 @@ public class TestEvent {
     public void testSetFinish(){
         event.addRacer(123);
         event.addRacer(456);
-        event.setStartTime(500);
-        event.setStartTime(600);
-        event.setFinishTime(700);
-        event.setFinishTime(700);
+//        event.setStartTime(500);
+//        event.setStartTime(600);
+//        event.setFinishTime(700);
+//        event.setFinishTime(700);
         getLists();
 
         assertTrue("racerQueue is empty", racerQueue.isEmpty());
@@ -69,15 +69,15 @@ public class TestEvent {
     public void testCancelRacer(){
         event.addRacer(123);
         event.addRacer(456);
-        event.setStartTime(500);
+//        event.setStartTime(500);
         event.cancelRacer();
         getLists();
 
         assertTrue("racerQueue is empty", racerQueue.isEmpty());
         assertEquals("Racer 123 is still first in racers", 123, racerList.removeFirst().getBibNumber());
 
-        event.setStartTime(500);
-        event.setStartTime(600);
+//        event.setStartTime(500);
+//        event.setStartTime(600);
         event.cancelRacer();
 
         assertEquals("Racer 456 is back in racers", 456, racerList.removeFirst().getBibNumber());
@@ -91,7 +91,6 @@ public class TestEvent {
             f2.setAccessible(true);
             racerList = (Deque<Racer>) f1.get(event);
             racerQueue = (Deque<Racer>) f2.get(event);
-
 
         } catch(Exception ex){
             ex.printStackTrace();

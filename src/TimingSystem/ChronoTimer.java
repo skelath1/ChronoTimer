@@ -90,22 +90,22 @@ public class ChronoTimer {
                     int channelNum = Integer.parseInt(value);
                     //if it is odd then it is the start
                     if((channelNum % 2) != 0)
-                        event.setStartTime(System.currentTimeMillis());
+                        event.setStartTime(System.currentTimeMillis(), channelNum);
                 }
                 else
-                    event.setFinishTime(System.currentTimeMillis());
+                    event.setFinishTime(System.currentTimeMillis(), Integer.parseInt(value));
 
                 break;
             //same as TRIG 1
             case "START":
                 if(runCalled){
-                    event.setStartTime(System.currentTimeMillis());
+                    event.setStartTime(System.currentTimeMillis(), 1);
                 }
                 break;
             //same as TRIG 2
             case "FINISH":
                 if(runCalled){
-                    event.setFinishTime(System.currentTimeMillis());
+                    event.setFinishTime(System.currentTimeMillis(), 2);
                 }
                 break;
             case "PRINT":
@@ -118,6 +118,7 @@ public class ChronoTimer {
                 if(runCalled){
                     //go to the ON state when the run is over so that there can be another run
                     eventList.add(event);
+                    event.saveRun();
                     curState = State.ON;
                     runCalled =false;
                     eventCalled = false;
@@ -126,7 +127,7 @@ public class ChronoTimer {
             case "DNF":
                 if(runCalled){
                     //assign the next up racer the DNF tag represented by -1 right now
-                    event.setFinishTime(-1);
+                    event.setFinishTime(-1, 0);
                 }
                 break;
             case "CANCEL":
@@ -211,23 +212,23 @@ public class ChronoTimer {
 
                     //if it is odd then it is the start
                     if((channelNum % 2) != 0) {
-                        event.setStartTime(Time.stringToMilliseconds(time));
+                        event.setStartTime(Time.stringToMilliseconds(time), channelNum);
 
                     }
                     else
-                        event.setFinishTime(Time.stringToMilliseconds(time));
+                        event.setFinishTime(Time.stringToMilliseconds(time), Integer.parseInt(value));
                 }
                 break;
             //same as TRIG 1
             case "START":
                 if(runCalled){
-                    event.setStartTime(Time.stringToMilliseconds(time));
+                    event.setStartTime(Time.stringToMilliseconds(time), 1);
                 }
                 break;
             //same as TRIG 2
             case "FINISH":
                 if(runCalled){
-                    event.setFinishTime(Time.stringToMilliseconds(time));
+                    event.setFinishTime(Time.stringToMilliseconds(time),2);
                 }
                 break;
             case "PRINT":
@@ -240,6 +241,7 @@ public class ChronoTimer {
                 if(runCalled){
                     //go to the ON state when the run is over so that there can be another run
                     eventList.add(event);
+                    event.saveRun();
                     curState = State.ON;
                     runCalled =false;
                     eventCalled = false;
@@ -249,7 +251,7 @@ public class ChronoTimer {
             case "DNF":
                 if(runCalled){
                     //assign the next up racer the DNF tag represented by -1 right now
-                    event.setFinishTime(-1);
+                    event.setFinishTime(-1,0);
                 }
                 break;
             case "CANCEL":

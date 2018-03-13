@@ -6,7 +6,7 @@ package TimingSystem;
 
 import TimingSystem.Hardware.Channel;
 import TimingSystem.RaceTypes.*;
-import com.google.gson.Gson;
+import Util.Time;
 
 import java.util.ArrayList;
 
@@ -14,8 +14,11 @@ public class Event implements RaceType{
     private RaceType _racetype;
     private ArrayList<Run> runs;
 
+    private String _time;
+
     /**
      * Default Constructor to handle default TimingSystem.Event type
+     * @param channels: Array of Channels
      */
     public Event(Channel[] channels){
         this("IND",channels);
@@ -24,8 +27,10 @@ public class Event implements RaceType{
     /**
      * Constructor to create TimingSystem.Event
      * @param racetype: Type of event to be created
+     * @param channels: Array of Channels
      */
     public Event(String racetype, Channel[] channels){
+        Time time = new Time();
         switch(racetype){
             case "IND":
                 _racetype = new IND(channels);
@@ -41,6 +46,7 @@ public class Event implements RaceType{
                 break;
         }
         runs = new ArrayList<>();
+        _time = time.getSysTime();
     }
 
     /**
@@ -56,19 +62,21 @@ public class Event implements RaceType{
     /**
      * Proxy method to call setStartTime
      * @param startTime
+     * @param channelNum
      */
     @Override
-    public void setStartTime(long startTime) {
-        _racetype.setStartTime(startTime);
+    public void setStartTime(long startTime, int channelNum) {
+        _racetype.setStartTime(startTime, channelNum);
     }
 
     /**
      * Proxy method to call setFinishTime
      * @param finishTime
+     * @param channelNum
      */
     @Override
-    public void setFinishTime(long finishTime) {
-        _racetype.setFinishTime(finishTime);
+    public void setFinishTime(long finishTime, int channelNum) {
+        _racetype.setFinishTime(finishTime, channelNum);
     }
 
     /**
@@ -87,6 +95,11 @@ public class Event implements RaceType{
         _racetype.clear();
     }
 
+    @Override
+    public void swap() {
+        _racetype.swap();
+    }
+
     /**
      * Saves the results of the run
      * @return Results of the run
@@ -96,9 +109,6 @@ public class Event implements RaceType{
     public Run saveRun(){
         Run r =  _racetype.saveRun();
         runs.add(r);
-        Gson g = new Gson();
-        System.out.println(g.toJson(runs));
-
         return r;
     }
 
@@ -126,5 +136,9 @@ public class Event implements RaceType{
      */
     public ArrayList<Run> sendRuns(){
         return runs;
+    }
+
+    public void sendTime(String time){
+        _time = time;
     }
 }
