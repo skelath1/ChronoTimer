@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ChronoTimer {
     private State curState;
-    private Util.Time sysTime;
+    private Time sysTime;
     private Event event;
     private Channel channels[];
     private ArrayList<Event> eventList;     //used to store all the previous events
@@ -23,13 +23,13 @@ public class ChronoTimer {
     public ChronoTimer(){
         boolean eventCalled = false;
         boolean runCalled = false;
-
+        sysTime = new Time();
         curState = State.OFF;
         channels = new Channel[8];
         for(int i = 0; i < 7; ++i) {
             channels[i] = new Channel(i+1);
         }
-        sysTime = new Time();
+
         eventList = new ArrayList<>();
 
     }
@@ -74,9 +74,12 @@ public class ChronoTimer {
                 if(runCalled){
                     //-1 for the index
                     eventCalled = true; // too late to call event
+                    if(event == null) {
+                        //creating a new event
+                        event = new Event(channels);
+                    }
                     int channelIndex = Integer.parseInt(value) - 1;
                     channels[channelIndex].toggle();
-
                 }
                 break;
             case "NUM":
@@ -115,7 +118,7 @@ public class ChronoTimer {
                 }
                 break;
             case "ENDRUN":
-                if(runCalled){
+                if(runCalled && event!= null){
                     //go to the ON state when the run is over so that there can be another run
                     eventList.add(event);
                     event.saveRun();
@@ -142,7 +145,8 @@ public class ChronoTimer {
                 }
                 break;
             case "TIME":
-                if(curState.equals(State.ON)){
+                if(runCalled){
+                    sysTime.setSysTime(value);
                     //when can TIME be called?
                     //do something with the system time
                 }
@@ -151,7 +155,7 @@ public class ChronoTimer {
                 //checking whether event run exists to be exported
                 if(!eventList.isEmpty() && curState == State.ON){
                     Event latest =  eventList.get(eventList.size()-1);
-                    Simulation.export(this.getSysTime().toString(), latest.toString(), latest.sendRuns(), value);
+                    Simulation.export(sysTime.toString(), latest.toString(), latest.sendRuns(), value);
                 }
                 break;
         }
@@ -266,7 +270,8 @@ public class ChronoTimer {
                 }
                 break;
             case "TIME":
-                if(curState.equals(State.ON)){
+                if(runCalled){
+
                     //when can TIME be called?
                     //do something with the system time
                 }
@@ -291,7 +296,6 @@ public class ChronoTimer {
             channels[i] = new Channel(i+1);
         }
         eventList = new ArrayList<>();
-        sysTime = new Time();
         event = null;
     }
 
