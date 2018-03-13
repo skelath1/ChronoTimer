@@ -146,6 +146,13 @@ public class ChronoTimer {
                     //do something with the system time
                 }
                 break;
+            case "EXPORT":
+                //checking whether event run exists to be exported
+                if(!eventList.isEmpty() && curState == State.ON){
+                    Event latest =  eventList.get(eventList.size()-1);
+                    Simulation.export(this.getSysTime().toString(), latest.toString(), latest.sendRuns(), value);
+                }
+                break;
         }
 
     }
@@ -260,6 +267,13 @@ public class ChronoTimer {
                 if(curState.equals(State.ON)){
                     //when can TIME be called?
                     //do something with the system time
+                }
+                break;
+            case "EXPORT":
+                //checking whether event run exists to be exported
+                if(!eventList.isEmpty() && curState == State.ON){
+                    Event latest =  eventList.get(eventList.size()-1);
+                    Simulation.export(time, latest.toString(), latest.sendRuns(), value);
                 }
                 break;
         }
