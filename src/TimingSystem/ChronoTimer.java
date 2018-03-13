@@ -105,6 +105,7 @@ public class ChronoTimer {
                     event.setStartTime(System.currentTimeMillis(), 1);
                 }
                 break;
+
             //same as TRIG 2
             case "FINISH":
                 if(runCalled){
@@ -154,8 +155,16 @@ public class ChronoTimer {
             case "EXPORT":
                 //checking whether event run exists to be exported
                 if(!eventList.isEmpty() && curState == State.ON){
-                    Event latest =  eventList.get(eventList.size()-1);
-                    Simulation.export(sysTime.toString(), latest.toString(), latest.sendRuns(), value);
+                    Event latest;
+                    if(value == null){//get latest run
+                        int runNumber = eventList.size();
+                        latest =  eventList.get(eventList.size()-1);
+                        Simulation.export(latest.sendRuns(), Integer.toString(runNumber));
+                    }else{//else get run from value given
+                        latest = eventList.get(Integer.parseInt(value)-1);
+                        Simulation.export(latest.sendRuns(), value);
+                    }
+
                 }
                 break;
         }
@@ -278,10 +287,7 @@ public class ChronoTimer {
                 break;
             case "EXPORT":
                 //checking whether event run exists to be exported
-                if(!eventList.isEmpty() && curState == State.ON){
-                    Event latest =  eventList.get(eventList.size()-1);
-                    Simulation.export(time, latest.toString(), latest.sendRuns(), value);
-                }
+                this.execute(command, value);
                 break;
         }
     }
