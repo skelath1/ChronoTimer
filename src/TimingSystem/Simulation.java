@@ -54,12 +54,12 @@ public class Simulation {
                         chronoTimer.execute(strArr[0], null);
                     //need to determine if it has a command value or Time command
                     else if(strArr.length ==2 && !strArr[0].contains(":"))
-                        chronoTimer.execute(strArr[0], strArr[1]);
+                        chronoTimer.execute(strArr[0].toUpperCase(), strArr[1]);
                     //means it has no value just time + command
                     else if(strArr.length ==2 && strArr[0].contains(":"))
-                        chronoTimer.execute(strArr[0], strArr[1],null);
+                        chronoTimer.execute(strArr[0], strArr[1].toUpperCase(),null);
                     else if(strArr.length == 3){
-                        chronoTimer.execute(strArr[0], strArr[1],strArr[2]); //0 - Time, 1- - Command, 2 - Value
+                        chronoTimer.execute(strArr[0], strArr[1].toUpperCase(),strArr[2]); //0 - Time, 1- - Command, 2 - Value
                     }
                 }
             } catch (FileNotFoundException e) {
@@ -72,11 +72,11 @@ public class Simulation {
                 String str = stdIn.nextLine();
                 String[] strArr = str.split(" ");
                 if(strArr.length == 1)
-                    chronoTimer.execute(strArr[0], null);
+                    chronoTimer.execute(strArr[0].toUpperCase(), null);
                 else if(strArr.length < 3)
-                    chronoTimer.execute(strArr[0], strArr[1]);
+                    chronoTimer.execute(strArr[0].toUpperCase(), strArr[1]);
                 else if(strArr.length == 3){
-                    chronoTimer.execute(strArr[0], strArr[1],strArr[2]); //0 - Time, 1- - Command, 2 - Value
+                    chronoTimer.execute(strArr[0], strArr[1].toUpperCase(),strArr[2]); //0 - Time, 1- - Command, 2 - Value
                 }
             }
         }
