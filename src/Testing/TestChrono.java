@@ -29,23 +29,25 @@ public class TestChrono {
         getState();
         assertTrue(state.equalsIgnoreCase("EVENT"));
 
+        ct.execute("NEWRUN", null);
+        getState();
+
         ct.execute("TOG", "1");
         getState();
-        assertTrue(state.equalsIgnoreCase("TOG"));
+        assertTrue(state.equalsIgnoreCase("EVENT"));
 
-        ct.execute("TOG", "2");
+        ct.execute("POWER",null);
         getState();
-        assertTrue(state.equalsIgnoreCase("INPUTRACERS"));
+        assertTrue("Incorrect State: " + state.toString(),state.equalsIgnoreCase("OFF"));
 
-        ct.execute("NUM", "123");
+        ct.execute("POWER",null);
         getState();
-        assertTrue(state.equalsIgnoreCase("INPUTRACERS"));
+        assertTrue(state.equalsIgnoreCase("ON"));
 
-        ct.execute("TRIG", "1");
+
+        ct.execute("NEWRUN",null);
         getState();
-        assertTrue(state.equalsIgnoreCase("INPROGRESS"));
-
-
+        assertTrue(state.equalsIgnoreCase("ON"));
 
     }
 
