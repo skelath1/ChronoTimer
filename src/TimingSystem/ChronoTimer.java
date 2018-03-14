@@ -49,7 +49,6 @@ public class ChronoTimer {
             case "POWER":
                 if(curState.equals(State.OFF)){
                     curState = State.ON;
-
                 }
                 else
                     curState = State.OFF;
@@ -97,9 +96,6 @@ public class ChronoTimer {
                     else
                         event.setFinishTime(System.currentTimeMillis(), Integer.parseInt(value));
                 }
-                //else
-                    //event.setFinishTime(System.currentTimeMillis(), Integer.parseInt(value));
-
                 break;
             //same as TRIG 1
             case "START":
@@ -122,7 +118,6 @@ public class ChronoTimer {
                 break;
             case "ENDRUN":
                 if(runCalled && event!= null){
-                    //go to the ON state when the run is over so that there can be another run
                     eventList.add(event);
                     event.saveRun();
                     curState = State.ON;
@@ -150,8 +145,6 @@ public class ChronoTimer {
             case "TIME":
                 if(runCalled){
                     sysTime.setSysTime(value);
-                    //when can TIME be called?
-                    //do something with the system time
                 }
                 break;
             case "EXPORT":
@@ -166,11 +159,9 @@ public class ChronoTimer {
                         latest = eventList.get(Integer.parseInt(value)-1);
                         Simulation.export(latest.sendRuns(), value);
                     }
-
                 }
                 break;
         }
-
     }
 
     /**
@@ -226,10 +217,8 @@ public class ChronoTimer {
                     int channelNum = Integer.parseInt(value);
 
                     //if it is odd then it is the start
-                    if((channelNum % 2) != 0) {
+                    if((channelNum % 2) != 0)
                         event.setStartTime(Time.stringToMilliseconds(time), channelNum);
-
-                    }
                     else
                         event.setFinishTime(Time.stringToMilliseconds(time), Integer.parseInt(value));
                 }
@@ -254,13 +243,11 @@ public class ChronoTimer {
                 break;
             case "ENDRUN":
                 if(runCalled){
-                    //go to the ON state when the run is over so that there can be another run
                     eventList.add(event);
                     event.saveRun();
                     curState = State.ON;
                     runCalled =false;
                     eventCalled = false;
-
                 }
                 break;
             case "DNF":
@@ -282,9 +269,7 @@ public class ChronoTimer {
                 break;
             case "TIME":
                 if(runCalled){
-
-                    //when can TIME be called?
-                    //do something with the system time
+                    //do nothing
                 }
                 break;
             case "EXPORT":
