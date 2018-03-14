@@ -40,12 +40,10 @@ public class Time {
      */
     public void setSysTime(String time){
         String[] arr = splitComponents(time);
-        offsetArray[0] = Integer.parseInt(arr[0])-_cal.get(Calendar.HOUR_OF_DAY);
-        offsetArray[1] = Integer.parseInt(arr[1])- _cal.get(Calendar.MINUTE);
-        offsetArray[2] = Integer.parseInt(arr[2])-_cal.get(Calendar.SECOND);
-        offsetArray[3] = Integer.parseInt(arr[3])-_cal.get(Calendar.MILLISECOND);
-
-        System.out.println(this.getSysTime());
+        offsetArray[0] += Integer.parseInt(arr[0])-_cal.get(Calendar.HOUR_OF_DAY);
+        offsetArray[1] += Integer.parseInt(arr[1])- _cal.get(Calendar.MINUTE);
+        offsetArray[2] += Integer.parseInt(arr[2])-_cal.get(Calendar.SECOND);
+        offsetArray[3] += Integer.parseInt(arr[3])-_cal.get(Calendar.MILLISECOND);
         timeSet = true;
     }
 

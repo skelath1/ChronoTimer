@@ -1,7 +1,7 @@
 package Testing;
 import org.junit.*;
 import TimingSystem.*;
-
+import Util.Time;
 import java.util.concurrent.TimeUnit;
 
 public class TestSim {
@@ -54,10 +54,10 @@ public class TestSim {
         ch.execute("NUM", "234");
         ch.execute("TRIG", "1");
         //changing time over 100 hrs
-        ch.execute("TIME","12:00:01.0");
-        ch.execute("TIME","11:00:00.9");
-        ch.execute("TIME","10:00:00.8");
-        ch.execute("TIME","09:00:00.7");
+        ch.execute("TIME","02:00:01.0");
+        ch.execute("TIME","03:00:00.9");
+        ch.execute("TIME","04:00:00.8");
+        ch.execute("TIME","05:00:00.7");
         //time limit reached
        ch.execute("TRIG", "2");
        ch.execute("PRINT", null);
