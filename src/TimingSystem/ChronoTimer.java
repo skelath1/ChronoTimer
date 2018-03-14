@@ -92,22 +92,22 @@ public class ChronoTimer {
                     int channelNum = Integer.parseInt(value);
                     //if it is odd then it is the start
                     if((channelNum % 2) != 0)
-                        event.setStartTime(System.currentTimeMillis(), channelNum);
+                        event.setStartTime(Time.stringToMilliseconds(sysTime.getSysTime()), channelNum);
                     else
-                        event.setFinishTime(System.currentTimeMillis(), Integer.parseInt(value));
+                        event.setFinishTime(Time.stringToMilliseconds(sysTime.getSysTime()), Integer.parseInt(value));
                 }
                 break;
             //same as TRIG 1
             case "START":
                 if(runCalled){
-                    event.setStartTime(System.currentTimeMillis(), 1);
+                    event.setStartTime(Time.stringToMilliseconds(sysTime.getSysTime()), 1);
                 }
                 break;
 
             //same as TRIG 2
             case "FINISH":
                 if(runCalled){
-                    event.setFinishTime(System.currentTimeMillis(), 2);
+                    event.setFinishTime(Time.stringToMilliseconds(sysTime.getSysTime()), 2);
                 }
                 break;
             case "PRINT":
