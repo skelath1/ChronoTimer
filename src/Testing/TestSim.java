@@ -55,16 +55,13 @@ public class TestSim {
         ch.execute("TRIG", "1");
         //changing time
         ch.execute("TIME","02:00:01.0");
-//        System.out.println(Time.getElapsed(Time.stringToMilliseconds("00:00:00.0"), Time.stringToMilliseconds("02:00:01.0")));
+        System.out.println(ch.getSysTime().getSysTime());
         ch.execute("TIME","03:00:00.9");
-//        System.out.println(Time.getElapsed(Time.stringToMilliseconds("00:00:00.0"), Time.stringToMilliseconds("03:00:00.9")));
-
+        System.out.println(ch.getSysTime().getSysTime());
         ch.execute("TIME","04:00:00.8");
-//        System.out.println(Time.getElapsed(Time.stringToMilliseconds("00:00:00.0"), Time.stringToMilliseconds("04:00:00.8")));
-
+        System.out.println(ch.getSysTime().getSysTime());
         ch.execute("TIME","05:00:00.7");
-//        System.out.println(Time.getElapsed(Time.stringToMilliseconds("00:00:00.0"), Time.stringToMilliseconds("05:00:00.7")));
-
+        System.out.println(ch.getSysTime().getSysTime());
         //time changed
        ch.execute("TRIG", "2");
        ch.execute("PRINT", null);
