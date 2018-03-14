@@ -67,6 +67,7 @@ public class ChronoTimer {
             case "NEWRUN":
                 if((curState.equals(State.EVENT) || curState.equals(State.ON)) && !runCalled){
                     runCalled =true;
+                    event.newRun(sysTime.getSysTime());
                 }
                 break;
             case "TOG":
@@ -197,6 +198,7 @@ public class ChronoTimer {
             case "NEWRUN":
                 if((curState.equals(State.EVENT) || curState.equals(State.ON)) && !runCalled){
                     runCalled =true;
+                    event.newRun(time);
                 }
                 break;
             case "TOG":
@@ -220,7 +222,7 @@ public class ChronoTimer {
                     if((channelNum % 2) != 0)
                         event.setStartTime(Time.stringToMilliseconds(time), channelNum);
                     else
-                        event.setFinishTime(Time.stringToMilliseconds(time), Integer.parseInt(value));
+                        event.setFinishTime(Time.stringToMilliseconds(time), channelNum);
                 }
                 break;
             //same as TRIG 1
@@ -269,7 +271,7 @@ public class ChronoTimer {
                 break;
             case "TIME":
                 if(runCalled){
-                    //do nothing
+                    sysTime.setSysTime(time);
                 }
                 break;
             case "EXPORT":
@@ -277,6 +279,8 @@ public class ChronoTimer {
                 this.execute(command, value);
                 break;
         }
+        sysTime.setSysTime(time);
+
     }
 
     /**

@@ -15,7 +15,7 @@ public class Event implements RaceType{
     private ArrayList<Run> runs;
 
     private String _time;
-
+    private String timeStamp = "";
     /**
      * Default Constructor to handle default TimingSystem.Event type
      * @param channels: Array of Channels
@@ -100,6 +100,10 @@ public class Event implements RaceType{
         _racetype.swap();
     }
 
+    public void newRun(String timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
     /**
      * Saves the results of the run
      * @return Results of the run
@@ -108,6 +112,7 @@ public class Event implements RaceType{
     @Override
     public Run saveRun(){
         Run r =  _racetype.saveRun();
+        r.setTimeStamp(timeStamp);
         runs.add(r);
         return r;
     }
