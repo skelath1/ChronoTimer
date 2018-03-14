@@ -12,11 +12,11 @@ public class TestSim {
         ChronoTimer ch = new ChronoTimer();
         ch.execute("12:14:15.222", "POWER", null);
         ch.execute("EVENT", "IND");
-        ch.execute("0:14:15:223", "NEWRUN", null);
+        ch.execute("0:14:15.223", "NEWRUN", null);
         ch.execute("tOG","1" );
         ch.execute("Tog", "2");
         ch.execute("1:15:16.355", "NUM", "234");
-        ch.execute("2.33.27.345","NUM", "667");
+        ch.execute("2:33:27.345","NUM", "667");
         ch.execute("NUM", "366");
         ch.execute("TRIG", "1");
         try{
@@ -55,9 +55,13 @@ public class TestSim {
         ch.execute("TRIG", "1");
         //changing time
         ch.execute("TIME","02:00:01.0");
+        System.out.println(ch.getSysTime().getSysTime());
         ch.execute("TIME","03:00:00.9");
+        System.out.println(ch.getSysTime().getSysTime());
         ch.execute("TIME","04:00:00.8");
+        System.out.println(ch.getSysTime().getSysTime());
         ch.execute("TIME","05:00:00.7");
+        System.out.println(ch.getSysTime().getSysTime());
         //time changed
        ch.execute("TRIG", "2");
        ch.execute("PRINT", null);

@@ -91,10 +91,13 @@ public class ChronoTimer {
                 if(runCalled){
                     int channelNum = Integer.parseInt(value);
                     //if it is odd then it is the start
-                    if((channelNum % 2) != 0)
+                    if((channelNum % 2) != 0) {
+                        //System.out.println(sysTime.getSysTime());
                         event.setStartTime(Time.stringToMilliseconds(sysTime.getSysTime()), channelNum);
-                    else
+                    }else {
+                        //System.out.println(sysTime.getSysTime());
                         event.setFinishTime(Time.stringToMilliseconds(sysTime.getSysTime()), Integer.parseInt(value));
+                    }
                 }
                 break;
             //same as TRIG 1
@@ -172,6 +175,7 @@ public class ChronoTimer {
      */
     public void execute(String time, String command, String value){
         Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString() + " runCalled " + runCalled + " eventCalled " + eventCalled);
+        sysTime.setSysTime(time);
         switch(command.toUpperCase())
         {
             case "SAVE":
