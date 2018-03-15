@@ -29,7 +29,6 @@ public class ChronoTimer {
         for(int i = 0; i < 7; ++i) {
             channels[i] = new Channel(i+1);
         }
-
         eventList = new ArrayList<>();
 
     }
@@ -40,7 +39,8 @@ public class ChronoTimer {
      * Takes in command from TimingSystem.Simulation and executes it.
      */
     public void execute(String command, String value){
-        Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString()+ " runCalled " + runCalled + " eventCalled " + eventCalled);
+        Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value);
+        //Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString()+ " runCalled " + runCalled + " eventCalled " + eventCalled);
         switch(command.toUpperCase())
         {
             case "SAVE":
@@ -179,7 +179,8 @@ public class ChronoTimer {
      * Takes in command from TimingSystem.Simulation and executes it.
      */
     public void execute(String time, String command, String value){
-        Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString() + " runCalled " + runCalled + " eventCalled " + eventCalled);
+        Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value);
+        //Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString() + " runCalled " + runCalled + " eventCalled " + eventCalled);
         sysTime.setSysTime(time);
         switch(command.toUpperCase())
         {
