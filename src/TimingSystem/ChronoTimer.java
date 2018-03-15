@@ -41,6 +41,8 @@ public class ChronoTimer {
     public void execute(String command, String value){
         Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value);
         //Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString()+ " runCalled " + runCalled + " eventCalled " + eventCalled);
+        if(command == null)
+            return;
         switch(command.toUpperCase())
         {
             case "SAVE":
@@ -156,19 +158,21 @@ public class ChronoTimer {
             case "EXPORT":
                 //checking whether event run exists to be exported
                 if(!eventList.isEmpty() && curState == State.ON){
-                    Event latest;
                     //get latest run
                     if(value == null){
                         int runNumber = eventList.size();
-                        latest =  eventList.get(eventList.size()-1);
-                        Simulation.export(latest.sendRuns(), Integer.toString(runNumber)); }
+                        Event latest =  eventList.get(eventList.size()-1);
+                        Simulation.export(latest.sendRuns(), Integer.toString(runNumber));
+                    }
                     //else get run from value given
                     else{
-                        latest = eventList.get(Integer.parseInt(value)-1);
+                        Event latest = eventList.get(Integer.parseInt(value)-1);
                         Simulation.export(latest.sendRuns(), value);
                     }
                 }
                 break;
+            default:
+                Simulation.execute("PRINT", "Invalide command: " + command);
         }
     }
 
@@ -181,6 +185,8 @@ public class ChronoTimer {
     public void execute(String time, String command, String value){
         Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value);
         //Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString() + " runCalled " + runCalled + " eventCalled " + eventCalled);
+        if(command == null)
+            return;
         sysTime.setSysTime(time);
         switch(command.toUpperCase())
         {
@@ -287,7 +293,12 @@ public class ChronoTimer {
                 //checking whether event run exists to be exported
                 this.execute(command, value);
                 break;
+
+            default:
+                Simulation.execute("PRINT", "Invalide command: " + command);
         }
+
+
         sysTime.setSysTime(time);
 
     }
