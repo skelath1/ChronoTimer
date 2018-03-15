@@ -142,12 +142,12 @@ public class ChronoTimer {
                 }
                 break;
             case "EXIT":
-                if(runCalled){
+                if(runCalled || curState.equals(State.ON) || curState.equals(State.EVENT)){
                     Simulation.execute("EXIT",null);
                 }
                 break;
             case "TIME":
-                if(runCalled){
+                if(runCalled || curState.equals(State.ON) || curState.equals(State.EVENT)){
                     sysTime.setSysTime(value);
                 }
                 break;
@@ -269,12 +269,12 @@ public class ChronoTimer {
                 }
                 break;
             case "EXIT":
-                if(runCalled){
+                if(runCalled || curState.equals(State.ON) || curState.equals(State.EVENT)){
                     Simulation.execute("EXIT",null);
                 }
                 break;
             case "TIME":
-                if(runCalled){
+                if(runCalled || curState.equals(State.ON) || curState.equals(State.EVENT)){
                     sysTime.setSysTime(time);
                 }
                 break;
