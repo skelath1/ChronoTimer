@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
+
+import Util.Time;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -95,13 +97,10 @@ public class Simulation {
     /**
      * This method exports the latest runs data to a txt file
      */
-    public static void export( String time, String event, ArrayList<Run> runs, String runNumber){
+    public static void export(ArrayList<Run> runs, String runNumber){
         try(FileWriter writer = new FileWriter( "RUN" + runNumber + ".txt")){
            Gson gson = new Gson();
-          //  JsonElement jsonElement =  gson.toJsonTree(runs);
-           //jsonElement.getAsJsonObject().addProperty("timestamp", time);
-           //jsonElement.getAsJsonObject().addProperty("Run number",runNumber);
-            String out =gson.toJson(runs);
+            String out = gson.toJson(runs);
             writer.write(out);
         }catch(IOException ex){
             ex.printStackTrace();

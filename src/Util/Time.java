@@ -7,6 +7,7 @@ public class Time {
     private Calendar _cal;
     private int[] offsetArray;
     private boolean timeSet;
+    private int totalDays;
 
 
     public Time(){
@@ -39,11 +40,11 @@ public class Time {
      */
     public void setSysTime(String time){
         String[] arr = splitComponents(time);
-        //calculating offsets
-        offsetArray[0] = Integer.parseInt(arr[0])-_cal.get(Calendar.HOUR_OF_DAY);
-        offsetArray[1] = Integer.parseInt(arr[1])- _cal.get(Calendar.MINUTE);
-        offsetArray[2] = Integer.parseInt(arr[2])-_cal.get(Calendar.SECOND);
-        offsetArray[3] = Integer.parseInt(arr[3])-_cal.get(Calendar.MILLISECOND);
+        offsetArray[0] = Integer.parseInt(arr[0]);//-_cal.get(Calendar.HOUR_OF_DAY);
+        offsetArray[1] = Integer.parseInt(arr[1]);//- _cal.get(Calendar.MINUTE);
+        offsetArray[2] = Integer.parseInt(arr[2]);//-_cal.get(Calendar.SECOND);
+        offsetArray[3] = Integer.parseInt(arr[3]);//-_cal.get(Calendar.MILLISECOND);
+
         timeSet = true;
     }
 
@@ -60,6 +61,13 @@ public class Time {
         long minutes = (resultMilli / (1000 * 60)) % 60;
         long seconds = (resultMilli/1000) % 60;
         long milliseconds = resultMilli % 1000;
+        if(hours<100){
+            return String.format("%02d:%02d:%02d.%02d", hours, minutes, seconds, milliseconds);
+        }//limit reached
+        hours = 99;
+        minutes = 99;
+        seconds = 99;
+        milliseconds = 999;
         return String.format("%02d:%02d:%02d.%02d", hours, minutes, seconds, milliseconds);    }
 
     /**

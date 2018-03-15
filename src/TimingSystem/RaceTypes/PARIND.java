@@ -15,7 +15,7 @@ public class PARIND implements RaceType {
     private Deque<Racer> _left;
     private Deque<Racer> _right;
 
-    boolean isRight = false;
+    private boolean isRight = false;
 
 
     public PARIND(Channel[] channels){

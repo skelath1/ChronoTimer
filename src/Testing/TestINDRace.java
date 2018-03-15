@@ -1,6 +1,7 @@
 package Testing;
 import TimingSystem.Event;
 import TimingSystem.Hardware.Channel;
+import TimingSystem.RaceTypes.IND;
 import TimingSystem.Racer;
 import org.junit.*;
 
@@ -10,10 +11,10 @@ import java.util.Deque;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class TestEvent {
+public class TestINDRace {
     Channel[] channels;
     Event event;
-
+    IND race;
     Deque<Racer> racerList;
     Deque<Racer> racerQueue;
 
@@ -24,6 +25,13 @@ public class TestEvent {
             channels[i] = new Channel(i + 1);
         }
         event = new Event(channels);
+        try{
+            Field f = event.getClass().getDeclaredField("_racetype");
+            f.setAccessible(true);
+            race = (IND) f.get(event);
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
     }
 
 
@@ -40,8 +48,8 @@ public class TestEvent {
     public void testSetStart(){
         event.addRacer(123);
         event.addRacer(456);
-//        event.setStartTime(500);
-//        event.setStartTime(600);
+        event.setStartTime(500,1);
+        event.setStartTime(600,1);
         getLists();
 
         assertEquals("Racer 123 first in racerQueue", 123, racerQueue.removeFirst().getBibNumber());
@@ -53,10 +61,10 @@ public class TestEvent {
     public void testSetFinish(){
         event.addRacer(123);
         event.addRacer(456);
-//        event.setStartTime(500);
-//        event.setStartTime(600);
-//        event.setFinishTime(700);
-//        event.setFinishTime(700);
+        event.setStartTime(500,1);
+        event.setStartTime(600,1);
+        event.setFinishTime(700,2);
+        event.setFinishTime(700,2);
         getLists();
 
         assertTrue("racerQueue is empty", racerQueue.isEmpty());
@@ -69,15 +77,15 @@ public class TestEvent {
     public void testCancelRacer(){
         event.addRacer(123);
         event.addRacer(456);
-//        event.setStartTime(500);
+        event.setStartTime(500, 1);
         event.cancelRacer();
         getLists();
 
         assertTrue("racerQueue is empty", racerQueue.isEmpty());
         assertEquals("Racer 123 is still first in racers", 123, racerList.removeFirst().getBibNumber());
 
-//        event.setStartTime(500);
-//        event.setStartTime(600);
+        event.setStartTime(500,1);
+        event.setStartTime(600,1);
         event.cancelRacer();
 
         assertEquals("Racer 456 is back in racers", 456, racerList.removeFirst().getBibNumber());
@@ -85,15 +93,16 @@ public class TestEvent {
 
     private void getLists(){
         try{
-            Field f1 = event.getClass().getDeclaredField("_racers");
-            Field f2 = event.getClass().getDeclaredField("_racerQueue");
+            Field f1 = race.getClass().getDeclaredField("_racers");
+            Field f2 = race.getClass().getDeclaredField("_racerQueue");
             f1.setAccessible(true);
             f2.setAccessible(true);
-            racerList = (Deque<Racer>) f1.get(event);
-            racerQueue = (Deque<Racer>) f2.get(event);
+            racerList = (Deque<Racer>) f1.get(race);
+            racerQueue = (Deque<Racer>) f2.get(race);
 
         } catch(Exception ex){
             ex.printStackTrace();
         }
     }
+
 }

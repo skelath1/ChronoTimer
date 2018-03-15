@@ -117,7 +117,7 @@ public class IND implements RaceType {
     @Override
     public String printResults() {
         String s = "";
-        for(Racer r : _racers) {
+        for(Racer r : _racers) {//changed from racer to racerQueue
             if(r.getFinishTime() == -1)
                 s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + "DNF\n";
             else
