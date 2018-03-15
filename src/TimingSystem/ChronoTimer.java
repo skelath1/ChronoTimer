@@ -50,8 +50,10 @@ public class ChronoTimer {
                 if(curState.equals(State.OFF)){
                     curState = State.ON;
                 }
-                else
+                else {
                     curState = State.OFF;
+                    clearFields();
+                }
                 break;
             case "EVENT":
                 if(curState.equals(State.ON) && !eventCalled) {
@@ -155,11 +157,13 @@ public class ChronoTimer {
                 //checking whether event run exists to be exported
                 if(!eventList.isEmpty() && curState == State.ON){
                     Event latest;
-                    if(value == null){//get latest run
+                    //get latest run
+                    if(value == null){
                         int runNumber = eventList.size();
                         latest =  eventList.get(eventList.size()-1);
-                        Simulation.export(latest.sendRuns(), Integer.toString(runNumber));
-                    }else{//else get run from value given
+                        Simulation.export(latest.sendRuns(), Integer.toString(runNumber)); }
+                    //else get run from value given
+                    else{
                         latest = eventList.get(Integer.parseInt(value)-1);
                         Simulation.export(latest.sendRuns(), value);
                     }
@@ -291,6 +295,9 @@ public class ChronoTimer {
      * resets all the fields for RESET
      */
     private void clearFields(){
+        eventCalled = false;
+        runCalled = false;
+        timeSet = false;
         curState = State.OFF;
         channels = new Channel[8];
         for(int i = 0; i < 7; ++i) {
