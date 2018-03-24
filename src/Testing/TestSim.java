@@ -20,21 +20,21 @@ public class TestSim {
         ch.execute("NUM", "366");
         ch.execute("TRIG", "1");
         try{
-            Thread.sleep(3000);
+            Thread.sleep(1000);
         }catch(Exception ex){
             System.out.println("Interrupted...");
         }
         ch.execute("TRIG", "2");
         ch.execute("TRIG", "1");
         try{
-            Thread.sleep(4000);
+            Thread.sleep(500);
         }catch(Exception ex){
             System.out.println("Interrupted...");
         }
         ch.execute("triG","2" );
         ch.execute("TriG","1" );
         try{
-            Thread.sleep(5000);
+            Thread.sleep(500);
         }catch(Exception ex){
             System.out.println("Interrupted...");
         }
