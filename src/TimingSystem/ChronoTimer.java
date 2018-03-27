@@ -2,6 +2,8 @@ package TimingSystem;
 
 import TimingSystem.Hardware.Channel;
 import Util.*;
+import com.sun.xml.internal.ws.util.StringUtils;
+
 import java.util.ArrayList;
 
 public class ChronoTimer {
@@ -80,7 +82,7 @@ public class ChronoTimer {
                 }
                 break;
             case "TOG":
-                if(runCalled){
+                if(runCalled && isNum(value)){
                     //-1 for the index
                     eventCalled = true; // too late to call event
                     if(event == null) {
@@ -92,13 +94,14 @@ public class ChronoTimer {
                 }
                 break;
             case "NUM":
-                if(runCalled){
+                if(runCalled && isNum(value)){
                     eventCalled = true; // too late to call event
                     event.addRacer(Integer.parseInt(value));
                 }
                 break;
             case "TRIG":
-                if(runCalled){
+
+                if(runCalled && isNum(value)){
                     int channelNum = Integer.parseInt(value);
                     //if it is odd then it is the start
                     if((channelNum % 2) != 0) {
@@ -176,6 +179,14 @@ public class ChronoTimer {
                     }
                 }
                 break;
+
+            case "SWAP":
+
+                if(runCalled)
+                    event.swap();
+
+                break;
+
             default:
                 Simulation.execute("PRINT", "Invalide command: " + command);
         }
@@ -222,20 +233,21 @@ public class ChronoTimer {
                 }
                 break;
             case "TOG":
-                if(runCalled){
+                if(runCalled && isNum(value)){
                     eventCalled = true; // too late to call event
                     int channelIndex = Integer.parseInt(value) - 1;
                     channels[channelIndex].toggle();
                 }
                 break;
             case "NUM":
-                if(runCalled){
+                if(runCalled && isNum(value)){
                     eventCalled = true; // too late to call event
                     event.addRacer(Integer.parseInt(value));
                 }
                 break;
             case "TRIG":
-                if(runCalled){
+                if(runCalled && isNum(value)){
+
                     int channelNum = Integer.parseInt(value);
 
                     //if it is odd then it is the start
@@ -298,6 +310,12 @@ public class ChronoTimer {
                 //checking whether event run exists to be exported
                 this.execute(command, value);
                 break;
+            case "SWAP":
+
+                if(runCalled)
+                    event.swap();
+
+                break;
 
             default:
                 Simulation.execute("PRINT", "Invalide command: " + command);
@@ -333,4 +351,14 @@ public class ChronoTimer {
         return sysTime;
     }
     private String getState(){return curState.toString();}
+
+    private boolean isNum(String s){
+
+        if(s != null)
+            if (s.charAt(0) <= 57 && s.charAt(0) >= 48) {
+                return true;
+            }
+
+        return false;
+    }
 }
