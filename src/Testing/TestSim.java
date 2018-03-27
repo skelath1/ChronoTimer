@@ -20,21 +20,21 @@ public class TestSim {
         ch.execute("NUM", "366");
         ch.execute("TRIG", "1");
         try{
-            Thread.sleep(3000);
+            Thread.sleep(1000);
         }catch(Exception ex){
             System.out.println("Interrupted...");
         }
         ch.execute("TRIG", "2");
         ch.execute("TRIG", "1");
         try{
-            Thread.sleep(4000);
+            Thread.sleep(500);
         }catch(Exception ex){
             System.out.println("Interrupted...");
         }
         ch.execute("triG","2" );
         ch.execute("TriG","1" );
         try{
-            Thread.sleep(5000);
+            Thread.sleep(500);
         }catch(Exception ex){
             System.out.println("Interrupted...");
         }
@@ -138,5 +138,40 @@ public class TestSim {
         ch.execute("EXPORT", "2");
         ch.execute("POWER", null);
         ch.execute("EXIT", null);
+    }
+    @Test
+    public void testTimeBetween(){
+        ChronoTimer ch = new ChronoTimer();
+        ch.execute("POWER",null);
+        ch.execute("TIME", "5:00:00.0");
+        ch.execute("EVENT", "IND");
+        ch.execute("NEWRUN", null);
+        ch.execute("TOG", "1");
+        ch.execute("TOG", "2");
+        ch.execute("NUM", "123");
+        ch.execute("TRIG", "1");
+        ch.execute("TIME", "7:00:00.0");
+        ch.execute("TRIG", "2");
+        ch.execute("PRINT", null);
+        ch.execute("ENDRUN", null);
+        ch.execute("POWER", null);
+        ch.execute("EXIT", null);
+        //when time isn't set beforehand
+        ChronoTimer ch2 = new ChronoTimer();
+        ch2.execute("POWER",null);
+        ch2.execute("EVENT", "IND");
+        ch2.execute("NEWRUN", null);
+        ch2.execute("TOG", "1");
+        ch2.execute("TOG", "2");
+        ch2.execute("NUM", "123");
+        ch2.execute("TRIG", "1");
+        ch2.execute("TIME", "7:00:00.0");
+        ch2.execute("TRIG", "2");
+        ch2.execute("PRINT", null);
+        ch2.execute("ENDRUN", null);
+        ch2.execute("POWER", null);
+        ch2.execute("EXIT", null);
+
+
     }
 }

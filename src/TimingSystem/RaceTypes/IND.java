@@ -91,12 +91,12 @@ public class IND implements RaceType {
      */
     @Override
     public void swap() {
-//        if(_racerQueue.size() >= 2) {
-//            Racer r1 = _racerQueue.removeFirst();
-//            Racer r2 = _racerQueue.removeFirst();
-//            _racerQueue.addFirst(r2);
-//            _racerQueue.addFirst(r1);
-//        }
+        if(_racerQueue.size() >= 2) {
+            Racer r1 = _racerQueue.removeFirst();
+            Racer r2 = _racerQueue.removeFirst();
+            _racerQueue.addFirst(r2);
+            _racerQueue.addFirst(r1);
+        }
     }
 
     /**

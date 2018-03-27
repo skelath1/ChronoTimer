@@ -31,9 +31,9 @@ public class Simulation {
                 stdIn = new Scanner(new File("input.txt"));
 
                 while(stdIn.hasNext()){
-                    String str = stdIn.nextLine();
-                    //System.out.println(str);
-                    String[] strArr = str.split("\t");
+                    String line = stdIn.nextLine();
+
+                    String[] strArr = line.split("\t");
                     String st = strArr[0];
                     if(strArr.length > 1){
                         String[] strArr1 = strArr[1].split(" ");
@@ -71,8 +71,8 @@ public class Simulation {
         } else{
             // Console
             while(true){
-                String str = stdIn.nextLine();
-                String[] strArr = str.split(" ");
+                String line = stdIn.nextLine();
+                String[] strArr = line.split(" ");
                 if(strArr.length == 1)
                     chronoTimer.execute(strArr[0], null);
                 else if(strArr.length < 3)
