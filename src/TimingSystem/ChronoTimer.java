@@ -75,7 +75,7 @@ public class ChronoTimer {
                 }
                 break;
             case "TOG":
-                if(runCalled){
+                if(runCalled && value != null){
                     //-1 for the index
                     eventCalled = true; // too late to call event
                     if(event == null) {
@@ -87,13 +87,14 @@ public class ChronoTimer {
                 }
                 break;
             case "NUM":
-                if(runCalled){
+                if(runCalled && value != null){
                     eventCalled = true; // too late to call event
                     event.addRacer(Integer.parseInt(value));
                 }
                 break;
             case "TRIG":
-                if(runCalled){
+
+                if(runCalled && value != null){
                     int channelNum = Integer.parseInt(value);
                     //if it is odd then it is the start
                     if((channelNum % 2) != 0) {
@@ -292,6 +293,12 @@ public class ChronoTimer {
             case "EXPORT":
                 //checking whether event run exists to be exported
                 this.execute(command, value);
+                break;
+            case "SWAP":
+
+                if(runCalled)
+                    event.swap();
+
                 break;
 
             default:
