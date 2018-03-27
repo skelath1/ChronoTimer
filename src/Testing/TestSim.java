@@ -20,21 +20,21 @@ public class TestSim {
         ch.execute("NUM", "366");
         ch.execute("TRIG", "1");
         try{
-            Thread.sleep(3000);
+            Thread.sleep(500);
         }catch(Exception ex){
             System.out.println("Interrupted...");
         }
         ch.execute("TRIG", "2");
         ch.execute("TRIG", "1");
         try{
-            Thread.sleep(4000);
+            Thread.sleep(500);
         }catch(Exception ex){
             System.out.println("Interrupted...");
         }
         ch.execute("triG","2" );
         ch.execute("TriG","1" );
         try{
-            Thread.sleep(5000);
+            Thread.sleep(500);
         }catch(Exception ex){
             System.out.println("Interrupted...");
         }
@@ -86,33 +86,33 @@ public class TestSim {
         ch.execute("NUM", "58");
         ch.execute("TRIG", "1");
         try{
-            Thread.sleep(1000);
+            Thread.sleep(250);
         }catch(Exception ex){
             System.out.println("Interrupted...");
         }
         ch.execute("TRIG", "3");
         try{
-            Thread.sleep(1000);
+            Thread.sleep(250);
         }catch(Exception ex){
             System.out.println("Interrupted...");
         }
         ch.execute("TRIG", "3");
         try{
-            Thread.sleep(1000);
+            Thread.sleep(250);
         }catch(Exception ex){
             System.out.println("Interrupted...");
         }
         ch.execute("TRIG", "1");
         ch.execute("TRIG", "2");
         try{
-            Thread.sleep(1000);
+            Thread.sleep(250);
         }catch(Exception ex){
             System.out.println("Interrupted...");
         }
         ch.execute("TRIG", "2");
         ch.execute("TRIG", "4");
         try{
-            Thread.sleep(1000);
+            Thread.sleep(250);
         }catch(Exception ex){
             System.out.println("Interrupted...");
         }
@@ -127,7 +127,7 @@ public class TestSim {
         ch.execute("TRIG", "1");
         ch.execute("TRIG", "1");
         try{
-            Thread.sleep(3000);
+            Thread.sleep(250);
         }catch(Exception ex){
             System.out.println("Interrupted...");
         }

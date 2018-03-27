@@ -71,7 +71,12 @@ public class ChronoTimer {
             case "NEWRUN":
                 if((curState.equals(State.EVENT) || curState.equals(State.ON)) && !runCalled){
                     runCalled =true;
-                    event.newRun(sysTime.getSysTime());
+                    if(eventCalled)
+                        event.newRun(sysTime.getSysTime());
+                    else{
+                        event = new Event(channels);
+                        event.newRun(sysTime.getSysTime());
+                    }
                 }
                 break;
             case "TOG":

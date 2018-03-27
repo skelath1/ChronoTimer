@@ -7,12 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 
-import Util.Time;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
-import static java.lang.System.exit;
 
 public class Simulation {
     public static void main(String[] args) {
@@ -90,7 +85,7 @@ public class Simulation {
             System.out.println("\n"+value);
         }
         else if(command.equalsIgnoreCase("EXIT")){
-            exit(1);
+            System.exit(1);
         }
 
     }
