@@ -45,6 +45,9 @@ public class Event implements RaceType{
             case "PARGRP":
                 _racetype = new PARGRP(channels);
                 break;
+            default:
+                _racetype = new IND(channels);
+                break;
         }
         runs = new ArrayList<>();
         _time = time.getSysTime();
@@ -57,8 +60,6 @@ public class Event implements RaceType{
 
     @Override
     public void addRacer(int bibNumber) {
-        if(_racetype == null)
-            System.out.println("racetype is null");
         _racetype.addRacer(bibNumber);
     }
 
