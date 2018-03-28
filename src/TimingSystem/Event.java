@@ -22,6 +22,7 @@ public class Event implements RaceType{
      */
     public Event(Channel[] channels){
         this("IND",channels);
+
     }
 
     /**
@@ -31,7 +32,7 @@ public class Event implements RaceType{
      */
     public Event(String racetype, Channel[] channels){
         Time time = new Time();
-        switch(racetype){
+        switch(racetype.toUpperCase()){
             case "IND":
                 _racetype = new IND(channels);
                 break;
@@ -56,6 +57,8 @@ public class Event implements RaceType{
 
     @Override
     public void addRacer(int bibNumber) {
+        if(_racetype == null)
+            System.out.println("racetype is null");
         _racetype.addRacer(bibNumber);
     }
 
