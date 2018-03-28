@@ -73,12 +73,11 @@ public class ChronoTimer {
             case "NEWRUN":
                 if((curState.equals(State.EVENT) || curState.equals(State.ON)) && !runCalled){
                     runCalled =true;
-                    if(eventCalled)
-                        event.newRun(sysTime.getSysTime());
-                    else{
+                    if(event == null){
                         event = new Event(channels);
-                        event.newRun(sysTime.getSysTime());
+
                     }
+                    event.newRun(sysTime.getSysTime());
                 }
                 break;
             case "TOG":
@@ -95,6 +94,8 @@ public class ChronoTimer {
                 break;
             case "NUM":
                 if(runCalled && isNum(value)){
+                    if(event == null)
+                        System.out.println("event is null");
                     eventCalled = true; // too late to call event
                     event.addRacer(Integer.parseInt(value));
                 }
@@ -229,6 +230,9 @@ public class ChronoTimer {
             case "NEWRUN":
                 if((curState.equals(State.EVENT) || curState.equals(State.ON)) && !runCalled){
                     runCalled =true;
+                    if(event == null)
+                        event = new Event(channels);
+
                     event.newRun(time);
                 }
                 break;
