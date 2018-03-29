@@ -38,7 +38,18 @@ public class ChronoGUI {
     private JButton a8Button;
     private JButton a9Button;
     private JButton a0Button;
+    private JTextPane textPane1;
+    private JTextPane textPane2;
+    private JTextPane textPane3;
+    private JTextPane textPane4;
+    private JPanel NumPadPanel;
     private JButton button12;
+    private JButton button1;
+    private JButton button3;
+    private JButton button2;
+    private JButton button4;
+    private JButton button5;
+    private JButton button6;
     private static ChronoTimer chronoTimer;
 
     public ChronoGUI() {
@@ -50,11 +61,11 @@ public class ChronoGUI {
         });
     }
 
-    public static void main(String []args) {
+    public static void main(String[] args) {
         JFrame frame = new JFrame("ChronoGoo");
         frame.setContentPane(new ChronoGUI().panel1);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(1260, 768));//
+        frame.setMinimumSize(new Dimension(1260, 768));
         frame.pack();
         frame.setVisible(true);
 
@@ -62,6 +73,5 @@ public class ChronoGUI {
         Simulation sim = new Simulation(chronoTimer);
         sim.doInput();
     }
-
 
 }
