@@ -54,7 +54,7 @@ public class ChronoGUI {
         JFrame frame = new JFrame("ChronoGoo");
         frame.setContentPane(new ChronoGUI().panel1);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(1260, 768));
+        frame.setMinimumSize(new Dimension(1260, 768));//
         frame.pack();
         frame.setVisible(true);
 
