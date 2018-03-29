@@ -47,9 +47,7 @@ public class ChronoTimer {
             return;
         switch(command.toUpperCase())
         {
-            case "SAVE":
-                event.saveRun();
-                break;
+
             case "POWER":
                 if(curState.equals(State.OFF)){
                     curState = State.ON;
@@ -73,11 +71,9 @@ public class ChronoTimer {
             case "NEWRUN":
                 if((curState.equals(State.EVENT) || curState.equals(State.ON)) && !runCalled){
                     runCalled =true;
-                    if(event == null){
-                        event = new Event(channels);
 
-                    }
-                    event.newRun(sysTime.getSysTime());
+                    if(event != null)
+                        event.newRun(sysTime.getSysTime());
                 }
                 break;
             case "TOG":
@@ -87,6 +83,7 @@ public class ChronoTimer {
                     if(event == null) {
                         //creating a new event
                         event = new Event(channels);
+                        event.newRun(sysTime.getSysTime());
                     }
                     int channelIndex = Integer.parseInt(value) - 1;
                     channels[channelIndex].toggle();
@@ -94,14 +91,15 @@ public class ChronoTimer {
                 break;
             case "NUM":
                 if(runCalled && isNum(value)){
-                    if(event == null)
-                        System.out.println("event is null");
                     eventCalled = true; // too late to call event
+                    if(event == null) {
+                        event = new Event(channels);
+                        event.newRun(sysTime.getSysTime());
+                    }
                     event.addRacer(Integer.parseInt(value));
                 }
                 break;
             case "TRIG":
-
                 if(runCalled && isNum(value)){
                     int channelNum = Integer.parseInt(value);
                     //if it is odd then it is the start
@@ -180,6 +178,9 @@ public class ChronoTimer {
                     }
                 }
                 break;
+            case "SAVE":
+                event.saveRun();
+                break;
 
             case "SWAP":
 
@@ -189,7 +190,7 @@ public class ChronoTimer {
                 break;
 
             default:
-                Simulation.execute("PRINT", "Invalide command: " + command);
+                Simulation.execute("PRINT", "Invalid command: " + command);
         }
     }
 
@@ -230,30 +231,36 @@ public class ChronoTimer {
             case "NEWRUN":
                 if((curState.equals(State.EVENT) || curState.equals(State.ON)) && !runCalled){
                     runCalled =true;
-                    if(event == null)
-                        event = new Event(channels);
-
                     event.newRun(time);
                 }
                 break;
             case "TOG":
+                eventCalled = true; // too late to call event
                 if(runCalled && isNum(value)){
-                    eventCalled = true; // too late to call event
+
+                    if(event == null) {
+                        //creating a new event
+                        event = new Event(channels);
+                        event.newRun(sysTime.getSysTime());
+                    }
                     int channelIndex = Integer.parseInt(value) - 1;
                     channels[channelIndex].toggle();
                 }
                 break;
             case "NUM":
+                eventCalled = true; // too late to call event
+
                 if(runCalled && isNum(value)){
-                    eventCalled = true; // too late to call event
+                    if(event == null) {
+                        event = new Event(channels);
+                        event.newRun(sysTime.getSysTime());
+                    }
                     event.addRacer(Integer.parseInt(value));
                 }
                 break;
             case "TRIG":
                 if(runCalled && isNum(value)){
-
                     int channelNum = Integer.parseInt(value);
-
                     //if it is odd then it is the start
                     if((channelNum % 2) != 0)
                         event.setStartTime(Time.stringToMilliseconds(time), channelNum);
@@ -315,14 +322,12 @@ public class ChronoTimer {
                 this.execute(command, value);
                 break;
             case "SWAP":
-
                 if(runCalled)
                     event.swap();
-
                 break;
 
             default:
-                Simulation.execute("PRINT", "Invalide command: " + command);
+                Simulation.execute("PRINT", "Invalid command: " + command);
         }
 
 
