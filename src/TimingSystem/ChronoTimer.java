@@ -2,7 +2,7 @@ package TimingSystem;
 
 import TimingSystem.Hardware.Channel;
 import Util.*;
-import com.sun.xml.internal.ws.util.StringUtils;
+
 
 import java.util.ArrayList;
 
@@ -42,7 +42,6 @@ public class ChronoTimer {
      */
     public void execute(String command, String value){
         Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value);
-        //Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString()+ " runCalled " + runCalled + " eventCalled " + eventCalled);
         if(command == null)
             return;
         switch(command.toUpperCase())
@@ -104,10 +103,8 @@ public class ChronoTimer {
                     int channelNum = Integer.parseInt(value);
                     //if it is odd then it is the start
                     if((channelNum % 2) != 0) {
-                        //System.out.println(sysTime.getSysTime());
                         event.setStartTime(Time.stringToMilliseconds(sysTime.getSysTime()), channelNum);
                     }else {
-                        //System.out.println(sysTime.getSysTime());
                         event.setFinishTime(Time.stringToMilliseconds(sysTime.getSysTime()), Integer.parseInt(value));
                     }
                 }
@@ -202,7 +199,7 @@ public class ChronoTimer {
      */
     public void execute(String time, String command, String value){
         Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value);
-        //Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString() + " runCalled " + runCalled + " eventCalled " + eventCalled);
+
         if(command == null)
             return;
         sysTime.setSysTime(time);
@@ -363,11 +360,12 @@ public class ChronoTimer {
 
     private boolean isNum(String s){
 
-        if(s != null)
-            if (s.charAt(0) <= 57 && s.charAt(0) >= 48) {
-                return true;
-            }
+        try{
+            int x = Integer.parseInt(s);
+        }catch(NumberFormatException ex){
+            return false;
+        }
+        return true;
 
-        return false;
     }
 }

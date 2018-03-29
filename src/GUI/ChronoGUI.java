@@ -1,7 +1,12 @@
 package GUI;
 
+import TimingSystem.ChronoTimer;
+import TimingSystem.Simulation;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ChronoGUI {
     private JPanel panel1;
@@ -34,14 +39,29 @@ public class ChronoGUI {
     private JButton a9Button;
     private JButton a0Button;
     private JButton button12;
+    private static ChronoTimer chronoTimer;
 
-    public static void main(String[] args) {
+    public ChronoGUI() {
+        powerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                chronoTimer.execute("POWER",null);
+            }
+        });
+    }
+
+    public static void main(String []args) {
         JFrame frame = new JFrame("ChronoGoo");
         frame.setContentPane(new ChronoGUI().panel1);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(1260, 768));
         frame.pack();
         frame.setVisible(true);
+
+        chronoTimer = new ChronoTimer();
+        Simulation sim = new Simulation(chronoTimer);
+        sim.doInput();
     }
+
 
 }

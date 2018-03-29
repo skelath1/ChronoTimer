@@ -15,8 +15,12 @@ import com.google.gson.JsonObject;
 import static java.lang.System.exit;
 
 public class Simulation {
-    public static void main(String[] args) {
-        ChronoTimer chronoTimer = new ChronoTimer();
+    private ChronoTimer chronoTimer;
+    public Simulation(ChronoTimer chronoTimer) {
+        this.chronoTimer = chronoTimer;
+    }
+    public void doInput(){
+
         Scanner stdIn = new Scanner(System.in);
 
         String s;
