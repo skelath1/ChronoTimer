@@ -39,22 +39,22 @@ public class Simulation {
 
                     String[] strArr = line.split(" ");
                     String st = strArr[0];
-                    if(strArr.length > 1){
-                        String[] strArr1 = strArr[1].split(" ");
+                    //if(strArr.length > 1){
+                       // String[] strArr1 = strArr[1].split(" ");
 
-                        if(strArr1.length > 1){
-                            strArr = new String[3];
+                        //if(strArr1.length > 1){
+                         //   strArr = new String[3];
 
-                            strArr[0] = st;
-                            strArr[1] = strArr1[0];
-                            strArr[2] = strArr1[1];
-                        }
-                        else{
-                            strArr = new String[2];
-                            strArr[0] = st;
-                            strArr[1] = strArr1[0];
-                        }
-                    }
+                         //   strArr[0] = st;
+                        //    strArr[1] = strArr1[0];
+                       //     strArr[2] = strArr1[1];
+                       // }
+                        //else{
+                        //    strArr = new String[2];
+                       //     strArr[0] = st;
+                       //     strArr[1] = strArr1[0];
+                     //   }
+                   // }
 
                     if(strArr.length ==1)
                         chronoTimer.execute(strArr[0], null);
@@ -94,7 +94,7 @@ public class Simulation {
             System.out.println("\n"+value);
         }
         else if(command.equalsIgnoreCase("EXIT")){
-            exit(1);
+            System.exit(0);
         }
 
     }
