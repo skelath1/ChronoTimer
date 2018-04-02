@@ -90,7 +90,6 @@ public class Simulation {
         }
         else if(command.equalsIgnoreCase("EXIT")){
             System.exit(0);
-            System.exit(1);
         }
 
     }
