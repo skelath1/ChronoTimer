@@ -71,7 +71,7 @@ public class Simulation {
             // Console
             while(true){
                 String line = stdIn.nextLine();
-                String[] strArr = line.split(" ");
+                String[] strArr = line.split("\\s+");
                 if(strArr.length == 1)
                     chronoTimer.execute(strArr[0], null);
                 else if(strArr.length < 3)

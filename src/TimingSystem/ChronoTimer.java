@@ -149,7 +149,8 @@ public class ChronoTimer {
                 break;
             case "EXPORT":
                 //checking whether event run exists to be exported
-                if(!eventList.isEmpty() && curState == State.ON){
+                System.out.println(eventList.isEmpty());
+                if(!eventList.isEmpty() && (curState == State.EVENT || curState == State.ON)){
                     Event latest;
                     if(value == null){//get latest run
                         int runNumber = eventList.size();
