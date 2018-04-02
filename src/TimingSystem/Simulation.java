@@ -37,7 +37,7 @@ public class Simulation {
                 while(stdIn.hasNext()){
                     String line = stdIn.nextLine();
 
-                    String[] strArr = line.split(" ");
+                    String[] strArr = line.split("\\s+");
                     String st = strArr[0];
                     //if(strArr.length > 1){
                        // String[] strArr1 = strArr[1].split(" ");
