@@ -2,8 +2,6 @@ package TimingSystem;
 
 import TimingSystem.Hardware.Channel;
 import Util.*;
-
-
 import java.util.ArrayList;
 
 public class ChronoTimer {
@@ -31,6 +29,7 @@ public class ChronoTimer {
         for(int i = 0; i < 7; ++i) {
             channels[i] = new Channel(i+1);
         }
+
         eventList = new ArrayList<>();
 
     }
@@ -41,20 +40,18 @@ public class ChronoTimer {
      * Takes in command from TimingSystem.Simulation and executes it.
      */
     public void execute(String command, String value){
-        Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value);
-        if(command == null)
-            return;
+        Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString()+ " runCalled " + runCalled + " eventCalled " + eventCalled);
         switch(command.toUpperCase())
         {
-
+            case "SAVE":
+                event.saveRun();
+                break;
             case "POWER":
                 if(curState.equals(State.OFF)){
                     curState = State.ON;
                 }
-                else {
+                else
                     curState = State.OFF;
-                    clearFields();
-                }
                 break;
             case "EVENT":
                 if(curState.equals(State.ON) && !eventCalled) {
@@ -70,56 +67,47 @@ public class ChronoTimer {
             case "NEWRUN":
                 if((curState.equals(State.EVENT) || curState.equals(State.ON)) && !runCalled){
                     runCalled =true;
-
-                    if(event != null)
-                        event.newRun(sysTime.getSysTime());
                 }
                 break;
             case "TOG":
-                if(runCalled && isNum(value)){
+                if(runCalled){
                     //-1 for the index
                     eventCalled = true; // too late to call event
                     if(event == null) {
                         //creating a new event
                         event = new Event(channels);
-                        event.newRun(sysTime.getSysTime());
                     }
                     int channelIndex = Integer.parseInt(value) - 1;
                     channels[channelIndex].toggle();
                 }
                 break;
             case "NUM":
-                if(runCalled && isNum(value)){
+                if(runCalled){
                     eventCalled = true; // too late to call event
-                    if(event == null) {
-                        event = new Event(channels);
-                        event.newRun(sysTime.getSysTime());
-                    }
                     event.addRacer(Integer.parseInt(value));
                 }
                 break;
             case "TRIG":
-                if(runCalled && isNum(value)){
+                if(runCalled){
                     int channelNum = Integer.parseInt(value);
                     //if it is odd then it is the start
-                    if((channelNum % 2) != 0) {
-                        event.setStartTime(Time.stringToMilliseconds(sysTime.getSysTime()), channelNum);
-                    }else {
-                        event.setFinishTime(Time.stringToMilliseconds(sysTime.getSysTime()), Integer.parseInt(value));
-                    }
+                    if((channelNum % 2) != 0)
+                        event.setStartTime(System.currentTimeMillis(), channelNum);
+                    else
+                        event.setFinishTime(System.currentTimeMillis(), Integer.parseInt(value));
                 }
                 break;
             //same as TRIG 1
             case "START":
                 if(runCalled){
-                    event.setStartTime(Time.stringToMilliseconds(sysTime.getSysTime()), 1);
+                    event.setStartTime(System.currentTimeMillis(), 1);
                 }
                 break;
 
             //same as TRIG 2
             case "FINISH":
                 if(runCalled){
-                    event.setFinishTime(Time.stringToMilliseconds(sysTime.getSysTime()), 2);
+                    event.setFinishTime(System.currentTimeMillis(), 2);
                 }
                 break;
             case "PRINT":
@@ -150,44 +138,29 @@ public class ChronoTimer {
                 }
                 break;
             case "EXIT":
-                if(runCalled || curState.equals(State.ON) || curState.equals(State.EVENT)){
+                if(runCalled){
                     Simulation.execute("EXIT",null);
                 }
                 break;
             case "TIME":
-                if(runCalled || curState.equals(State.ON) || curState.equals(State.EVENT)){
+                if(runCalled){
                     sysTime.setSysTime(value);
                 }
                 break;
             case "EXPORT":
                 //checking whether event run exists to be exported
                 if(!eventList.isEmpty() && curState == State.ON){
-                    //get latest run
-                    if(value == null){
+                    Event latest;
+                    if(value == null){//get latest run
                         int runNumber = eventList.size();
-                        Event latest =  eventList.get(eventList.size()-1);
+                        latest =  eventList.get(eventList.size()-1);
                         Simulation.export(latest.sendRuns(), Integer.toString(runNumber));
-                    }
-                    //else get run from value given
-                    else{
-                        Event latest = eventList.get(Integer.parseInt(value)-1);
+                    }else{//else get run from value given
+                        latest = eventList.get(Integer.parseInt(value)-1);
                         Simulation.export(latest.sendRuns(), value);
                     }
                 }
                 break;
-            case "SAVE":
-                event.saveRun();
-                break;
-
-            case "SWAP":
-
-                if(runCalled)
-                    event.swap();
-
-                break;
-
-            default:
-                Simulation.execute("PRINT", "Invalid command: " + command);
         }
     }
 
@@ -198,11 +171,7 @@ public class ChronoTimer {
      * Takes in command from TimingSystem.Simulation and executes it.
      */
     public void execute(String time, String command, String value){
-        Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value);
-
-        if(command == null)
-            return;
-        sysTime.setSysTime(time);
+        Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString() + " runCalled " + runCalled + " eventCalled " + eventCalled);
         switch(command.toUpperCase())
         {
             case "SAVE":
@@ -228,41 +197,30 @@ public class ChronoTimer {
             case "NEWRUN":
                 if((curState.equals(State.EVENT) || curState.equals(State.ON)) && !runCalled){
                     runCalled =true;
-                    event.newRun(time);
                 }
                 break;
             case "TOG":
-                eventCalled = true; // too late to call event
-                if(runCalled && isNum(value)){
-
-                    if(event == null) {
-                        //creating a new event
-                        event = new Event(channels);
-                        event.newRun(sysTime.getSysTime());
-                    }
+                if(runCalled){
+                    eventCalled = true; // too late to call event
                     int channelIndex = Integer.parseInt(value) - 1;
                     channels[channelIndex].toggle();
                 }
                 break;
             case "NUM":
-                eventCalled = true; // too late to call event
-
-                if(runCalled && isNum(value)){
-                    if(event == null) {
-                        event = new Event(channels);
-                        event.newRun(sysTime.getSysTime());
-                    }
-                    event.addRacer(Integer.parseInt(value));
+                if(runCalled){
+                    eventCalled = true; // too late to call event
+                    event.addRacer(Integer.valueOf(value));
                 }
                 break;
             case "TRIG":
-                if(runCalled && isNum(value)){
+                if(runCalled){
                     int channelNum = Integer.parseInt(value);
+
                     //if it is odd then it is the start
                     if((channelNum % 2) != 0)
                         event.setStartTime(Time.stringToMilliseconds(time), channelNum);
                     else
-                        event.setFinishTime(Time.stringToMilliseconds(time), channelNum);
+                        event.setFinishTime(Time.stringToMilliseconds(time), Integer.parseInt(value));
                 }
                 break;
             //same as TRIG 1
@@ -305,40 +263,26 @@ public class ChronoTimer {
                 }
                 break;
             case "EXIT":
-                if(runCalled || curState.equals(State.ON) || curState.equals(State.EVENT)){
+                if(runCalled){
                     Simulation.execute("EXIT",null);
                 }
                 break;
             case "TIME":
-                if(runCalled || curState.equals(State.ON) || curState.equals(State.EVENT)){
-                    sysTime.setSysTime(time);
+                if(runCalled){
+                    //do nothing
                 }
                 break;
             case "EXPORT":
                 //checking whether event run exists to be exported
                 this.execute(command, value);
                 break;
-            case "SWAP":
-                if(runCalled)
-                    event.swap();
-                break;
-
-            default:
-                Simulation.execute("PRINT", "Invalid command: " + command);
         }
-
-
-        sysTime.setSysTime(time);
-
     }
 
     /**
      * resets all the fields for RESET
      */
     private void clearFields(){
-        eventCalled = false;
-        runCalled = false;
-        timeSet = false;
         curState = State.OFF;
         channels = new Channel[8];
         for(int i = 0; i < 7; ++i) {
@@ -357,15 +301,4 @@ public class ChronoTimer {
         return sysTime;
     }
     private String getState(){return curState.toString();}
-
-    private boolean isNum(String s){
-
-        try{
-            int x = Integer.parseInt(s);
-        }catch(NumberFormatException ex){
-            return false;
-        }
-        return true;
-
-    }
 }
