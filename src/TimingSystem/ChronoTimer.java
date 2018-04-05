@@ -29,9 +29,7 @@ public class ChronoTimer {
         for(int i = 0; i < 7; ++i) {
             channels[i] = new Channel(i+1);
         }
-
         eventList = new ArrayList<>();
-
     }
 
     /**
@@ -50,8 +48,10 @@ public class ChronoTimer {
                 if(curState.equals(State.OFF)){
                     curState = State.ON;
                 }
-                else
+                else{
+                    clearFields();
                     curState = State.OFF;
+                }
                 break;
             case "EVENT":
                 if(curState.equals(State.ON) && !eventCalled) {
@@ -162,6 +162,10 @@ public class ChronoTimer {
                     }
                 }
                 break;
+            case "RESET":
+                clearFields();
+                curState = State.ON;
+                break;
         }
     }
 
@@ -182,8 +186,10 @@ public class ChronoTimer {
                 if(curState.equals(State.OFF)){
                     curState = State.ON;
                 }
-                else
+                else {
+                    clearFields();
                     curState = State.OFF;
+                }
                 break;
             case "EVENT":
                 if(curState.equals(State.ON) && !eventCalled) {
@@ -277,6 +283,10 @@ public class ChronoTimer {
                 //checking whether event run exists to be exported
                 this.execute(command, value);
                 break;
+            case "RESET":
+                clearFields();
+                curState = State.ON;
+                break;
         }
     }
 
@@ -284,11 +294,9 @@ public class ChronoTimer {
      * resets all the fields for RESET
      */
     private void clearFields(){
-        curState = State.OFF;
-        channels = new Channel[8];
-        for(int i = 0; i < 7; ++i) {
-            channels[i] = new Channel(i+1);
-        }
+
+        runCalled = false;
+        eventCalled = false;
         eventList = new ArrayList<>();
         event = null;
     }
@@ -302,4 +310,9 @@ public class ChronoTimer {
         return sysTime;
     }
     private String getState(){return curState.toString();}
+
+    private void reset(){
+
+
+    }
 }
