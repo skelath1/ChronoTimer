@@ -2,6 +2,8 @@ package TimingSystem;
 
 import TimingSystem.Hardware.Channel;
 import Util.*;
+
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class ChronoTimer {
@@ -42,50 +44,24 @@ public class ChronoTimer {
         switch(command.toUpperCase())
         {
             case "SAVE":
-                event.saveRun();
+                saveRun();
                 break;
             case "POWER":
-                if(curState.equals(State.OFF)){
-                    curState = State.ON;
-                }
-                else{
-                    clearFields();
-                    curState = State.OFF;
-                }
+                power();
                 break;
             case "EVENT":
-                if(curState.equals(State.ON) && !eventCalled) {
-                    if(value == null)
-                        event = new Event(channels);
-                    else
-                        event = new Event(value, channels);
-
-                    curState = State.EVENT;
-                    eventCalled = true;
-                }
+                event(value);
                 break;
             case "NEWRUN":
-                if((curState.equals(State.EVENT) || curState.equals(State.ON)) && !runCalled){
-                    runCalled =true;
-                }
+                newRun();
                 break;
             case "TOG":
-                if(runCalled){
-                    //-1 for the index
-                    eventCalled = true; // too late to call event
-                    if(event == null) {
-                        //creating a new event
-                        event = new Event(channels);
-                    }
-                    int channelIndex = Integer.parseInt(value) - 1;
-                    channels[channelIndex].toggle();
-                }
+                //error check value for valid string to num
+                tog(value);
                 break;
             case "NUM":
-                if(runCalled){
-                    eventCalled = true; // too late to call event
-                    event.addRacer(Integer.parseInt(value));
-                }
+                //error check value for valid string to num
+                num(value);
                 break;
             case "TRIG":
                 if(runCalled){
@@ -103,7 +79,6 @@ public class ChronoTimer {
                     event.setStartTime(System.currentTimeMillis(), 1);
                 }
                 break;
-
             //same as TRIG 2
             case "FINISH":
                 if(runCalled){
@@ -111,36 +86,19 @@ public class ChronoTimer {
                 }
                 break;
             case "PRINT":
-                if(runCalled){
-                    //send to simulation to print
-                    Simulation.execute("PRINT",event.printResults());
-                }
+                print(value);
                 break;
             case "ENDRUN":
-                if(runCalled && event!= null){
-                    eventList.add(event);
-                    event.saveRun();
-                    curState = State.ON;
-                    runCalled =false;
-                    eventCalled = false;
-                }
+               endRun();
                 break;
             case "DNF":
-                if(runCalled){
-                    //assign the next up racer the DNF tag represented by -1 right now
-                    event.setFinishTime(-1, 0);
-                }
+               dnf();
                 break;
             case "CANCEL":
-                if(runCalled){
-                    //put the racer back in the queue at the beginning
-                    event.cancelRacer();
-                }
+                cancel();
                 break;
             case "EXIT":
-                if(runCalled){
-                    Simulation.execute("EXIT",null);
-                }
+               exit();
                 break;
             case "TIME":
                 if(runCalled){
@@ -148,27 +106,13 @@ public class ChronoTimer {
                 }
                 break;
             case "EXPORT":
-                //checking whether event run exists to be exported
-                System.out.println(eventList.isEmpty());
-                if(!eventList.isEmpty() && (curState == State.EVENT || curState == State.ON)){
-                    Event latest;
-                    if(value == null){//get latest run
-                        int runNumber = eventList.size();
-                        latest =  eventList.get(eventList.size()-1);
-                        Simulation.export(latest.sendRuns(), Integer.toString(runNumber));
-                    }else{//else get run from value given
-                        latest = eventList.get(Integer.parseInt(value)-1);
-                        Simulation.export(latest.sendRuns(), value);
-                    }
-                }
+                export(value);
                 break;
             case "RESET":
-                clearFields();
-                curState = State.ON;
+                reset();
                 break;
         }
     }
-
     /**
      * @param time String
      * @param command String
@@ -180,44 +124,24 @@ public class ChronoTimer {
         switch(command.toUpperCase())
         {
             case "SAVE":
-                event.saveRun();
+                saveRun();
                 break;
             case "POWER":
-                if(curState.equals(State.OFF)){
-                    curState = State.ON;
-                }
-                else {
-                    clearFields();
-                    curState = State.OFF;
-                }
+                power();
                 break;
             case "EVENT":
-                if(curState.equals(State.ON) && !eventCalled) {
-                    if(value == null)
-                        event = new Event(channels);
-                    else
-                        event = new Event(value, channels);
-                    curState = State.EVENT;
-                    eventCalled = true;
-                }
+                event(value);
                 break;
             case "NEWRUN":
-                if((curState.equals(State.EVENT) || curState.equals(State.ON)) && !runCalled){
-                    runCalled =true;
-                }
+                newRun();
                 break;
             case "TOG":
-                if(runCalled){
-                    eventCalled = true; // too late to call event
-                    int channelIndex = Integer.parseInt(value) - 1;
-                    channels[channelIndex].toggle();
-                }
+                //error check value for valid string to num
+                tog(value);
                 break;
             case "NUM":
-                if(runCalled){
-                    eventCalled = true; // too late to call event
-                    event.addRacer(Integer.valueOf(value));
-                }
+                //error check value for valid string to num
+                num(value);
                 break;
             case "TRIG":
                 if(runCalled){
@@ -243,64 +167,35 @@ public class ChronoTimer {
                 }
                 break;
             case "PRINT":
-                if(runCalled){
-                    //send to simulation to print
-                    Simulation.execute("PRINT",event.printResults());
-                }
+                print(value);
                 break;
             case "ENDRUN":
-                if(runCalled){
-                    eventList.add(event);
-                    event.saveRun();
-                    curState = State.ON;
-                    runCalled =false;
-                    eventCalled = false;
-                }
+                endRun();
                 break;
             case "DNF":
-                if(runCalled){
-                    //assign the next up racer the DNF tag represented by -1 right now
-                    event.setFinishTime(-1,0);
-                }
+                dnf();
                 break;
             case "CANCEL":
-                if(runCalled){
-                    //put the racer back in the queue at the beginning
-                    event.cancelRacer();
-                }
+                cancel();
                 break;
             case "EXIT":
-                if(runCalled){
-                    Simulation.execute("EXIT",null);
-                }
+                exit();
                 break;
             case "TIME":
                 if(runCalled){
-                    //do nothing
+                    sysTime.setSysTime(value);
                 }
                 break;
             case "EXPORT":
-                //checking whether event run exists to be exported
-                this.execute(command, value);
+                export(value);
                 break;
             case "RESET":
-                clearFields();
-                curState = State.ON;
+                reset();
                 break;
         }
     }
 
-    /**
-     * resets all the fields for RESET
-     */
-    private void clearFields(){
-
-        runCalled = false;
-        eventCalled = false;
-        eventList = new ArrayList<>();
-        event = null;
-    }
-
+    //util methods
     /**
      *
      * @return sysTime
@@ -311,8 +206,145 @@ public class ChronoTimer {
     }
     private String getState(){return curState.toString();}
 
+
+    //case methods
+    private void saveRun(){
+        event.saveRun();
+    }
+    private void power(){
+        if(curState.equals(State.OFF)){
+            curState = State.ON;
+        }
+        else{
+            //disable channels
+            runCalled = false;
+            eventCalled = false;
+            eventList = new ArrayList<>();
+            event = null;
+            curState = State.OFF;
+        }
+    }
+    private void newRun(){
+        if((curState.equals(State.EVENT) || curState.equals(State.ON)) && !runCalled){
+            runCalled =true;
+        }
+
+    }
+    private void event(String value){
+        if(curState.equals(State.ON) && !eventCalled) {
+            if(value == null)
+                event = new Event(channels);
+            else {
+                event = new Event(value, channels);
+            }
+            curState = State.EVENT;
+            eventCalled = true;
+        }
+    }
+    private void tog(String value){
+        if(runCalled){
+            // too late to call event
+            eventCalled = true;
+            if(event == null) {
+                //creating a new event if there wasn't one
+                event = new Event(channels);
+            }
+            try{
+                int channelIndex = Integer.parseInt(value) -1;
+                channels[channelIndex].toggle();
+            }
+            catch (NumberFormatException nfe){
+                Simulation.execute("ERROR","Invalid argument");
+            }
+        }
+    }
     private void reset(){
+        //reset channels?
 
+        runCalled = false;
+        eventCalled = false;
+        eventList = new ArrayList<>();
+        event = null;
+        curState = State.ON;
 
+    }
+    private void num(String value){
+        if(runCalled){
+            eventCalled = true; // too late to call event
+            try{
+                event.addRacer(Integer.parseInt(value));
+            }catch(NumberFormatException nfm){
+                Simulation.execute("ERROR","Invalid argument");
+            }
+        }
+    }
+    private void cancel(){
+        if(runCalled){
+            //put the racer back in the queue at the beginning
+            event.cancelRacer();
+        }
+    }
+    private void print(String value){
+        //needs to be able to take in parameter
+        if(runCalled){
+            if(value != null){
+                //TODO implement print with value argument
+                try{
+                    //event.printResults(Integer.parseInt(value));
+                }catch(NumberFormatException nfm){
+                    Simulation.execute("ERROR","Invalid argument");
+                }
+            }
+            else{
+                //print the most recent run
+                Simulation.execute("PRINT",event.printResults());
+            }
+
+        }
+
+    }
+    private void export(String value){
+        //checking whether event run exists to be exported
+        System.out.println(eventList.isEmpty());
+        if(!eventList.isEmpty() && (curState == State.EVENT || curState == State.ON)){
+            Event latest;
+
+            //TODO implement export with value argument
+
+            //get latest run if value is null
+            if(value == null){
+                int runNumber = eventList.size();
+                latest =  eventList.get(eventList.size()-1);
+                Simulation.export(latest.sendRuns(), Integer.toString(runNumber));
+            }else{//else get run from value given
+                try {
+                    latest = eventList.get(Integer.parseInt(value) - 1);
+                    Simulation.export(latest.sendRuns(), value);
+                }
+                catch(NumberFormatException nfe){
+                    Simulation.execute("ERROR","Invalid argument");
+                }
+            }
+        }
+    }
+    private void exit(){
+        if(runCalled){
+            Simulation.execute("EXIT",null);
+        }
+    }
+    private void endRun(){
+        if(runCalled && event!= null){
+            eventList.add(event);
+            event.saveRun();
+            curState = State.ON;
+            runCalled =false;
+            eventCalled = false;
+        }
+    }
+    private void dnf(){
+        if(runCalled){
+            //assign the next up racer the DNF tag represented by -1 right now
+            event.setFinishTime(-1, 0);
+        }
     }
 }

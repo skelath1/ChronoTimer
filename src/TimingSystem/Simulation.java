@@ -91,6 +91,10 @@ public class Simulation {
         else if(command.equalsIgnoreCase("EXIT")){
             System.exit(0);
         }
+        else if(command.equalsIgnoreCase("ERROR"))
+        {
+            System.out.println("\n"+value);
+        }
 
     }
     /**
