@@ -111,6 +111,9 @@ public class ChronoTimer {
             case "RESET":
                 reset();
                 break;
+            case "SWAP":
+                swap();
+                break;
         }
     }
     /**
@@ -191,6 +194,9 @@ public class ChronoTimer {
                 break;
             case "RESET":
                 reset();
+                break;
+            case "SWAP":
+                swap();
                 break;
         }
     }
@@ -347,4 +353,9 @@ public class ChronoTimer {
             event.setFinishTime(-1, 0);
         }
     }
+   private void swap(){
+        if(runCalled) {
+            event.swap();
+        }
+   }
 }
