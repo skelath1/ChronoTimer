@@ -29,7 +29,22 @@ public class GRP implements RaceType{
      */
     @Override
     public void addRacer(int bibNumber) {
-        _racers.add(new Racer(bibNumber));
+        if(validNewRacer(bibNumber))
+            _racers.add(new Racer(bibNumber));
+    }
+
+    /**
+     *
+     * @param bibNumber
+     * @return
+     */
+    private boolean validNewRacer(int bibNumber){
+        for(Racer r : _racers){
+            if(r.getBibNumber() == bibNumber)
+                return false;
+        }
+
+        return true;
     }
 
     /**

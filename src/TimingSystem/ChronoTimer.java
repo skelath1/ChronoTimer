@@ -76,12 +76,7 @@ public class ChronoTimer {
             //same as TRIG 1
             case "START":
                 if(runCalled){
-                    long t = System.currentTimeMillis();
-                    if(event.toString().equalsIgnoreCase("parind")){
-                        event.setStartTime(t, 1);
-                        event.setStartTime(t, 3);
-                    } else
-                        event.setStartTime(t, 1);
+                    event.setStartTime(System.currentTimeMillis(), 1);
                 }
                 break;
             //same as TRIG 2
@@ -358,7 +353,7 @@ public class ChronoTimer {
             event.saveRun();
             event.clear();
             curState = State.ON;
-            runCalled =false;
+            runCalled = false;
             eventCalled = false;
         }
     }
