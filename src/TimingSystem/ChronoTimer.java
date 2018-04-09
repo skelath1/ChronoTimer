@@ -227,12 +227,14 @@ public class ChronoTimer {
             curState = State.ON;
         }
         else{
-            //disable channels
             runCalled = false;
             eventCalled = false;
             eventList = new ArrayList<>();
             event = null;
             curState = State.OFF;
+            for(Channel c: channels){
+                c.toggle();
+            }
         }
     }
     private void newRun(){
@@ -277,6 +279,9 @@ public class ChronoTimer {
         eventList = new ArrayList<>();
         event = null;
         curState = State.ON;
+        for(Channel c: channels){
+            c.toggle();
+        }
 
     }
     private void num(String value){
@@ -314,9 +319,7 @@ public class ChronoTimer {
                 //print the most recent run
                 Simulation.execute("PRINT",event.printResults());
             }
-
         }
-
     }
     private void export(String value){
         //checking whether event run exists to be exported
@@ -326,12 +329,14 @@ public class ChronoTimer {
 
             //TODO implement export with value argument
 
-            //get latest run if value is null
+            //get all the run if value is null
             if(value == null){
-                int runNumber = eventList.size();
-                latest =  eventList.get(eventList.size()-1);
-                Simulation.export(latest.sendRuns(), Integer.toString(runNumber));
-            }else{//else get run from value given
+                for(Event e:eventList) {
+                    Simulation.export(e.sendRuns());
+                }
+            }
+            //else get run from value given
+            else{
                 try {
                     latest = eventList.get(Integer.parseInt(value) - 1);
                     Simulation.export(latest.sendRuns(), value);
@@ -351,6 +356,7 @@ public class ChronoTimer {
         if(runCalled && event!= null){
             eventList.add(event);
             event.saveRun();
+            event.clear();
             curState = State.ON;
             runCalled =false;
             eventCalled = false;

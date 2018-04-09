@@ -109,4 +109,13 @@ public class Simulation {
             ex.printStackTrace();
         }
     }
+    public static void export(ArrayList<Run> runs){
+        try(FileWriter writer = new FileWriter( "RUNS.txt")){
+            Gson gson = new Gson();
+            String out = gson.toJson(runs);
+            writer.write(out);
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+    }
 }
