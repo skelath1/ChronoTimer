@@ -56,6 +56,7 @@ public class ChronoGUI {
     private JButton trigButton6;
     private JButton trigButton7;
     private JButton trigButton8;
+    private JTextPane textPane2;
     private static ChronoTimer chronoTimer;
 
     public ChronoGUI() {
