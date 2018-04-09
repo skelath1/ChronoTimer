@@ -5,6 +5,7 @@ import TimingSystem.Racer;
 import TimingSystem.Run;
 import Util.Time;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -14,6 +15,9 @@ public class IND implements RaceType {
     // Will be used to return the racers
     //private Queue<TimingSystem.Racer> _racers;
     private Deque<Racer> _racers;
+
+    private ArrayList<Run> runs;
+
 
 
     // WIll be a linked list
@@ -104,10 +108,10 @@ public class IND implements RaceType {
      * @return
      */
     @Override
-    public Run saveRun(){
+    public void saveRun(){
         Run r = new Run(this.toString());
         r.addResults(_racers);
-        return r;
+        runs.add(r);
     }
 
     /**
@@ -124,6 +128,11 @@ public class IND implements RaceType {
                 s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + "\n";
         }
         return s;
+    }
+
+    @Override
+    public String printResults(int runNumber) {
+        return null;
     }
 
     /**

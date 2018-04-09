@@ -5,10 +5,7 @@ import TimingSystem.Racer;
 import TimingSystem.Run;
 import Util.Time;
 
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.*;
 
 public class PARGRP implements RaceType {
     private Deque<Racer> _racers;
@@ -16,6 +13,9 @@ public class PARGRP implements RaceType {
     private HashMap<Integer, Racer> _racerMap;
 
     private Channel[] _channels;
+
+    private ArrayList<Run> runs;
+
 
     public PARGRP(Channel[] channels){
         _racers = new LinkedList<>();
@@ -99,10 +99,10 @@ public class PARGRP implements RaceType {
      * @return
      */
     @Override
-    public Run saveRun(){
+    public void saveRun(){
         Run r = new Run(this.toString());
         r.addResults(_racers);
-        return r;
+        runs.add(r);
     }
 
     /**
@@ -119,6 +119,11 @@ public class PARGRP implements RaceType {
                 s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + "\n";
         }
         return s;
+    }
+
+    @Override
+    public String printResults(int runNumber) {
+        return null;
     }
 
     /**

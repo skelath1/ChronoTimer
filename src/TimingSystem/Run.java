@@ -23,4 +23,8 @@ public class Run {
     public void setTimeStamp(String timeStamp){
         this.timeStamp = timeStamp;
     }
+
+    public ArrayList<Result> getResults(){
+        return results;
+    }
 }

@@ -9,7 +9,9 @@ public interface RaceType{
     void cancelRacer();
     void clear();
     void swap();
-    Run saveRun();
+    void saveRun();
     String printResults();
+    String printResults(int runNumber);
     String toString();
+
 }

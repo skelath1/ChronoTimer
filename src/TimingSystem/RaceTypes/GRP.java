@@ -5,12 +5,15 @@ import TimingSystem.Racer;
 import TimingSystem.Run;
 import Util.Time;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 
 public class GRP implements RaceType{
     private Deque<Racer> _racers;
     private Deque<Racer> _racerQueue;
+    private ArrayList<Run> runs;
+
 
     private Channel[] _channels;
 
@@ -96,10 +99,10 @@ public class GRP implements RaceType{
      * @return results as Run
      */
     @Override
-    public Run saveRun(){
+    public void saveRun(){
         Run r = new Run(this.toString());
         r.addResults(_racers);
-        return r;
+        runs.add(r);
     }
 
     /**
@@ -116,6 +119,11 @@ public class GRP implements RaceType{
                 s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + "\n";
         }
         return s;
+    }
+
+    @Override
+    public String printResults(int runNumber) {
+        return null;
     }
 
     /**

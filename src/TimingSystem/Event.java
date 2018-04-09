@@ -114,11 +114,8 @@ public class Event implements RaceType{
      */
 
     @Override
-    public Run saveRun(){
-        Run r =  _racetype.saveRun();
-        r.setTimeStamp(timeStamp);
-        runs.add(r);
-        return r;
+    public void saveRun(){
+        _racetype.saveRun();
     }
 
     /**
@@ -128,6 +125,11 @@ public class Event implements RaceType{
     @Override
     public String printResults() {
         return _racetype.printResults();
+    }
+
+    @Override
+    public String printResults(int runNumber) {
+        return null;
     }
 
     /**

@@ -2,25 +2,35 @@ package TimingSystem.RaceTypes;
 
 import TimingSystem.Hardware.Channel;
 import TimingSystem.Racer;
+import TimingSystem.Result;
 import TimingSystem.Run;
 import Util.Time;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 
 public class PARIND implements RaceType {
     private Channel[] _channels;
-    private Deque<Racer> _racers;
+
+    private ArrayList<Run> runs;
+
+    private Deque<Racer> _finished;
+    private Deque<Racer> _racersL;
+    private Deque<Racer> _racersR;
 
     private Deque<Racer> _left;
     private Deque<Racer> _right;
 
     private boolean isRight = false;
+    private boolean addRight = false;
 
 
     public PARIND(Channel[] channels){
         _channels = channels;
-        _racers = new LinkedList<>();
+        _finished = new LinkedList<>();
+        _racersL = new LinkedList<>();
+        _racersR = new LinkedList<>();
         _left = new LinkedList<>();
         _right = new LinkedList<>();
     }
@@ -31,7 +41,32 @@ public class PARIND implements RaceType {
      */
     @Override
     public void addRacer(int bibNumber) {
-        _racers.add(new Racer(bibNumber));
+        validNewRacer(bibNumber);
+        if(!addRight){
+            _racersL.addLast(new Racer(bibNumber));
+            addRight = !addRight;
+            printList(_racersL);
+
+        } else{
+            _racersR.addLast(new Racer(bibNumber));
+            addRight = !addRight;
+            printList(_racersR);
+
+        }
+    }
+
+    private boolean validNewRacer(int bibNumber){
+        for(Racer r : _racersL){
+            if(r.getBibNumber() == bibNumber)
+                return false;
+        }
+
+        for(Racer r : _racersR){
+            if(r.getBibNumber() == bibNumber)
+                return false;
+        }
+
+        return true;
     }
 
     /**
@@ -41,15 +76,18 @@ public class PARIND implements RaceType {
      */
     @Override
     public void setStartTime(long startTime, int channelNum) {
-        if(_racers.isEmpty() || _racers.peek().getStartTime() != -1) return;
         if(channelNum == 1){
-            Racer l = _racers.removeFirst();
+            if(_racersL.isEmpty()) return;
+            Racer l = _racersL.removeFirst();
             l.setStartTime(startTime);
-            _left.add(l);
+            _left.addLast(l);
+            printList(_racersL);
         } else if(channelNum == 3){
-            Racer r = _racers.removeFirst();
+            if(_racersR.isEmpty()) return;
+            Racer r = _racersR.removeFirst();
             r.setStartTime(startTime);
-            _right.add(r);
+            _right.addLast(r);
+            printList(_racersR);
         }
     }
 
@@ -62,23 +100,21 @@ public class PARIND implements RaceType {
     public void setFinishTime(long finishTime, int channelNum) {
         if(channelNum == 2){
             if(!_left.isEmpty()){
-                if(_left.peek().getStartTime() != -1){
-                    Racer l = _left.removeFirst();
-                    l.setFinishTime(finishTime);
-                    _racers.add(l);
-                    isRight = true;
-                }
+                Racer l = _left.removeFirst();
+                l.setFinishTime(finishTime);
+                _finished.add(l);
+                isRight = true;
+
             }
         } else if(channelNum == 4){
             if(!_right.isEmpty()){
-                if(_right.peek().getStartTime() != -1) {
-                    Racer r = _right.remove();
-                    r.setFinishTime(finishTime);
-                    _racers.add(r);
-                    isRight = false;
-                }
+                Racer r = _right.removeFirst();
+                r.setFinishTime(finishTime);
+                _finished.add(r);
+                isRight = false;
             }
         }
+        printList(_finished);
     }
 
     /**
@@ -90,11 +126,11 @@ public class PARIND implements RaceType {
         if(!isRight){
             Racer l = _left.removeFirst();
             l.setStartTime(-1);
-            _racers.addFirst(l);
+            _racersL.addFirst(l);
         } else{
             Racer r = _left.removeFirst();
             r.setStartTime(-1);
-            _racers.addFirst(r);
+            _racersR.addFirst(r);
         }
     }
 
@@ -103,10 +139,13 @@ public class PARIND implements RaceType {
      */
     @Override
     public void clear() {
-        _racers.clear();
+        _finished.clear();
+        _racersL.clear();
+        _racersR.clear();
         _left.clear();
         _right.clear();
         isRight = false;
+        addRight = false;
     }
 
     /**
@@ -114,7 +153,7 @@ public class PARIND implements RaceType {
      */
     @Override
     public void swap() {
-//        ???
+
     }
 
     /**
@@ -122,10 +161,10 @@ public class PARIND implements RaceType {
      * @return
      */
     @Override
-    public Run saveRun(){
+    public void saveRun(){
         Run r = new Run(this.toString());
-        r.addResults(_racers);
-        return r;
+        r.addResults(_finished);
+        runs.add(r);
     }
 
     /**
@@ -135,11 +174,21 @@ public class PARIND implements RaceType {
     @Override
     public String printResults() {
         String s = "";
-        for(Racer r : _racers) {
+        for(Racer r : _finished) {
             if(r.getFinishTime() == -1)
                 s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + "DNF\n";
             else
                 s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + "\n";
+        }
+        return s;
+    }
+
+    @Override
+    public String printResults(int runNumber) {
+        String s = "";
+        Run r = runs.get(runNumber-1);
+        for(Result res : r.getResults()){
+                s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
         }
         return s;
     }
@@ -151,5 +200,11 @@ public class PARIND implements RaceType {
     @Override
     public String toString(){
         return "PARIND";
+    }
+
+    private void printList(Deque<Racer> list){
+        for(Racer r : list){
+            System.out.println(r.getBibNumber());
+        }
     }
 }

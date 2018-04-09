@@ -8,4 +8,12 @@ public class Result {
         _bib = bib;
         _time = time;
     }
+
+    public int get_bib() {
+        return _bib;
+    }
+
+    public String get_time(){
+        return _time;
+    }
 }
