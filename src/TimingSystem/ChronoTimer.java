@@ -299,9 +299,13 @@ public class ChronoTimer {
         //needs to be able to take in parameter
         if(runCalled){
             if(value != null){
-                //TODO implement print with value argument
                 try{
-                    //event.printResults(Integer.parseInt(value));
+                    if(value != null){
+                        event.printResults(Integer.parseInt(value));
+                    }
+                    else
+                        event.printResults();
+
                 }catch(NumberFormatException nfm){
                     Simulation.execute("ERROR","Invalid argument");
                 }
