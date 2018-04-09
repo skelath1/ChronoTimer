@@ -1,0 +1,12 @@
+1.) front end GUI Components	                                                Fred - INPROGRESS
+2.) back end GUI	                                                            Luke - INPROGRESS
+3.) Isaac fixing something with Time class
+4.) Improve chronotimer (state machine)
+5.) fix bugs from sprint 1	                                                    completed
+6.) Threads for gui if needed
+7.) print needs to take in argument	                                            completed
+8.) Power and Reset function
+9.) export needs to take in an argument
+10.) Print should also print the current elapsed time of the in-progress racers.
+11.) reset and (power power) reset channels?
+12.) duplicate num with the same value bug
