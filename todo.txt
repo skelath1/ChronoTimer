@@ -7,6 +7,7 @@
 7.) print needs to take in argument	                                            completed
 8.) Power and Reset function                                                    completed
 9.) export needs to take in an argument                                         completed
-10.)  fof print: print the current elapsed time of the in-progress racers.
+10.) for print: print the current elapsed time of the in-progress racers.
 11.) reset and (power power) reset channels?                                    completed
 12.) duplicate num with the same value bug                                      completed
+13.) in event to get string of the queue, running, final time

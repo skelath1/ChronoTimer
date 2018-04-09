@@ -149,7 +149,6 @@ public class ChronoTimer {
             case "TRIG":
                 if(runCalled){
                     int channelNum = Integer.parseInt(value);
-
                     //if it is odd then it is the start
                     if((channelNum % 2) != 0)
                         event.setStartTime(Time.stringToMilliseconds(time), channelNum);
@@ -267,8 +266,6 @@ public class ChronoTimer {
         }
     }
     private void reset(){
-        //reset channels?
-
         runCalled = false;
         eventCalled = false;
         eventList = new ArrayList<>();
@@ -320,20 +317,14 @@ public class ChronoTimer {
         //checking whether event run exists to be exported
         System.out.println(eventList.isEmpty());
         if(!eventList.isEmpty() && (curState == State.EVENT || curState == State.ON)){
-            Event latest;
-
-            //TODO implement export with value argument
-
-            //get all the run if value is null
+            //get all the runs if value is null
             if(value == null){
-                for(Event e:eventList) {
-                    Simulation.export(e.sendRuns());
-                }
+                    Simulation.export(event.sendRuns());
             }
             //else get run from value given
             else{
                 try {
-                    latest = eventList.get(Integer.parseInt(value) - 1);
+                    Event latest = eventList.get(Integer.parseInt(value) - 1);
                     Simulation.export(latest.sendRuns(), value);
                 }
                 catch(NumberFormatException nfe){
