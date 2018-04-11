@@ -57,15 +57,87 @@ public class ChronoGUI {
     private JButton trigButton7;
     private JButton trigButton8;
     private JTextPane textPane2;
+    private JButton Backside;
+    private JTextPane textPane5;
     private static ChronoTimer chronoTimer;
 
+    private enum Function {
+        TIME("TIME"),
+        EVENT("EVENT"),
+        NEWRUN("NEWRUN"),
+        ENDRUN("ENDRUN"),
+        PRINT("PRINT"),
+        EXPORT("EXPORT"),
+        NUM("NUM"),
+        CLR("CLR"),
+        DNF("DNF"),
+        START("START"),
+        FINISH("FINISH");
+
+        private String value;
+        private static Function[] values = values();
+
+        private Function(String value){
+        this.value = value;
+        }
+
+        public String getValue(){
+            return value;
+        }
+
+        public Function next(Function c){
+            return values[(c.ordinal()+1) % values.length];
+        }
+
+        public Function prev(Function c){
+            return values[(c.ordinal()-1) % values.length];
+        }
+    }
+
+    private enum Event{
+        IND("IND"),
+        PARIND("PARIN"),
+        GRP("GRP"),
+        PARGRP("PARGRP");
+
+        private String value;
+        private static Event[] values = values();
+
+        private Event(String value){
+            this.value = value;
+        }
+
+        public String getValue(){
+            return value;
+        }
+
+        public Event next(){
+            return values[(this.ordinal()+1) % values.length];
+        }
+
+        public Event prev(){
+            return values[(this.ordinal()-1) % values.length];
+        }
+
+
+    }
+
+    private Function cur;
+    private Event curE;
+
+
     public ChronoGUI() {
+        cur = Function.NEWRUN;
+        curE = Event.IND;
+
         powerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 chronoTimer.execute("POWER",null);
+                textPane2.setText(cur.getValue());
             }
         });
+
         SWAPButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -168,6 +240,58 @@ public class ChronoGUI {
                 chronoTimer.execute("TOG","8");
             }
         });
+        Backside.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BackSide.show();
+            }
+        });
+        button4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!chronoTimer.getState().equalsIgnoreCase("OFF")) {
+                    cur = cur.next(cur);
+                    if (cur == Function.EVENT) {
+                        textPane5.setText(curE.getValue());
+                        textPane2.setText(cur.getValue());
+
+                    } else
+                        textPane2.setText(cur.getValue());
+                }
+            }
+        });
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!chronoTimer.getState().equalsIgnoreCase("OFF")) {
+                    cur = cur.next(cur);
+                    if (cur == Function.EVENT) {
+                        textPane5.setText(curE.getValue());
+                        textPane2.setText(cur.getValue());
+
+                    } else
+                        textPane2.setText(cur.getValue());
+                }
+            }
+        });
+        button5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(cur == Function.EVENT && !chronoTimer.getState().equalsIgnoreCase("OFF")) {
+                    curE = curE.next();
+                    textPane5.setText(curE.getValue());
+                }
+            }
+        });
+        button6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(cur == Function.EVENT && !chronoTimer.getState().equalsIgnoreCase("OFF")) {
+                    curE = curE.prev();
+                    textPane5.setText(curE.getValue());
+                }
+            }
+        });
     }
 
     public static void main(String[] args) {
@@ -175,6 +299,7 @@ public class ChronoGUI {
         frame.setContentPane(new ChronoGUI().panel1);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(1260, 768));
+        frame.setLocationRelativeTo(null);
         frame.pack();
         frame.setVisible(true);
 
@@ -183,4 +308,7 @@ public class ChronoGUI {
         sim.doInput();
     }
 
+    private void setFunctions(){
+
+    }
 }

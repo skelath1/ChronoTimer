@@ -209,7 +209,7 @@ public class ChronoTimer {
     {
         return sysTime;
     }
-    private String getState(){return curState.toString();}
+    public String getState(){return curState.toString();}
 
 
     //case methods
@@ -227,7 +227,8 @@ public class ChronoTimer {
             event = null;
             curState = State.OFF;
             for(Channel c: channels){
-                c.toggle();
+                if(c != null)
+                    c.toggle();
             }
         }
     }
