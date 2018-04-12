@@ -2,6 +2,7 @@ package GUI;
 
 import TimingSystem.ChronoTimer;
 import TimingSystem.Simulation;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import javax.swing.*;
 import java.awt.*;
@@ -61,7 +62,7 @@ public class ChronoGUI {
     private JTextPane textPane5;
     private static ChronoTimer chronoTimer;
 
-    private enum Function {
+    private static enum Function {
         TIME("TIME"),
         EVENT("EVENT"),
         NEWRUN("NEWRUN"),
@@ -76,21 +77,26 @@ public class ChronoGUI {
 
         private String value;
         private static Function[] values = values();
+        private static int curr = 2;
 
-        private Function(String value){
-        this.value = value;
+         Function(String value){
+            this.value = value;
         }
 
         public String getValue(){
             return value;
         }
 
-        public Function next(Function c){
-            return values[(c.ordinal()+1) % values.length];
+        public Function next(){
+            ++curr;
+            int nextInd = Math.abs((curr)%values.length);
+            return values[nextInd];
         }
 
-        public Function prev(Function c){
-            return values[(c.ordinal()-1) % values.length];
+        public Function prev(){
+            --curr;
+            int nextInd = Math.abs((curr)%values.length);
+            return values[nextInd];
         }
     }
 
@@ -102,6 +108,7 @@ public class ChronoGUI {
 
         private String value;
         private static Event[] values = values();
+        private static int curr = 0;
 
         private Event(String value){
             this.value = value;
@@ -112,11 +119,15 @@ public class ChronoGUI {
         }
 
         public Event next(){
-            return values[(this.ordinal()+1) % values.length];
+            ++curr;
+            int nextInd = Math.abs((curr)%values.length);
+            return values[nextInd];
         }
 
         public Event prev(){
-            return values[(this.ordinal()-1) % values.length];
+            --curr;
+            int nextInd = Math.abs((curr)%values.length);
+            return values[nextInd];
         }
 
 
@@ -129,6 +140,7 @@ public class ChronoGUI {
     public ChronoGUI() {
         cur = Function.NEWRUN;
         curE = Event.IND;
+        textPane5.setText("");
 
         powerButton.addActionListener(new ActionListener() {
             @Override
@@ -250,13 +262,16 @@ public class ChronoGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(!chronoTimer.getState().equalsIgnoreCase("OFF")) {
-                    cur = cur.next(cur);
+                    cur = cur.next();
                     if (cur == Function.EVENT) {
                         textPane5.setText(curE.getValue());
                         textPane2.setText(cur.getValue());
 
-                    } else
+                    } else {
                         textPane2.setText(cur.getValue());
+                        if(textPane5.getText() != null)
+                            textPane5.setText("");
+                    }
                 }
             }
         });
@@ -264,13 +279,16 @@ public class ChronoGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!chronoTimer.getState().equalsIgnoreCase("OFF")) {
-                    cur = cur.next(cur);
+                    cur = cur.prev();
                     if (cur == Function.EVENT) {
                         textPane5.setText(curE.getValue());
                         textPane2.setText(cur.getValue());
 
-                    } else
+                    } else {
                         textPane2.setText(cur.getValue());
+                        if(textPane5.getText() != null)
+                            textPane5.setText("");
+                    }
                 }
             }
         });
@@ -292,6 +310,27 @@ public class ChronoGUI {
                 }
             }
         });
+        ActionListener listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!chronoTimer.getState().equalsIgnoreCase("OFF") && validforNum()) {
+                    JButton b = (JButton) e.getSource();
+                        textPane5.setText(textPane5.getText() + b.getActionCommand());
+                }
+            }
+        };
+        a3Button.addActionListener(listener);
+        a2Button.addActionListener(listener);
+        a1Button.addActionListener(listener);
+        a4Button.addActionListener(listener);
+        a5Button.addActionListener(listener);
+        a6Button.addActionListener(listener);
+        a7Button.addActionListener(listener);
+        a8Button.addActionListener(listener);
+        a0Button.addActionListener(listener);
+        a9Button.addActionListener(listener);
+        button8.addActionListener(listener);
+        button12.addActionListener(listener);
     }
 
     public static void main(String[] args) {
@@ -308,7 +347,11 @@ public class ChronoGUI {
         sim.doInput();
     }
 
-    private void setFunctions(){
+    private boolean clearForInput(String function){
+        return function.equalsIgnoreCase("Event");
+    }
 
+    private boolean validforNum(){
+        return cur != Function.NEWRUN && cur != Function.ENDRUN && cur != Function.START && cur != Function.FINISH && cur != Function.DNF;
     }
 }

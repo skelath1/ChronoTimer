@@ -11,6 +11,7 @@ public class BackSide {
         frame.setContentPane(new BackSide().main);
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         frame.setMinimumSize(new Dimension(500, 500));
+//        frame.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         frame.setLocationRelativeTo(null);
         frame.pack();
         frame.setVisible(true);
