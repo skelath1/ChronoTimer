@@ -2,7 +2,6 @@ package GUI;
 
 import TimingSystem.ChronoTimer;
 import TimingSystem.Simulation;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,27 +38,28 @@ public class ChronoGUI {
     private JButton a8Button;
     private JButton a9Button;
     private JButton a0Button;
-    private JTextPane textPane1;
+    private JTextPane runningPane;
     private JTextPane queueScreen;
-    private JTextPane textPane3;
+    private JTextPane finishedPane;
     private JTextPane textPane4;
     private JPanel NumPadPanel;
     private JButton button12;
     private JButton trigButton3;
     private JButton trigButton5;
-    private JButton button2;
-    private JButton button4;
-    private JButton button5;
-    private JButton button6;
+    private JButton commandButtonLeft;
+    private JButton commandButtonRight;
+    private JButton valueButtonUp;
+    private JButton valueButtonDown;
     private JButton trigButton1;
     private JButton trigButton2;
     private JButton trigButton4;
     private JButton trigButton6;
     private JButton trigButton7;
     private JButton trigButton8;
-    private JTextPane textPane2;
+    private JTextPane commandPane;
     private JButton Backside;
-    private JTextPane textPane5;
+    private JTextPane valuePane;
+    private JButton submitButton;
     private static ChronoTimer chronoTimer;
 
     private static enum Function {
@@ -140,13 +140,13 @@ public class ChronoGUI {
     public ChronoGUI() {
         cur = Function.NEWRUN;
         curE = Event.IND;
-        textPane5.setText("");
+        valuePane.setText("");
 
         powerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 chronoTimer.execute("POWER",null);
-                textPane2.setText(cur.getValue());
+                commandPane.setText(cur.getValue());
             }
         });
 
@@ -258,55 +258,55 @@ public class ChronoGUI {
                 BackSide.show();
             }
         });
-        button4.addActionListener(new ActionListener() {
+        commandButtonRight.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(!chronoTimer.getState().equalsIgnoreCase("OFF")) {
                     cur = cur.next();
                     if (cur == Function.EVENT) {
-                        textPane5.setText(curE.getValue());
-                        textPane2.setText(cur.getValue());
+                        valuePane.setText(curE.getValue());
+                        commandPane.setText(cur.getValue());
 
                     } else {
-                        textPane2.setText(cur.getValue());
-                        if(textPane5.getText() != null)
-                            textPane5.setText("");
+                        commandPane.setText(cur.getValue());
+                        if(valuePane.getText() != null)
+                            valuePane.setText("");
                     }
                 }
             }
         });
-        button2.addActionListener(new ActionListener() {
+        commandButtonLeft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!chronoTimer.getState().equalsIgnoreCase("OFF")) {
                     cur = cur.prev();
                     if (cur == Function.EVENT) {
-                        textPane5.setText(curE.getValue());
-                        textPane2.setText(cur.getValue());
+                        valuePane.setText(curE.getValue());
+                        commandPane.setText(cur.getValue());
 
                     } else {
-                        textPane2.setText(cur.getValue());
-                        if(textPane5.getText() != null)
-                            textPane5.setText("");
+                        commandPane.setText(cur.getValue());
+                        if(valuePane.getText() != null)
+                            valuePane.setText("");
                     }
                 }
             }
         });
-        button5.addActionListener(new ActionListener() {
+        valueButtonUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(cur == Function.EVENT && !chronoTimer.getState().equalsIgnoreCase("OFF")) {
                     curE = curE.next();
-                    textPane5.setText(curE.getValue());
+                    valuePane.setText(curE.getValue());
                 }
             }
         });
-        button6.addActionListener(new ActionListener() {
+        valueButtonDown.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(cur == Function.EVENT && !chronoTimer.getState().equalsIgnoreCase("OFF")) {
                     curE = curE.prev();
-                    textPane5.setText(curE.getValue());
+                    valuePane.setText(curE.getValue());
                 }
             }
         });
@@ -315,7 +315,7 @@ public class ChronoGUI {
             public void actionPerformed(ActionEvent e) {
                 if(!chronoTimer.getState().equalsIgnoreCase("OFF") && validforNum()) {
                     JButton b = (JButton) e.getSource();
-                        textPane5.setText(textPane5.getText() + b.getActionCommand());
+                        valuePane.setText(valuePane.getText() + b.getActionCommand());
                 }
             }
         };
@@ -331,6 +331,12 @@ public class ChronoGUI {
         a9Button.addActionListener(listener);
         button8.addActionListener(listener);
         button12.addActionListener(listener);
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                commandPane.getText();
+            }
+        });
     }
 
     public static void main(String[] args) {
@@ -352,6 +358,6 @@ public class ChronoGUI {
     }
 
     private boolean validforNum(){
-        return cur != Function.NEWRUN && cur != Function.ENDRUN && cur != Function.START && cur != Function.FINISH && cur != Function.DNF;
+        return cur != Function.EVENT && cur != Function.NEWRUN && cur != Function.ENDRUN && cur != Function.START && cur != Function.FINISH && cur != Function.DNF;
     }
 }

@@ -1,6 +1,7 @@
 1.) front end GUI Components	                                                Fred - INPROGRESS
 2.) back end GUI	                                                            Luke - INPROGRESS
 3.) Isaac fixing something with Time class
+       Change chronotimer to do nano seconds
 4.) Improve chronotimer (state machine)
 5.) fix bugs from sprint 1	                                                    completed
 6.) Threads for gui if needed
@@ -10,4 +11,5 @@
 10.) for print: print the current elapsed time of the in-progress racers.
 11.) reset and (power power) reset channels?                                    completed
 12.) duplicate num with the same value bug                                      completed
-13.) in event to get string of the queue, running, final time
+13.) in event to get string of the queue, running, final time.
+14.) Event needs to format a string for queue, running, finished
