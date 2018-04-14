@@ -13,3 +13,7 @@
 12.) duplicate num with the same value bug                                      completed
 13.) in event to get string of the queue, running, final time.
 14.) Event needs to format a string for queue, running, finished
+15.) Cant call print after endrun is called.
+16.) print a ceratin run isn't implemented.
+17.) the result class is unnecessary because racer class has all those fields already.
+18.)

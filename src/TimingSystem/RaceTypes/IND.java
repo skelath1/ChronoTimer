@@ -25,7 +25,7 @@ public class IND implements RaceType {
 
     public IND(Channel[] channels){
         _racers = new LinkedList<>();
-
+        runs = new ArrayList<Run>();
         _channels = channels;
         _racerQueue = new LinkedList<>();
     }
@@ -50,7 +50,6 @@ public class IND implements RaceType {
             if(r.getBibNumber() == bibNumber)
                 return false;
         }
-
         return true;
     }
 
@@ -136,7 +135,9 @@ public class IND implements RaceType {
     @Override
     public String printResults() {
         String s = "";
-        for(Racer r : _racers) {//changed from racer to racerQueue
+
+        //changed from racer to racerQueue
+        for(Racer r : _racers) {
             if(r.getFinishTime() == -1)
                 s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + "DNF\n";
             else

@@ -294,25 +294,23 @@ public class ChronoTimer {
         }
     }
     private void print(String value){
-        //needs to be able to take in parameter
-        if(runCalled){
-            if(value != null){
-                try{
-                    if(value != null){
-                        event.printResults(Integer.parseInt(value));
-                    }
-                    else
-                        event.printResults();
 
-                }catch(NumberFormatException nfm){
-                    Simulation.execute("ERROR","Invalid argument");
+        //TODO the value field is messing it up somehow
+        if(runCalled) {
+            if (value != null) {
+                try {
+
+                    Simulation.execute("PRINT", event.printResults(Integer.parseInt(value)));
+
+                } catch (NumberFormatException nfm) {
+                    Simulation.execute("ERROR", "Invalid argument for Print value = (" + value + ")");
                 }
-            }
-            else{
+            } else {
                 //print the most recent run
-                Simulation.execute("PRINT",event.printResults());
+                Simulation.execute("PRINT", event.printResults());
             }
         }
+
     }
     private void export(String value){
         //checking whether event run exists to be exported
@@ -343,6 +341,8 @@ public class ChronoTimer {
         if(runCalled && event!= null){
             eventList.add(event);
             event.saveRun();
+
+            //TODO if clear is called then you cant call print after endrun
             event.clear();
             curState = State.ON;
             runCalled = false;

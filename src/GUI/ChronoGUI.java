@@ -334,7 +334,10 @@ public class ChronoGUI {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                commandPane.getText();
+
+
+                chronoTimer.execute( commandPane.getText(),valuePane.getText());
+
             }
         });
     }

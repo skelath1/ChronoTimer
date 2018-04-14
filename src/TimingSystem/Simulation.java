@@ -86,6 +86,11 @@ public class Simulation {
 
     public static void execute(String command, String value){
         if(command.equalsIgnoreCase("PRINT")){
+            //System.out.println("\nPRINT COMMAND RECIEVED");
+            if(value == null)
+            {
+                System.out.println("value is null");
+            }
             System.out.println("\n"+value);
         }
         else if(command.equalsIgnoreCase("EXIT")){
