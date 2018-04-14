@@ -41,7 +41,7 @@ public class ChronoGUI {
     private JTextPane runningPane;
     private JTextPane queueScreen;
     private JTextPane finishedPane;
-    private JTextPane textPane4;
+    private JTextPane printerPane;
     private JPanel NumPadPanel;
     private JButton button12;
     private JButton trigButton3;
@@ -334,10 +334,18 @@ public class ChronoGUI {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                //"" != null so the value needs to be set to null
+                String value = valuePane.getText();
+                if(value.equals(""))
+                    value = null;
+                chronoTimer.execute(commandPane.getText(), value);
 
+                if (commandPane.getText().equalsIgnoreCase("PRINT")) {
+                    printerPane.setText(chronoTimer.getResults());
+                }
 
-                chronoTimer.execute( commandPane.getText(),valuePane.getText());
-
+                commandPane.setText("");
+                valuePane.setText("");
             }
         });
     }
