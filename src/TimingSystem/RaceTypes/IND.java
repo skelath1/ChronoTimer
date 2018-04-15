@@ -159,4 +159,36 @@ public class IND implements RaceType {
     public String toString(){
         return "IND";
     }
+
+    @Override
+    public String getData(String type) {
+        String data = "";
+        switch(type){
+            case "queue":
+                return listToString(_racers, false, false);
+            case "running":
+                return listToString(_racerQueue, true, false);
+
+            case "finished":
+                return listToString(_racers, false, true);
+
+            default:
+        }
+        return data;
+    }
+
+    private String listToString(Deque<Racer> e, boolean running,  boolean finished){
+        String data = "";
+        long cTime = System.currentTimeMillis();
+        for(Racer r : e){
+            data += r.getBibNumber() + " ";
+            if(running)
+                data += Time.getElapsed(r.getStartTime(), cTime);
+            if(finished)
+                data += Time.getElapsed(r.getStartTime(), r.getFinishTime());
+            data += " \n";
+        }
+
+        return data;
+    }
 }

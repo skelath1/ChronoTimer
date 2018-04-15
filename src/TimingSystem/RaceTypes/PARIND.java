@@ -202,6 +202,49 @@ public class PARIND implements RaceType {
         return "PARIND";
     }
 
+    @Override
+    public String getData(String type) {
+        String data = "";
+        switch(type){
+            case "queue":
+                    return listToString(_racersL, _racersR, false);
+            case "running":
+                String s = "";
+                long cTime = System.currentTimeMillis();
+                for(Racer r : _left) {
+                    s += r.getBibNumber() + " " + Time.getElapsed(r.getStartTime(), cTime) + " \n";
+                }
+                for(Racer r : _right) {
+                    s += r.getBibNumber() + " " + Time.getElapsed(r.getStartTime(), cTime) + " \n";
+                }
+                return s;
+            case "finished":
+                return listToString(_finished, null, true);
+
+            default:
+        }
+        return data;
+    }
+
+    private String listToString(Deque<Racer> list1, Deque<Racer> list2, boolean finished){
+        String s = "";
+        for(Racer r : list1) {
+            if(finished)
+                s += r.getBibNumber() + " " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + " \n";
+            else
+                s += r.getBibNumber() + "\n";
+        }
+        if(list2 != null) {
+            for (Racer r : list2) {
+                if (finished)
+                    s += r.getBibNumber() + " " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + " \n";
+                else
+                    s += r.getBibNumber() + "\n";
+            }
+        }
+        return s;
+    }
+
     private void printList(Deque<Racer> list){
         for(Racer r : list){
             System.out.println(r.getBibNumber());

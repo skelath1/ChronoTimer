@@ -148,4 +148,29 @@ public class PARGRP implements RaceType {
     public String toString(){
         return "PARGRP";
     }
+
+    @Override
+    public String getData(String type) {
+        String data = "";
+        switch(type){
+            case "queue":
+
+                break;
+            case "running":
+
+                break;
+            case "finished":
+
+                break;
+            default:
+        }
+        return data;
+    }
+
+    private String listToString(){
+        return null;
+    }
 }
+
+
+

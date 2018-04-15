@@ -149,4 +149,33 @@ public class GRP implements RaceType{
     public String toString(){
         return "GRP";
     }
+
+    @Override
+    public String getData(String type) {
+        String data = "";
+        switch(type){
+            case "queue":
+
+            case "running":
+                return listToString(_racerQueue, false);
+            case "finished":
+                return listToString(_racers, true);
+            default:
+        }
+        return data;
+    }
+
+    private String listToString(Deque<Racer> list, boolean finished) {
+        long cTime = System.currentTimeMillis();
+        String s = "";
+        for(Racer r : list){
+            s += r.getBibNumber() + " ";
+            if(finished)
+                s += Time.getElapsed(r.getStartTime(), r.getFinishTime());
+            else
+                s += Time.getElapsed(r.getStartTime(), cTime);
+            s += "\n";
+        }
+        return s;
+    }
 }

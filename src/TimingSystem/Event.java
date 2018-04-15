@@ -143,6 +143,11 @@ public class Event implements RaceType{
         return _racetype.toString();
     }
 
+    @Override
+    public String getData(String type) {
+        return _racetype.getData(type);
+    }
+
     /**
      * Returns the list of runs for the Event
      * @return list of runs for the current Event

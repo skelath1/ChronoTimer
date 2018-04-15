@@ -13,5 +13,6 @@ public interface RaceType{
     String printResults();
     String printResults(int runNumber);
     String toString();
+    String getData(String type);
 
 }
