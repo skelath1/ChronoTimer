@@ -39,7 +39,7 @@ public class ChronoGUI {
     private JButton a9Button;
     private JButton a0Button;
     private JTextPane runningPane;
-    private JTextPane queueScreen;
+    private JTextPane queuePane;
     private JTextPane finishedPane;
     private JTextPane printerPane;
     private JPanel NumPadPanel;
@@ -138,6 +138,66 @@ public class ChronoGUI {
 
 
     public ChronoGUI() {
+
+        //need to instantiate chronotimer here so that runnable can use it
+        chronoTimer = new ChronoTimer();
+
+        Runnable updateRunning =()->{
+            try{
+                //run forever till interrupted
+                while(true) {
+                    String data = chronoTimer.getElapsedTime();
+                    if(data != null) {
+                        runningPane.setText(data);
+                    }
+                    Thread.sleep(1);
+                }
+            }catch(InterruptedException ex){
+                System.out.println("done updating");
+            }
+        };
+        Thread running = new Thread(updateRunning);
+        running.start();
+
+
+        Runnable updateQueue =()->{
+            try{
+                //run forever till interrupted
+                while(true) {
+                    String data = chronoTimer.getQueue();
+                    if(data != null) {
+                        queuePane.setText(data);
+                    }
+                    Thread.sleep(1);
+                }
+            }catch(InterruptedException ex){
+                System.out.println("done updating");
+            }
+        };
+        Thread queue = new Thread(updateQueue);
+        queue.start();
+
+
+        Runnable updateFinishedTime =()->{
+            try{
+                //run forever till interrupted
+                while(true) {
+                    String data = chronoTimer.getFinishedTime();
+                    if(data != null) {
+                        finishedPane.setText(data);
+                    }
+                    Thread.sleep(1);
+                }
+            }catch(InterruptedException ex){
+                System.out.println("done updating");
+            }
+        };
+        Thread finishTime= new Thread(updateFinishedTime);
+        finishTime.start();
+
+
+
+
         cur = Function.NEWRUN;
         curE = Event.IND;
         valuePane.setText("");
@@ -147,6 +207,7 @@ public class ChronoGUI {
             public void actionPerformed(ActionEvent actionEvent) {
                 chronoTimer.execute("POWER",null);
                 commandPane.setText(cur.getValue());
+
             }
         });
 
@@ -359,9 +420,9 @@ public class ChronoGUI {
         frame.pack();
         frame.setVisible(true);
 
-        chronoTimer = new ChronoTimer();
         Simulation sim = new Simulation(chronoTimer);
         sim.doInput();
+
     }
 
     private boolean clearForInput(String function){

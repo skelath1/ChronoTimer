@@ -365,5 +365,25 @@ public class ChronoTimer {
    }
    public String getResults(){
        return event.printResults();
+
    }
+   public String getElapsedTime(){
+       if(event != null)
+        return event.getData("running");
+
+       return null;
+   }
+   public String getQueue(){
+       if(event != null)
+           return event.getData("queue");
+
+       return null;
+   }
+   public String getFinishedTime(){
+       if(event != null)
+           return event.getData("finished");
+
+       return null;
+   }
+
 }
