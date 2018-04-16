@@ -18,7 +18,7 @@ public class IND implements RaceType {
 
     private ArrayList<Run> runs;
 
-
+    private Deque<Racer> _finished;
 
     // WIll be a linked list
     private Deque<Racer> _racerQueue;
@@ -28,6 +28,7 @@ public class IND implements RaceType {
         runs = new ArrayList<Run>();
         _channels = channels;
         _racerQueue = new LinkedList<>();
+        _finished = new LinkedList<>();
     }
 
     /**
@@ -79,7 +80,7 @@ public class IND implements RaceType {
             if(_racerQueue.peek().getStartTime() != -1) {
                 Racer r = _racerQueue.remove();
                 r.setFinishTime(finishTime);
-                _racers.add(r);
+                _finished.add(r);
             }
         }
     }
@@ -102,6 +103,7 @@ public class IND implements RaceType {
     public void clear() {
         _racerQueue.clear();
         _racers.clear();
+        _finished.clear();
     }
 
     /**
@@ -124,7 +126,7 @@ public class IND implements RaceType {
     @Override
     public void saveRun(){
         Run r = new Run(this.toString());
-        r.addResults(_racers);
+        r.addResults(_finished);
         runs.add(r);
     }
 
@@ -137,7 +139,7 @@ public class IND implements RaceType {
         String s = "";
 
         //changed from racer to racerQueue
-        for(Racer r : _racers) {
+        for(Racer r : _finished) {
             if(r.getFinishTime() == -1)
                 s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + "DNF\n";
             else
@@ -170,7 +172,7 @@ public class IND implements RaceType {
                 return listToString(_racerQueue, true, false);
 
             case "finished":
-                return listToString(_racers, false, true);
+                return listToString(_finished, false, true);
 
             default:
         }

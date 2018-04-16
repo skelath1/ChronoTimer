@@ -206,8 +206,15 @@ public class ChronoGUI {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 chronoTimer.execute("POWER",null);
-                commandPane.setText(cur.getValue());
-
+                if(chronoTimer.getState() == "ON")
+                    commandPane.setText(cur.getValue());
+                else {
+                    commandPane.setText("");
+                    valuePane.setText("");
+                    finishedPane.setText("");
+                    queuePane.setText("");
+                    runningPane.setText("");
+                }
             }
         });
 
@@ -405,8 +412,12 @@ public class ChronoGUI {
                     printerPane.setText(chronoTimer.getResults());
                 }
 
-                commandPane.setText("");
-                valuePane.setText("");
+                commandPane.setText(cur.getValue());
+                if(cur == Function.NUM)
+                    valuePane.setText("");
+                else
+                    valuePane.setText(value);
+
             }
         });
     }
