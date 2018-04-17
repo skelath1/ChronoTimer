@@ -114,6 +114,9 @@ public class ChronoTimer {
             case "SWAP":
                 swap();
                 break;
+            case "CLR":
+                clear(value);
+                break;
         }
     }
     /**
@@ -197,6 +200,10 @@ public class ChronoTimer {
             case "SWAP":
                 swap();
                 break;
+            case "CLR":
+                clear(value);
+                break;
+
         }
     }
 
@@ -342,6 +349,16 @@ public class ChronoTimer {
     private void exit(){
         if(runCalled){
             Simulation.execute("EXIT",null);
+        }
+    }
+    private void clear(String bibNumber){
+        if(event != null){
+            if(bibNumber == null){
+                event.clear();
+            }
+            else {
+                //event.clear(bibNumer);
+            }
         }
     }
     private void endRun(){

@@ -412,12 +412,10 @@ public class ChronoGUI {
                     printerPane.setText(chronoTimer.getResults());
                 }
 
-                commandPane.setText("");
-                valuePane.setText("");
-//                if(cur == Function.NUM)
-//                    valuePane.setText("");
-//                else
-//                    valuePane.setText(value);
+                if(cur == Function.NUM)
+                    valuePane.setText("");
+                else
+                    valuePane.setText(value);
 
             }
         });

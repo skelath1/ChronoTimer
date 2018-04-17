@@ -19,3 +19,4 @@
 19.) fix the format of the final result string from event
 20.) when a new racer is input the final time pane is cleared
 21.) when the racer isn't running and just in the queue it is showed as finished in the final time pane.
+22.) clear a specific racer from racetype given String param
