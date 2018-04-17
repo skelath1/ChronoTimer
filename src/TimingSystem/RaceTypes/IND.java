@@ -183,7 +183,7 @@ public class IND implements RaceType {
         String data = "";
         long cTime = System.currentTimeMillis();
         for(Racer r : e){
-            data += r.getBibNumber() + " ";
+            data += r.getBibNumber() + ": ";
             if(running)
                 data += Time.getElapsed(r.getStartTime(), cTime);
             if(finished)

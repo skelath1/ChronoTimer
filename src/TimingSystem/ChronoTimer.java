@@ -280,6 +280,10 @@ public class ChronoTimer {
     private void num(String value){
         if(runCalled){
             eventCalled = true; // too late to call event
+            if(event == null) {
+                //creating a new event if there wasn't one
+                event = new Event(channels);
+            }
             try{
                 event.addRacer(Integer.parseInt(value));
             }catch(NumberFormatException nfm){
