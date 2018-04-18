@@ -1,4 +1,4 @@
-1.) front end GUI Components	                                                Fred
+1.) front end GUI Components	                                                completed - Fred
 2.) back end GUI	                                                            Luke
 3.) Isaac fixing something with Time class
        Change chronotimer to do nano seconds

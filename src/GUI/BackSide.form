@@ -70,46 +70,6 @@
               <text value="7"/>
             </properties>
           </component>
-          <component id="f7598" class="javax.swing.JRadioButton" binding="radioButton1" default-binding="true">
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-11327221"/>
-              <borderPainted value="false"/>
-              <contentAreaFilled value="true"/>
-              <foreground color="-15065579"/>
-              <opaque value="true"/>
-              <text value=""/>
-            </properties>
-          </component>
-          <component id="5338c" class="javax.swing.JRadioButton" binding="radioButton3">
-            <constraints>
-              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-11327221"/>
-              <text value=""/>
-            </properties>
-          </component>
-          <component id="1472b" class="javax.swing.JRadioButton" binding="radioButton5">
-            <constraints>
-              <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-11327221"/>
-              <text value=""/>
-            </properties>
-          </component>
-          <component id="61575" class="javax.swing.JRadioButton" binding="radioButton7">
-            <constraints>
-              <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-11327221"/>
-              <text value=""/>
-            </properties>
-          </component>
           <component id="5ba69" class="javax.swing.JLabel">
             <constraints>
               <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
@@ -150,42 +110,134 @@
               <text value="2"/>
             </properties>
           </component>
-          <component id="a923e" class="javax.swing.JRadioButton" binding="radioButton2">
+          <component id="ffc7b" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
             <constraints>
-              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-11327221"/>
-              <borderPainted value="false"/>
-              <foreground color="-15065579"/>
-              <text value=""/>
+              <background color="-2308168"/>
+              <foreground color="-11327221"/>
+              <model>
+                <item value=""/>
+                <item value="ElectricEye"/>
+                <item value="Gate"/>
+                <item value="Pad"/>
+                <item value="PushButton"/>
+              </model>
+              <toolTipText value=""/>
             </properties>
           </component>
-          <component id="121f5" class="javax.swing.JRadioButton" binding="radioButton4">
+          <component id="d4e10" class="javax.swing.JComboBox" binding="comboBox3">
             <constraints>
-              <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-11327221"/>
-              <text value=""/>
+              <background color="-3099488"/>
+              <foreground color="-11327221"/>
+              <model>
+                <item value=""/>
+                <item value="ElectricEye"/>
+                <item value="Gate"/>
+                <item value="Pad"/>
+                <item value="PushButton"/>
+              </model>
             </properties>
           </component>
-          <component id="77ce" class="javax.swing.JRadioButton" binding="radioButton6">
+          <component id="c906e" class="javax.swing.JComboBox" binding="comboBox5">
             <constraints>
-              <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-11327221"/>
-              <text value=""/>
+              <background color="-3825015"/>
+              <foreground color="-11327221"/>
+              <model>
+                <item value=""/>
+                <item value="ElectricEye"/>
+                <item value="Gate"/>
+                <item value="Pad"/>
+                <item value="PushButton"/>
+              </model>
             </properties>
           </component>
-          <component id="a4b4a" class="javax.swing.JRadioButton" binding="radioButton8" default-binding="true">
+          <component id="2becc" class="javax.swing.JComboBox" binding="comboBox77">
             <constraints>
-              <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-11327221"/>
-              <text value=""/>
+              <background color="-4616335"/>
+              <foreground color="-11327221"/>
+              <model>
+                <item value=""/>
+                <item value="ElectricEye"/>
+                <item value="Gate"/>
+                <item value="Pad"/>
+                <item value="PushButton"/>
+              </model>
+            </properties>
+          </component>
+          <component id="94bd" class="javax.swing.JComboBox" binding="comboBox6">
+            <constraints>
+              <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-3825015"/>
+              <foreground color="-11327221"/>
+              <model>
+                <item value=""/>
+                <item value="ElectricEye"/>
+                <item value="Gate"/>
+                <item value="Pad"/>
+                <item value="PushButton"/>
+              </model>
+            </properties>
+          </component>
+          <component id="ec871" class="javax.swing.JComboBox" binding="comboBox4">
+            <constraints>
+              <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-3099488"/>
+              <foreground color="-11327221"/>
+              <model>
+                <item value=""/>
+                <item value="ElectricEye"/>
+                <item value="Gate"/>
+                <item value="Pad"/>
+                <item value="PushButton"/>
+              </model>
+            </properties>
+          </component>
+          <component id="bede6" class="javax.swing.JComboBox" binding="comboBox2">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-2308168"/>
+              <foreground color="-11327221"/>
+              <model>
+                <item value=""/>
+                <item value="ElectricEye"/>
+                <item value="Gate"/>
+                <item value="Pad"/>
+                <item value="PushButton"/>
+              </model>
+              <toolTipText value=""/>
+            </properties>
+          </component>
+          <component id="725d1" class="javax.swing.JComboBox" binding="comboBox8" default-binding="true">
+            <constraints>
+              <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-4616335"/>
+              <foreground color="-11327221"/>
+              <model>
+                <item value=""/>
+                <item value="ElectricEye"/>
+                <item value="Gate"/>
+                <item value="Pad"/>
+                <item value="PushButton"/>
+              </model>
             </properties>
           </component>
         </children>
