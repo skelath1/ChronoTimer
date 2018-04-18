@@ -5,9 +5,7 @@
     <constraints>
       <xy x="20" y="20" width="640" height="400"/>
     </constraints>
-    <properties>
-      <background color="-11327221"/>
-    </properties>
+    <properties/>
     <border type="none"/>
     <children>
       <grid id="82fb5" layout-manager="GridLayoutManager" row-count="4" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -15,9 +13,7 @@
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties>
-          <background color="-11327221"/>
-        </properties>
+        <properties/>
         <border type="none"/>
         <children>
           <component id="2f56" class="javax.swing.JLabel">
@@ -35,8 +31,6 @@
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-2308168"/>
-              <foreground color="-2308168"/>
               <text value="1"/>
             </properties>
           </component>
@@ -45,8 +39,6 @@
               <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-3099488"/>
-              <foreground color="-3099488"/>
               <text value="3"/>
             </properties>
           </component>
@@ -55,8 +47,6 @@
               <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-3825015"/>
-              <foreground color="-3825015"/>
               <text value="5"/>
             </properties>
           </component>
@@ -65,8 +55,6 @@
               <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-4616335"/>
-              <foreground color="-4616335"/>
               <text value="7"/>
             </properties>
           </component>
@@ -75,8 +63,6 @@
               <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-4616335"/>
-              <foreground color="-4616335"/>
               <text value="8"/>
             </properties>
           </component>
@@ -86,7 +72,6 @@
             </constraints>
             <properties>
               <background color="-3825015"/>
-              <foreground color="-3825015"/>
               <text value="6"/>
             </properties>
           </component>
@@ -96,7 +81,6 @@
             </constraints>
             <properties>
               <background color="-3099488"/>
-              <foreground color="-3099488"/>
               <text value="4"/>
             </properties>
           </component>
@@ -105,8 +89,6 @@
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-2308168"/>
-              <foreground color="-2308168"/>
               <text value="2"/>
             </properties>
           </component>
@@ -115,8 +97,6 @@
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-2308168"/>
-              <foreground color="-11327221"/>
               <model>
                 <item value=""/>
                 <item value="ElectricEye"/>
@@ -132,8 +112,6 @@
               <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-3099488"/>
-              <foreground color="-11327221"/>
               <model>
                 <item value=""/>
                 <item value="ElectricEye"/>
@@ -148,8 +126,6 @@
               <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-3825015"/>
-              <foreground color="-11327221"/>
               <model>
                 <item value=""/>
                 <item value="ElectricEye"/>
@@ -164,8 +140,6 @@
               <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-4616335"/>
-              <foreground color="-11327221"/>
               <model>
                 <item value=""/>
                 <item value="ElectricEye"/>
@@ -180,8 +154,6 @@
               <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-3825015"/>
-              <foreground color="-11327221"/>
               <model>
                 <item value=""/>
                 <item value="ElectricEye"/>
@@ -196,8 +168,6 @@
               <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-3099488"/>
-              <foreground color="-11327221"/>
               <model>
                 <item value=""/>
                 <item value="ElectricEye"/>
@@ -212,8 +182,6 @@
               <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-2308168"/>
-              <foreground color="-11327221"/>
               <model>
                 <item value=""/>
                 <item value="ElectricEye"/>
@@ -229,8 +197,6 @@
               <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-4616335"/>
-              <foreground color="-11327221"/>
               <model>
                 <item value=""/>
                 <item value="ElectricEye"/>
@@ -247,8 +213,6 @@
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <background color="-6924502"/>
-          <foreground color="-6924502"/>
           <text value="              "/>
         </properties>
       </component>
@@ -257,7 +221,6 @@
           <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <foreground color="-6924502"/>
           <text value="USB PORT"/>
         </properties>
       </component>
