@@ -1,10 +1,10 @@
 package TimingSystem.Hardware;
 
 public class Pad extends Sensor {
-    private Channel _channel;
 
-    public Pad(Channel channel){
-        _channel = channel;
+
+    public Pad(){
+
     }
 
     @Override

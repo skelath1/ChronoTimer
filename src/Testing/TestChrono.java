@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 import static org.junit.Assert.assertTrue;
 
 public class TestChrono {
-    ChronoTimer ct;
+    /*ChronoTimer ct;
     Method m;
     String state;
 
@@ -60,4 +60,5 @@ public class TestChrono {
             ex.printStackTrace();
         }
     }
+*/
 }

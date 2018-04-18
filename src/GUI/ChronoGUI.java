@@ -205,7 +205,7 @@ public class ChronoGUI {
         powerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                chronoTimer.execute("POWER",null);
+                chronoTimer.execute("POWER",null,null);
                 if(chronoTimer.getState() == "ON")
                     commandPane.setText(cur.getValue());
                 else {
@@ -221,103 +221,103 @@ public class ChronoGUI {
         SWAPButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chronoTimer.execute("SWAP",null);
+                chronoTimer.execute("SWAP",null,null);
             }
         });
         trigButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chronoTimer.execute("TRIG","1");
+                chronoTimer.execute("TRIG","1",null);
             }
         });
         chanButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chronoTimer.execute("TOG","1");
+                chronoTimer.execute("TOG","1",null);
             }
         });
         trigButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chronoTimer.execute("TRIG","2");
+                chronoTimer.execute("TRIG","2",null);
             }
         });
         chanButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chronoTimer.execute("TOG","2");
+                chronoTimer.execute("TOG","2",null);
             }
         });
         trigButton3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chronoTimer.execute("TRIG","3");
+                chronoTimer.execute("TRIG","3",null);
             }
         });
         chanButton3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chronoTimer.execute("TOG","3");
+                chronoTimer.execute("TOG","3",null);
             }
         });
         trigButton4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chronoTimer.execute("TRIG","4");
+                chronoTimer.execute("TRIG","4",null);
             }
         });
         chanButton4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chronoTimer.execute("TOG","4");
+                chronoTimer.execute("TOG","4",null);
             }
         });
         trigButton5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chronoTimer.execute("TRIG","5");
+                chronoTimer.execute("TRIG","5",null);
             }
         });
         chanButton5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chronoTimer.execute("TOG","5");
+                chronoTimer.execute("TOG","5",null);
             }
         });
         trigButton6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chronoTimer.execute("TRIG","6");
+                chronoTimer.execute("TRIG","6",null);
             }
         });
         chanButton6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chronoTimer.execute("TOG","6");
+                chronoTimer.execute("TOG","6",null);
             }
         });
         trigButton7.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chronoTimer.execute("TRIG","7");
+                chronoTimer.execute("TRIG","7",null);
             }
         });
         chanButton7.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chronoTimer.execute("TOG","7");
+                chronoTimer.execute("TOG","7",null);
             }
         });
         trigButton8.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chronoTimer.execute("TRIG","8");
+                chronoTimer.execute("TRIG","8",null);
             }
         });
         chanButton8.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chronoTimer.execute("TOG","8");
+                chronoTimer.execute("TOG","8",null);
             }
         });
         Backside.addActionListener(new ActionListener() {
@@ -406,7 +406,7 @@ public class ChronoGUI {
                 String value = valuePane.getText();
                 if(value.equals(""))
                     value = null;
-                chronoTimer.execute(commandPane.getText(), value);
+                chronoTimer.execute(commandPane.getText(), value,null);
 
                 if (commandPane.getText().equalsIgnoreCase("PRINT")) {
                     printerPane.setText(chronoTimer.getResults());

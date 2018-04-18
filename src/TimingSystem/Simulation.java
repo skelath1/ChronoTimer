@@ -52,15 +52,27 @@ public class Simulation {
                    // }
 
                     if(strArr.length ==1)
-                        chronoTimer.execute(strArr[0], null);
+                        chronoTimer.execute(strArr[0], null,null);
                     //need to determine if it has a command value or Time command
                     else if(strArr.length ==2 && !strArr[0].contains(":"))
-                        chronoTimer.execute(strArr[0], strArr[1]);
+                        chronoTimer.execute(strArr[0], strArr[1],null);
                     //means it has no value just time + command
                     else if(strArr.length ==2 && strArr[0].contains(":"))
-                        chronoTimer.execute(strArr[0], strArr[1],null);
+                        chronoTimer.execute(strArr[0], strArr[1],null,null);
+
+                    //if it is three it can be time or it can be a third parameter with no time
+
+                    //has the ':' so it is the time
+                    else if(strArr.length == 3 && strArr[0].contains(":")){
+                        chronoTimer.execute(strArr[0], strArr[1],strArr[2],null); //0 - Time, 1- - Command, 2 - Value, 3 - value2
+                    }
+                    //has no time but has a third parm
                     else if(strArr.length == 3){
-                        chronoTimer.execute(strArr[0], strArr[1],strArr[2]); //0 - Time, 1- - Command, 2 - Value
+                        chronoTimer.execute(strArr[0], strArr[1],strArr[2]); //0 - Command, 2 - Value, 3 - value2
+                    }
+                    //only used if given time and the CONN command which has two parameters hence 4
+                    else if(strArr.length == 4){
+                        chronoTimer.execute(strArr[0], strArr[1],strArr[2],strArr[3]);
                     }
                 }
             } catch (FileNotFoundException e) {
@@ -73,11 +85,11 @@ public class Simulation {
                 String line = stdIn.nextLine();
                 String[] strArr = line.split("\\s+");
                 if(strArr.length == 1)
-                    chronoTimer.execute(strArr[0], null);
+                    chronoTimer.execute(strArr[0], null,null);
                 else if(strArr.length < 3)
-                    chronoTimer.execute(strArr[0], strArr[1]);
+                    chronoTimer.execute(strArr[0], strArr[1],null);
                 else if(strArr.length == 3){
-                    chronoTimer.execute(strArr[0], strArr[1],strArr[2]); //0 - Time, 1- - Command, 2 - Value
+                    chronoTimer.execute(strArr[0], strArr[1],strArr[2]); //0 -Command, 1 - Value, 2- Value
                 }
             }
         }

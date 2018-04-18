@@ -2,6 +2,7 @@ package TimingSystem;
 
 import TimingSystem.Hardware.Channel;
 import TimingSystem.Hardware.Sensor;
+import TimingSystem.Hardware.SensorFactory;
 import Util.*;
 
 import java.text.NumberFormat;
@@ -40,7 +41,7 @@ public class ChronoTimer {
      * @param value String
      * Takes in command from TimingSystem.Simulation and executes it.
      */
-    public void execute(String command, String value){
+    public void execute(String command, String value,String value2){
         Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString()+ " runCalled " + runCalled + " eventCalled " + eventCalled);
         switch(command.toUpperCase())
         {
@@ -123,6 +124,9 @@ public class ChronoTimer {
             case "CLR":
                 clear(value);
                 break;
+            case "CONN":
+                connect(value,value2);
+                break;
         }
     }
     /**
@@ -131,7 +135,7 @@ public class ChronoTimer {
      * @param value String
      * Takes in command from TimingSystem.Simulation and executes it.
      */
-    public void execute(String time, String command, String value){
+    public void execute(String time, String command, String value, String value2){
         Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString() + " runCalled " + runCalled + " eventCalled " + eventCalled);
         switch(command.toUpperCase())
         {
@@ -215,20 +219,15 @@ public class ChronoTimer {
             case "CLR":
                 clear(value);
                 break;
+            case "CONN":
+                connect(value,value2);
+                break;
 
         }
     }
 
     //util methods
-    /**
-     *
-     * @return sysTime
-     */
-    public Time getSysTime()
-    {
-        return sysTime;
-    }
-    public String getState(){return curState.toString();}
+
 
 
     //case methods
@@ -369,6 +368,7 @@ public class ChronoTimer {
                 event.clear();
             }
             else {
+                //TODO event clear with bib not implmented yet
                 //event.clear(bibNumer);
             }
         }
@@ -396,10 +396,21 @@ public class ChronoTimer {
             event.swap();
         }
    }
-   private void connect(String sensor, int channelNumber){
-        //TODO cant create a senor when connecting create a sensor factory
-        channels[channelNumber].connectSensor(new Sensor(sensor));
+   private void connect(String sensorName, String channelNumber){
+       try{
+           int chanNum = Integer.parseInt(channelNumber) -1;
+           if(chanNum > 8)
+            throw new NumberFormatException();
 
+           //TODO cant create a senor when connecting create a sensor factory
+           Sensor s = SensorFactory.makeSensor(sensorName);
+           if(s == null)
+               Simulation.execute("Error",sensorName +" is not a valid sensor");
+           channels[chanNum].connectSensor(s);
+       }
+       catch(NumberFormatException ex){
+           Simulation.execute("Error",channelNumber +" is not a valid number");
+       }
    }
 
    public String getResults(){
@@ -424,5 +435,10 @@ public class ChronoTimer {
 
        return null;
    }
+    public Time getSysTime()
+    {
+        return sysTime;
+    }
+    public String getState(){return curState.toString();}
 
 }
