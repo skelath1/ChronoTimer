@@ -119,10 +119,10 @@
               <foreground color="-11327221"/>
               <model>
                 <item value=""/>
-                <item value="ElectricEye"/>
+                <item value="Electric Eye"/>
                 <item value="Gate"/>
                 <item value="Pad"/>
-                <item value="PushButton"/>
+                <item value="Push Button"/>
               </model>
               <toolTipText value=""/>
             </properties>
@@ -136,10 +136,10 @@
               <foreground color="-11327221"/>
               <model>
                 <item value=""/>
-                <item value="ElectricEye"/>
+                <item value="Electric Eye"/>
                 <item value="Gate"/>
                 <item value="Pad"/>
-                <item value="PushButton"/>
+                <item value="Push Button"/>
               </model>
             </properties>
           </component>
@@ -152,14 +152,14 @@
               <foreground color="-11327221"/>
               <model>
                 <item value=""/>
-                <item value="ElectricEye"/>
+                <item value="Electric Eye"/>
                 <item value="Gate"/>
                 <item value="Pad"/>
-                <item value="PushButton"/>
+                <item value="Push Button"/>
               </model>
             </properties>
           </component>
-          <component id="2becc" class="javax.swing.JComboBox" binding="comboBox77">
+          <component id="2becc" class="javax.swing.JComboBox" binding="comboBox7">
             <constraints>
               <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -168,10 +168,10 @@
               <foreground color="-11327221"/>
               <model>
                 <item value=""/>
-                <item value="ElectricEye"/>
+                <item value="Electric Eye"/>
                 <item value="Gate"/>
                 <item value="Pad"/>
-                <item value="PushButton"/>
+                <item value="Push Button"/>
               </model>
             </properties>
           </component>
@@ -184,10 +184,10 @@
               <foreground color="-11327221"/>
               <model>
                 <item value=""/>
-                <item value="ElectricEye"/>
+                <item value="Electric Eye"/>
                 <item value="Gate"/>
                 <item value="Pad"/>
-                <item value="PushButton"/>
+                <item value="Push Button"/>
               </model>
             </properties>
           </component>
@@ -200,10 +200,10 @@
               <foreground color="-11327221"/>
               <model>
                 <item value=""/>
-                <item value="ElectricEye"/>
+                <item value="Electric Eye"/>
                 <item value="Gate"/>
                 <item value="Pad"/>
-                <item value="PushButton"/>
+                <item value="Push Button"/>
               </model>
             </properties>
           </component>
@@ -216,10 +216,10 @@
               <foreground color="-11327221"/>
               <model>
                 <item value=""/>
-                <item value="ElectricEye"/>
+                <item value="Electric Eye"/>
                 <item value="Gate"/>
                 <item value="Pad"/>
-                <item value="PushButton"/>
+                <item value="Push Button"/>
               </model>
               <toolTipText value=""/>
             </properties>
@@ -233,10 +233,10 @@
               <foreground color="-11327221"/>
               <model>
                 <item value=""/>
-                <item value="ElectricEye"/>
+                <item value="Electric Eye"/>
                 <item value="Gate"/>
                 <item value="Pad"/>
-                <item value="PushButton"/>
+                <item value="Push Button"/>
               </model>
             </properties>
           </component>
