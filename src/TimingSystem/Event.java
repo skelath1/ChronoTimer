@@ -70,7 +70,7 @@ public class Event implements RaceType{
      */
     @Override
     public void setStartTime(long startTime, int channelNum) {
-        _racetype.setStartTime(startTime, channelNum);
+            _racetype.setStartTime(startTime, channelNum);
     }
 
     /**
@@ -97,6 +97,11 @@ public class Event implements RaceType{
     @Override
     public void clear() {
         _racetype.clear();
+    }
+
+    @Override
+    public void clear(int bibNumber) {
+        _racetype.clear(bibNumber);
     }
 
     @Override

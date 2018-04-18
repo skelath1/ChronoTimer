@@ -2,6 +2,7 @@ package TimingSystem.RaceTypes;
 
 import TimingSystem.Hardware.Channel;
 import TimingSystem.Racer;
+import TimingSystem.Result;
 import TimingSystem.Run;
 import Util.Time;
 
@@ -12,7 +13,10 @@ import java.util.LinkedList;
 public class GRP implements RaceType{
     private Deque<Racer> _racers;
     private Deque<Racer> _racerQueue;
+    private Deque<Racer> _finished;
     private ArrayList<Run> runs;
+
+    private int anonBib = 99901;
 
 
     private Channel[] _channels;
@@ -21,6 +25,7 @@ public class GRP implements RaceType{
         _channels = channels;
         _racers = new LinkedList<>();
         _racerQueue = new LinkedList<>();
+        _finished = new LinkedList<>();
     }
 
     /**
@@ -29,8 +34,31 @@ public class GRP implements RaceType{
      */
     @Override
     public void addRacer(int bibNumber) {
-        if(validNewRacer(bibNumber))
-            _racers.add(new Racer(bibNumber));
+        //TODO loop through all the racers in every list and if there is a temp bib replace with bibnumber
+        boolean newR = true;
+        for(Racer r : _finished){
+            String b = r.getBibNumber() + "";
+            if(b.length() > 3 && b.substring(0,3).equalsIgnoreCase("999")){
+                r.setBibNumber(bibNumber);
+                newR = false;
+                break;
+            }
+        }
+        if(newR == true){
+            for(Racer r : _racerQueue){
+                String b = r.getBibNumber()+"";
+                if(b.length() > 3 && b.substring(0,3).equalsIgnoreCase("999")){
+                    r.setBibNumber(bibNumber);
+                    newR = false;
+                    break;
+                }
+            }
+            if(newR == true) {
+                if (validNewRacer(bibNumber))
+                    _racers.add(new Racer(bibNumber));
+            }
+        }
+
     }
 
     /**
@@ -40,6 +68,16 @@ public class GRP implements RaceType{
      */
     private boolean validNewRacer(int bibNumber){
         for(Racer r : _racers){
+            if(r.getBibNumber() == bibNumber)
+                return false;
+        }
+
+        for(Racer r : _racerQueue){
+            if(r.getBibNumber() == bibNumber)
+                return false;
+        }
+
+        for(Racer r : _finished){
             if(r.getBibNumber() == bibNumber)
                 return false;
         }
@@ -54,15 +92,25 @@ public class GRP implements RaceType{
      */
     @Override
     public void setStartTime(long startTime, int channelNum) {
-        if(channelNum == 1){
-            while(!_racers.isEmpty()){
-                if(_racers.peek().getStartTime() != -1) return;
-                Racer r = _racers.removeFirst();
+        if (channelNum == 1) {
+            if (_racers.isEmpty()) {
+                Racer r = new Racer(anonBib);
                 r.setStartTime(startTime);
                 _racerQueue.add(r);
+                ++anonBib;
+            } else {
+                while (!_racers.isEmpty()) {
+                    if (_racers.peek().getStartTime() != -1) return;
+                    Racer r = _racers.removeFirst();
+                    r.setStartTime(startTime);
+                    _racerQueue.add(r);
+                }
+
             }
         }
     }
+
+
 
     /**
      * Sets the finish time of A Racer from the Channel Triggered
@@ -75,7 +123,7 @@ public class GRP implements RaceType{
             if(_racerQueue.isEmpty()) return;
             Racer r = _racerQueue.removeFirst();
             r.setFinishTime(finishTime);
-            _racers.add(r);
+            _finished.add(r);
         }
     }
 
@@ -94,6 +142,12 @@ public class GRP implements RaceType{
     public void clear() {
         _racers.clear();
         _racerQueue.clear();
+        _finished.clear();
+    }
+
+    @Override
+    public void clear(int bibNumber) {
+
     }
 
     /**
@@ -116,7 +170,7 @@ public class GRP implements RaceType{
     @Override
     public void saveRun(){
         Run r = new Run(this.toString());
-        r.addResults(_racers);
+        r.addResults(_finished);
         runs.add(r);
     }
 
@@ -127,11 +181,10 @@ public class GRP implements RaceType{
     @Override
     public String printResults() {
         String s = "";
-        for(Racer r : _racers) {
-            if(r.getFinishTime() == -1)
-                s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + "DNF\n";
-            else
-                s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + "\n";
+        for(Run r : runs) {
+            for(Result res : r.getResults()){
+                s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
+            }
         }
         return s;
     }
@@ -155,25 +208,27 @@ public class GRP implements RaceType{
         String data = "";
         switch(type){
             case "queue":
-
+                return listToString(_racers, false, true);
             case "running":
-                return listToString(_racerQueue, false);
+                return listToString(_racerQueue, false, false);
             case "finished":
-                return listToString(_racers, true);
+                return listToString(_finished, true, false);
             default:
         }
         return data;
     }
 
-    private String listToString(Deque<Racer> list, boolean finished) {
+    private String listToString(Deque<Racer> list, boolean finished, boolean q) {
         long cTime = System.currentTimeMillis();
         String s = "";
         for(Racer r : list){
             s += r.getBibNumber() + " ";
-            if(finished)
-                s += Time.getElapsed(r.getStartTime(), r.getFinishTime());
-            else
-                s += Time.getElapsed(r.getStartTime(), cTime);
+            if(!q) {
+                if (finished)
+                    s += Time.getElapsed(r.getStartTime(), r.getFinishTime());
+                else
+                    s += Time.getElapsed(r.getStartTime(), cTime);
+            }
             s += "\n";
         }
         return s;

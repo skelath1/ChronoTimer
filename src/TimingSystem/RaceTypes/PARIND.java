@@ -61,7 +61,22 @@ public class PARIND implements RaceType {
                 return false;
         }
 
+        for(Racer r : _left){
+            if(r.getBibNumber() == bibNumber)
+                return false;
+        }
+
         for(Racer r : _racersR){
+            if(r.getBibNumber() == bibNumber)
+                return false;
+        }
+
+        for(Racer r : _right){
+            if(r.getBibNumber() == bibNumber)
+                return false;
+        }
+
+        for(Racer r : _finished){
             if(r.getBibNumber() == bibNumber)
                 return false;
         }
@@ -148,6 +163,11 @@ public class PARIND implements RaceType {
         addRight = false;
     }
 
+    @Override
+    public void clear(int bibNumber) {
+
+    }
+
     /**
      *
      */
@@ -174,11 +194,10 @@ public class PARIND implements RaceType {
     @Override
     public String printResults() {
         String s = "";
-        for(Racer r : _finished) {
-            if(r.getFinishTime() == -1)
-                s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + "DNF\n";
-            else
-                s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + "\n";
+        for(Run r : runs) {
+            for(Result res : r.getResults()){
+                s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
+            }
         }
         return s;
     }

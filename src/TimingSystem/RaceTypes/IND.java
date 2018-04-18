@@ -2,6 +2,7 @@ package TimingSystem.RaceTypes;
 
 import TimingSystem.Hardware.Channel;
 import TimingSystem.Racer;
+import TimingSystem.Result;
 import TimingSystem.Run;
 import Util.Time;
 
@@ -48,6 +49,16 @@ public class IND implements RaceType {
      */
     private boolean validNewRacer(int bibNumber){
         for(Racer r : _racers){
+            if(r.getBibNumber() == bibNumber)
+                return false;
+        }
+
+        for(Racer r : _racerQueue){
+            if(r.getBibNumber() == bibNumber)
+                return false;
+        }
+
+        for(Racer r : _finished){
             if(r.getBibNumber() == bibNumber)
                 return false;
         }
@@ -106,6 +117,11 @@ public class IND implements RaceType {
         _finished.clear();
     }
 
+    @Override
+    public void clear(int bibNumber) {
+
+    }
+
     /**
      *
      */
@@ -139,11 +155,10 @@ public class IND implements RaceType {
         String s = "";
 
         //changed from racer to racerQueue
-        for(Racer r : _finished) {
-            if(r.getFinishTime() == -1)
-                s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + "DNF\n";
-            else
-                s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + "\n";
+        for(Run r : runs) {
+            for(Result res : r.getResults()){
+                s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
+            }
         }
         return s;
     }

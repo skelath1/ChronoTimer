@@ -8,7 +8,7 @@ public class PushButton extends Sensor {
    }
 
     @Override
-    void trigger() {
-
+     long trigger() {
+        return System.currentTimeMillis();
     }
 }

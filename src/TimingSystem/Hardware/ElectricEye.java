@@ -8,7 +8,7 @@ public class ElectricEye extends Sensor {
     }
 
     @Override
-    void trigger() {
-
+    long trigger() {
+        return System.currentTimeMillis();
     }
 }

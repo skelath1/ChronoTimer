@@ -2,6 +2,7 @@ package TimingSystem.RaceTypes;
 
 import TimingSystem.Hardware.Channel;
 import TimingSystem.Racer;
+import TimingSystem.Result;
 import TimingSystem.Run;
 import Util.Time;
 
@@ -100,6 +101,11 @@ public class PARGRP implements RaceType {
         _racerMap.clear();
     }
 
+    @Override
+    public void clear(int bibNumber) {
+
+    }
+
     /**
      *
      */
@@ -126,11 +132,10 @@ public class PARGRP implements RaceType {
     @Override
     public String printResults() {
         String s = "";
-        for(Racer r : _racers) {
-            if(r.getFinishTime() == -1)
-                s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + "DNF\n";
-            else
-                s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + "\n";
+        for(Run r : runs) {
+            for(Result res : r.getResults()){
+                s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
+            }
         }
         return s;
     }

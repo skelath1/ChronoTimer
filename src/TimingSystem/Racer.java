@@ -12,6 +12,10 @@ public class Racer {
         _finishTime = -1;
     }
 
+    public void setBibNumber(int _bibNumber) {
+        this._bibNumber = _bibNumber;
+    }
+
     public long getStartTime() {
         return _startTime;
     }

@@ -411,7 +411,10 @@ public class ChronoGUI {
                 if (commandPane.getText().equalsIgnoreCase("PRINT")) {
                     printerPane.setText(chronoTimer.getResults());
                 }
-
+//
+//                commandPane.setText("");
+//                valuePane.setText("");
+                commandPane.setText(cur.getValue());
                 if(cur == Function.NUM)
                     valuePane.setText("");
                 else

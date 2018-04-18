@@ -8,6 +8,7 @@ public interface RaceType{
     void setFinishTime(long finishTime, int channelNum);
     void cancelRacer();
     void clear();
+    void clear(int bibNumber);
     void swap();
     void saveRun();
     String printResults();
