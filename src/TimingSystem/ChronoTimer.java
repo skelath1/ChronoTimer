@@ -1,6 +1,7 @@
 package TimingSystem;
 
 import TimingSystem.Hardware.Channel;
+import TimingSystem.Hardware.Sensor;
 import Util.*;
 
 import java.text.NumberFormat;
@@ -65,24 +66,28 @@ public class ChronoTimer {
                 break;
             case "TRIG":
                 if(runCalled){
-                    int channelNum = Integer.parseInt(value);
-                    //if it is odd then it is the start
-                    if((channelNum % 2) != 0)
-                        event.setStartTime(System.currentTimeMillis(), channelNum);
-                    else
-                        event.setFinishTime(System.currentTimeMillis(), Integer.parseInt(value));
+                    try {
+                        int channelNum = Integer.parseInt(value);
+                        //if it is odd then it is the start
+                        if((channelNum % 2) != 0)
+                            event.setStartTime(channels[channelNum-1].triggerSensor(), channelNum);
+                        else
+                            event.setFinishTime(channels[channelNum-1].triggerSensor(), channelNum);
+                    }
+                    catch(NumberFormatException ex){
+                        Simulation.execute("ERROR"," " + value + " not valid.");
+                    }
                 }
                 break;
-            //same as TRIG 1
             case "START":
                 if(runCalled){
-                    event.setStartTime(System.currentTimeMillis(), 1);
+                    event.setStartTime(channels[0].triggerSensor(), 1);
                 }
                 break;
             //same as TRIG 2
             case "FINISH":
                 if(runCalled){
-                    event.setFinishTime(System.currentTimeMillis(), 2);
+                    event.setFinishTime(channels[1].triggerSensor(), 2);
                 }
                 break;
             case "PRINT":
@@ -151,24 +156,29 @@ public class ChronoTimer {
                 break;
             case "TRIG":
                 if(runCalled){
-                    int channelNum = Integer.parseInt(value);
-                    //if it is odd then it is the start
-                    if((channelNum % 2) != 0)
-                        event.setStartTime(Time.stringToMilliseconds(time), channelNum);
-                    else
-                        event.setFinishTime(Time.stringToMilliseconds(time), Integer.parseInt(value));
+                    try {
+                        int channelNum = Integer.parseInt(value);
+                        //if it is odd then it is the start
+                        if((channelNum % 2) != 0)
+                            event.setStartTime(channels[channelNum-1].triggerSensor(), channelNum);
+                        else
+                            event.setFinishTime(channels[channelNum-1].triggerSensor(), channelNum);
+                    }
+                    catch(NumberFormatException ex){
+                        Simulation.execute("ERROR"," " + value + " not valid.");
+                    }
                 }
                 break;
             //same as TRIG 1
             case "START":
                 if(runCalled){
-                    event.setStartTime(Time.stringToMilliseconds(time), 1);
+                    event.setStartTime(channels[0].triggerSensor(), 1);
                 }
                 break;
             //same as TRIG 2
             case "FINISH":
                 if(runCalled){
-                    event.setFinishTime(Time.stringToMilliseconds(time),2);
+                    event.setFinishTime(channels[1].triggerSensor(), 2);
                 }
                 break;
             case "PRINT":
@@ -384,6 +394,12 @@ public class ChronoTimer {
             event.swap();
         }
    }
+   private void connect(String sensor, int channelNumber){
+        //TODO cant create a senor when connecting create a sensor factory
+        channels[channelNumber].connectSensor(new Sensor(sensor));
+
+   }
+
    public String getResults(){
        return event.printResults();
 
