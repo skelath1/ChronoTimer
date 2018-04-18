@@ -11,9 +11,9 @@ public class TestChannel {
     @Test
     public void test1()
     {
-        assertFalse("Channel should be off by default",c1.isOn());
+        assertFalse("Channel should be off by default",c1.isReady());
         c1.toggle();
-        assertTrue("Channel should be on after toggled",c1.isOn());
+        assertTrue("Channel should be on after toggled",c1.isReady());
     }
 }
 

@@ -66,14 +66,16 @@ public class ChronoTimer {
                 num(value);
                 break;
             case "TRIG":
-                if(runCalled || event.toString().equalsIgnoreCase("GRP")){
+                if(runCalled){
                     try {
                         int channelNum = Integer.parseInt(value);
                         //if it is odd then it is the start
-                        if((channelNum % 2) != 0)
-                            event.setStartTime(channels[channelNum-1].triggerSensor(), channelNum);
-                        else
-                            event.setFinishTime(channels[channelNum-1].triggerSensor(), channelNum);
+                        if(channels[channelNum-1].isReady()) {
+                            if ((channelNum % 2) != 0)
+                                event.setStartTime(channels[channelNum - 1].triggerSensor(), channelNum);
+                            else
+                                event.setFinishTime(channels[channelNum - 1].triggerSensor(), channelNum);
+                        }
                     }
                     catch(NumberFormatException ex){
                         Simulation.execute("ERROR"," " + value + " not valid.");
@@ -82,14 +84,16 @@ public class ChronoTimer {
                 break;
             //same as TRIG 1
             case "START":
-                if(runCalled || event.toString().equalsIgnoreCase("GRP")){
-                    event.setStartTime(System.currentTimeMillis(), 1);
+                if(runCalled){
+                    if(channels[0].isReady())
+                        event.setStartTime(System.currentTimeMillis(), 1);
                 }
                 break;
             //same as TRIG 2
             case "FINISH":
-                if(runCalled || event.toString().equalsIgnoreCase("GRP")){
-                    event.setFinishTime(System.currentTimeMillis(), 2);
+                if(runCalled){
+                    if(channels[0].isReady())
+                        event.setFinishTime(System.currentTimeMillis(), 2);
                 }
                 break;
             case "PRINT":
@@ -160,15 +164,17 @@ public class ChronoTimer {
                 num(value);
                 break;
             case "TRIG":
-                if(runCalled || event.toString().equalsIgnoreCase("GRP")) {
+                if(runCalled) {
                     if (runCalled) {
                         try {
                             int channelNum = Integer.parseInt(value);
                             //if it is odd then it is the start
-                            if ((channelNum % 2) != 0)
-                                event.setStartTime(channels[channelNum - 1].triggerSensor(), channelNum);
-                            else
-                                event.setFinishTime(channels[channelNum - 1].triggerSensor(), channelNum);
+                            if(channels[channelNum-1].isReady()) {
+                                if ((channelNum % 2) != 0)
+                                    event.setStartTime(channels[channelNum - 1].triggerSensor(), channelNum);
+                                else
+                                    event.setFinishTime(channels[channelNum - 1].triggerSensor(), channelNum);
+                            }
                         } catch (NumberFormatException ex) {
                             Simulation.execute("ERROR", " " + value + " not valid.");
                         }
@@ -177,14 +183,16 @@ public class ChronoTimer {
                 break;
             //same as TRIG 1
             case "START":
-                if(runCalled || event.toString().equalsIgnoreCase("GRP")){
-                    event.setStartTime(channels[0].triggerSensor(), 1);
+                if(runCalled){
+                    if(channels[0].isReady())
+                        event.setStartTime(channels[0].triggerSensor(), 1);
                 }
                 break;
             //same as TRIG 2
             case "FINISH":
-                if(runCalled || event.toString().equalsIgnoreCase("GRP")){
-                    event.setFinishTime(channels[1].triggerSensor(), 2);
+                if(runCalled){
+                    if(channels[0].isReady())
+                        event.setFinishTime(channels[1].triggerSensor(), 2);
                 }
                 break;
             case "PRINT":
@@ -369,7 +377,7 @@ public class ChronoTimer {
             }
             else {
                 //TODO event clear with bib not implmented yet
-                //event.clear(bibNumer);
+                //event.clear(bibNubmer);
             }
         }
     }
@@ -378,7 +386,6 @@ public class ChronoTimer {
             eventList.add(event);
             event.saveRun();
 
-            //TODO if clear is called then you cant call print after endrun
             event.clear();
             curState = State.ON;
             runCalled = false;
@@ -402,7 +409,6 @@ public class ChronoTimer {
            if(chanNum > 8)
             throw new NumberFormatException();
 
-           //TODO cant create a senor when connecting create a sensor factory
            Sensor s = SensorFactory.makeSensor(sensorName);
            if(s == null)
                Simulation.execute("Error",sensorName +" is not a valid sensor");

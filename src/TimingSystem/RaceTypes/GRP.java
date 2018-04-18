@@ -191,7 +191,12 @@ public class GRP implements RaceType{
 
     @Override
     public String printResults(int runNumber) {
-        return null;
+        String s = "";
+        Run r = runs.get(runNumber-1);
+        for(Result res : r.getResults()){
+            s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
+        }
+        return s;
     }
 
     /**
