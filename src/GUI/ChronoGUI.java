@@ -214,6 +214,15 @@ public class ChronoGUI {
                     finishedPane.setText("");
                     queuePane.setText("");
                     runningPane.setText("");
+                    chanButton1.setSelected(false);
+                    chanButton2.setSelected(false);
+                    chanButton3.setSelected(false);
+                    chanButton4.setSelected(false);
+                    chanButton5.setSelected(false);
+                    chanButton6.setSelected(false);
+                    chanButton7.setSelected(false);
+                    chanButton8.setSelected(false);
+
                 }
             }
         });
@@ -415,7 +424,7 @@ public class ChronoGUI {
 //                commandPane.setText("");
 //                valuePane.setText("");
                 commandPane.setText(cur.getValue());
-                if(cur == Function.NUM)
+                if(cur == Function.NUM || cur == Function.CLR)
                     valuePane.setText("");
                 else
                     valuePane.setText(value);

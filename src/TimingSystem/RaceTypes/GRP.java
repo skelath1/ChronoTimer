@@ -147,7 +147,20 @@ public class GRP implements RaceType{
 
     @Override
     public void clear(int bibNumber) {
+        for(Racer r : _racers){
+            if(r.getBibNumber() == bibNumber)
+                _racers.remove(r);
+        }
 
+        for(Racer r : _racerQueue){
+            if(r.getBibNumber() == bibNumber)
+                _racerQueue.remove(r);
+        }
+
+        for(Racer r : _finished){
+            if(r.getBibNumber() == bibNumber)
+                _finished.remove(r);
+        }
     }
 
     /**

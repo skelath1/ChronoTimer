@@ -41,16 +41,14 @@ public class PARIND implements RaceType {
      */
     @Override
     public void addRacer(int bibNumber) {
-        validNewRacer(bibNumber);
+        if(!validNewRacer(bibNumber)) return;
         if(!addRight){
             _racersL.addLast(new Racer(bibNumber));
             addRight = !addRight;
-            printList(_racersL);
 
         } else{
             _racersR.addLast(new Racer(bibNumber));
             addRight = !addRight;
-            printList(_racersR);
 
         }
     }
@@ -96,13 +94,11 @@ public class PARIND implements RaceType {
             Racer l = _racersL.removeFirst();
             l.setStartTime(startTime);
             _left.addLast(l);
-            printList(_racersL);
         } else if(channelNum == 3){
             if(_racersR.isEmpty()) return;
             Racer r = _racersR.removeFirst();
             r.setStartTime(startTime);
             _right.addLast(r);
-            printList(_racersR);
         }
     }
 
@@ -165,7 +161,30 @@ public class PARIND implements RaceType {
 
     @Override
     public void clear(int bibNumber) {
+        for(Racer r : _racersL){
+            if(r.getBibNumber() == bibNumber)
+                _racersL.remove(r);
+        }
 
+        for(Racer r : _racersR){
+            if(r.getBibNumber() == bibNumber)
+                _racersR.remove(r);
+        }
+
+        for(Racer r : _left){
+            if(r.getBibNumber() == bibNumber)
+                _left.remove(r);
+        }
+
+        for(Racer r : _right){
+            if(r.getBibNumber() == bibNumber)
+                _right.remove(r);
+        }
+
+        for(Racer r : _finished){
+            if(r.getBibNumber() == bibNumber)
+                _finished.remove(r);
+        }
     }
 
     /**

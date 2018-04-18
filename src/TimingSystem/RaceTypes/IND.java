@@ -12,16 +12,12 @@ import java.util.LinkedList;
 
 public class IND implements RaceType {
     private Channel[] _channels;
-
-    // Will be used to return the racers
-    //private Queue<TimingSystem.Racer> _racers;
     private Deque<Racer> _racers;
 
     private ArrayList<Run> runs;
 
     private Deque<Racer> _finished;
 
-    // WIll be a linked list
     private Deque<Racer> _racerQueue;
 
     public IND(Channel[] channels){
@@ -119,7 +115,20 @@ public class IND implements RaceType {
 
     @Override
     public void clear(int bibNumber) {
+        for(Racer r : _racers){
+            if(r.getBibNumber() == bibNumber)
+                _racers.remove(r);
+        }
 
+        for(Racer r : _racerQueue){
+            if(r.getBibNumber() == bibNumber)
+                _racerQueue.remove(r);
+        }
+
+        for(Racer r : _finished){
+            if(r.getBibNumber() == bibNumber)
+                _finished.remove(r);
+        }
     }
 
     /**
@@ -130,8 +139,8 @@ public class IND implements RaceType {
         if(_racerQueue.size() >= 2) {
             Racer r1 = _racerQueue.removeFirst();
             Racer r2 = _racerQueue.removeFirst();
-            _racerQueue.addFirst(r2);
-            _racerQueue.addFirst(r1);
+            _racerQueue.add(r2);
+            _racerQueue.add(r1);
         }
     }
 

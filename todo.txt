@@ -17,8 +17,8 @@
 18.) need to display the currently elapsed time for each racer during their race.       completed-Isaac/Luke
 19.) fix the format of the final result string from event                       completed
 21.) when the racer isn't running and just in the queue it is showed as finished in the final time pane.    completed
-22.) clear a specific racer from racetype given String param
-23.) GRP racer numbers aren't required
+22.) clear a specific racer from racetype given String param                    completed - Isaac
+23.) GRP racer numbers aren't required                                          completed - Isaac
 24.) Backside of GUI/Export                                                       Inprogress-Matt
 25.) Start using sensors instead of sending time                                 completed
 27.) Factory for sensors                                                         completed-Luke
@@ -26,4 +26,5 @@
         - tests need to be changed because of this
 29.) TESTING ^
 30.) does the CONN command need to be in the function selection thing or is that backside gui?
-31.) clear given a bib number.
+31.) clear given a bib number.                                                    completed - Isaac
+32.) Print Function for GUI

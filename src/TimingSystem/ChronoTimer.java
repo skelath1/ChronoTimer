@@ -92,7 +92,7 @@ public class ChronoTimer {
             //same as TRIG 2
             case "FINISH":
                 if(runCalled){
-                    if(channels[0].isReady())
+                    if(channels[1].isReady())
                         event.setFinishTime(System.currentTimeMillis(), 2);
                 }
                 break;
@@ -191,7 +191,7 @@ public class ChronoTimer {
             //same as TRIG 2
             case "FINISH":
                 if(runCalled){
-                    if(channels[0].isReady())
+                    if(channels[1].isReady())
                         event.setFinishTime(channels[1].triggerSensor(), 2);
                 }
                 break;
@@ -377,7 +377,12 @@ public class ChronoTimer {
             }
             else {
                 //TODO event clear with bib not implmented yet
-                //event.clear(bibNubmer);
+                try{
+                    event.clear(Integer.parseInt(bibNumber));
+
+                } catch(NumberFormatException e){
+                    e.printStackTrace();
+                }
             }
         }
     }
