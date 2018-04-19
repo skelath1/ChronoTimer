@@ -19,8 +19,12 @@ public class TestPARINDRace {
     Event event;
     PARIND race;
     Deque<Racer> finished;
+
+    //_racersL
     Deque<Racer> leftQueue;
+    //_racersR
     Deque<Racer> rightQueue;
+
     Deque<Racer> left;
     Deque<Racer> right;
 
@@ -58,8 +62,8 @@ public class TestPARINDRace {
         event.addRacer(123);
         event.setStartTime(500, 1);
         getLists();
-//        assertEquals("Racer 123 in Left Queue", 123, leftQueue.removeFirst().getBibNumber());
-//        assertTrue(racerList.isEmpty());
+        assertEquals("Racer 123 in Left Queue", 123, left.removeFirst().getBibNumber());
+        assertTrue(leftQueue.isEmpty());
         event.clear();
 
         // Two Racers
@@ -69,9 +73,9 @@ public class TestPARINDRace {
         event.setStartTime(700, 3);
         getLists();
 
-//        assertEquals("Racer 123 in Left Queue", 123, leftQueue.removeFirst().getBibNumber());
-//        assertEquals("Racer 456 in Right Queue", 456, rightQueue.removeFirst().getBibNumber());
-//        assertTrue(racerList.isEmpty());
+        assertEquals("Racer 123 in Left Queue", 123, left.removeFirst().getBibNumber());
+        assertEquals("Racer 456 in Right Queue", 456, right.removeFirst().getBibNumber());
+        assertTrue(leftQueue.isEmpty() && rightQueue.isEmpty());
         event.clear();
 
         // Three Racers
@@ -83,10 +87,10 @@ public class TestPARINDRace {
         event.setStartTime(900, 1);
         getLists();
 
-//        assertEquals("Racer 123 in Left Queue", 123, leftQueue.removeFirst().getBibNumber());
-//        assertEquals("Racer 456 in Right Queue", 456, rightQueue.removeFirst().getBibNumber());
-//        assertEquals("Racer 789 in Left Queue", 789, leftQueue.removeFirst().getBibNumber());
-//        assertTrue(racerList.isEmpty());
+        assertEquals("Racer 123 in Left Queue", 123, left.removeFirst().getBibNumber());
+        assertEquals("Racer 456 in Right Queue", 456, right.removeFirst().getBibNumber());
+        assertEquals("Racer 789 in Left Queue", 789, left.removeFirst().getBibNumber());
+        assertTrue(leftQueue.isEmpty() && rightQueue.isEmpty());
         event.clear();
     }
 
@@ -98,8 +102,8 @@ public class TestPARINDRace {
         event.setFinishTime(600, 2);
         getLists();
 
-//        assertTrue(leftQueue.isEmpty());
-//        assertEquals("Racer 123 in Racer List", 123, racerList.removeFirst().getBibNumber());
+        assertTrue(left.isEmpty());
+        assertEquals("Racer 123 in Racer List", 123, finished.removeFirst().getBibNumber());
         event.clear();
 
         // Two Racers
@@ -111,10 +115,10 @@ public class TestPARINDRace {
         event.setFinishTime(800, 4);
         getLists();
 
-//        assertTrue(leftQueue.isEmpty());
-//        assertTrue(rightQueue.isEmpty());
-//        assertEquals("Racer 123 in Racer List", 123, racerList.removeFirst().getBibNumber());
-//        assertEquals("Racer 456 in Racer List", 456, racerList.removeFirst().getBibNumber());
+        assertTrue(left.isEmpty());
+        assertTrue(right.isEmpty());
+        assertEquals("Racer 123 in Racer List", 123, finished.removeFirst().getBibNumber());
+        assertEquals("Racer 456 in Racer List", 456, finished.removeFirst().getBibNumber());
 
         event.clear();
 
@@ -130,11 +134,11 @@ public class TestPARINDRace {
         event.setFinishTime(1000, 2);
         getLists();
 
-//        assertTrue(leftQueue.isEmpty());
-//        assertTrue(rightQueue.isEmpty());
-//        assertEquals("Racer 123 in Racer List", 123, racerList.removeFirst().getBibNumber());
-//        assertEquals("Racer 456 in Racer List", 456, racerList.removeFirst().getBibNumber());
-//        assertEquals("Racer 789 in Racer List", 789, racerList.removeFirst().getBibNumber());
+        assertTrue(left.isEmpty());
+        assertTrue(right.isEmpty());
+        assertEquals("Racer 123 in Racer List", 123, finished.removeFirst().getBibNumber());
+        assertEquals("Racer 456 in Racer List", 456, finished.removeFirst().getBibNumber());
+        assertEquals("Racer 789 in Racer List", 789, finished.removeFirst().getBibNumber());
 
         event.clear();
 
@@ -147,15 +151,48 @@ public class TestPARINDRace {
         event.setStartTime(500,1);
         event.cancelRacer();
         getLists();
-//
-//        assertTrue(leftQueue.isEmpty());
-//        assertEquals("Racer 123 is still first in racers", 123, racerList.removeFirst().getBibNumber());
+
+        assertTrue(left.isEmpty());
+        assertEquals("Racer 123 is still first in racers", 123, leftQueue.removeFirst().getBibNumber());
+        event.clear();
+
+        event.addRacer(123);
+        event.addRacer(456);
 
         event.setStartTime(500,1);
         event.setStartTime(600, 3);
         event.cancelRacer();
+        getLists();
 
-//        assertEquals("Racer 456 is back in racers", 456, racerList.removeFirst().getBibNumber());
+        assertEquals("Racer 456 is back in racers", 456, rightQueue.removeFirst().getBibNumber());
+        event.clear();
+    }
+
+    @Test
+    public void testClear(){
+        event.addRacer(123);
+        event.addRacer(456);
+        event.setStartTime(100, 1);
+        event.clear();
+        getLists();
+
+        assertTrue(rightQueue.isEmpty() && leftQueue.isEmpty() && left.isEmpty() && right.isEmpty());
+
+        event.addRacer(123);
+        event.addRacer(456);
+        event.setStartTime(100, 1);
+        event.clear(123);
+        getLists();
+
+        assertTrue(left.isEmpty());
+        assertTrue(rightQueue.getFirst().getBibNumber() == 456);
+
+        event.clear(456);
+        getLists();
+
+        assertTrue(rightQueue.isEmpty());
+
+        event.clear();
     }
 
     private void getLists(){

@@ -76,7 +76,8 @@ public class ChronoGUI {
         CLR("CLR"),
         DNF("DNF"),
         START("START"),
-        FINISH("FINISH");
+        FINISH("FINISH"),
+        CANCEL("Cancel");
 
         private String value;
         private static Function[] values = values();
@@ -430,7 +431,7 @@ public class ChronoGUI {
                     }
                 }
                 commandPane.setText(cur.getValue());
-                if(cur == Function.NUM || cur == Function.CLR)
+                if(cur == Function.NUM || cur == Function.CLR || cur == Function.CANCEL || cur == Function.DNF)
                     valuePane.setText("");
                 else
                     valuePane.setText(value);

@@ -43,11 +43,11 @@ public class PARIND implements RaceType {
     public void addRacer(int bibNumber) {
         if(!validNewRacer(bibNumber)) return;
         if(!addRight){
-            _racersL.addLast(new Racer(bibNumber));
+            _racersL.add(new Racer(bibNumber));
             addRight = !addRight;
 
         } else{
-            _racersR.addLast(new Racer(bibNumber));
+            _racersR.add(new Racer(bibNumber));
             addRight = !addRight;
 
         }
@@ -93,12 +93,14 @@ public class PARIND implements RaceType {
             if(_racersL.isEmpty()) return;
             Racer l = _racersL.removeFirst();
             l.setStartTime(startTime);
-            _left.addLast(l);
+            _left.add(l);
+            isRight = true;
         } else if(channelNum == 3){
             if(_racersR.isEmpty()) return;
             Racer r = _racersR.removeFirst();
             r.setStartTime(startTime);
-            _right.addLast(r);
+            _right.add(r);
+            isRight = false;
         }
     }
 
@@ -125,7 +127,6 @@ public class PARIND implements RaceType {
                 isRight = false;
             }
         }
-        printList(_finished);
     }
 
     /**
@@ -134,12 +135,12 @@ public class PARIND implements RaceType {
     @Override
     public void cancelRacer() {
         // Don't know racers position
-        if(!isRight){
+        if(isRight){
             Racer l = _left.removeFirst();
             l.setStartTime(-1);
             _racersL.addFirst(l);
         } else{
-            Racer r = _left.removeFirst();
+            Racer r = _right.removeFirst();
             r.setStartTime(-1);
             _racersR.addFirst(r);
         }
@@ -162,28 +163,38 @@ public class PARIND implements RaceType {
     @Override
     public void clear(int bibNumber) {
         for(Racer r : _racersL){
-            if(r.getBibNumber() == bibNumber)
+            if(r.getBibNumber() == bibNumber) {
                 _racersL.remove(r);
+                break;
+            }
         }
 
         for(Racer r : _racersR){
-            if(r.getBibNumber() == bibNumber)
+            if(r.getBibNumber() == bibNumber) {
                 _racersR.remove(r);
+                break;
+            }
         }
 
         for(Racer r : _left){
-            if(r.getBibNumber() == bibNumber)
+            if(r.getBibNumber() == bibNumber) {
                 _left.remove(r);
+                break;
+            }
         }
 
         for(Racer r : _right){
-            if(r.getBibNumber() == bibNumber)
+            if(r.getBibNumber() == bibNumber) {
                 _right.remove(r);
+                break;
+            }
         }
 
         for(Racer r : _finished){
-            if(r.getBibNumber() == bibNumber)
+            if(r.getBibNumber() == bibNumber) {
                 _finished.remove(r);
+                break;
+            }
         }
     }
 
@@ -192,7 +203,7 @@ public class PARIND implements RaceType {
      */
     @Override
     public void swap() {
-
+        //Not sure if there is anything for this
     }
 
     /**

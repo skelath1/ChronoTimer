@@ -127,6 +127,9 @@ public class TestINDRace {
         event.addRacer(456);
         event.addRacer(789);
         event.setStartTime(100,1);
+        event.setStartTime(200, 1);
+
+        event.setFinishTime(300, 2);
         event.clear();
         getLists();
         assertTrue("Lists should be empty", racerList.isEmpty() && racerQueue.isEmpty() && finished.isEmpty());

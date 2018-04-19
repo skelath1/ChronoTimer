@@ -3,7 +3,6 @@ package Testing;
 import TimingSystem.Event;
 import TimingSystem.Hardware.Channel;
 import TimingSystem.RaceTypes.GRP;
-import TimingSystem.RaceTypes.IND;
 import TimingSystem.Racer;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +18,12 @@ public class TestGRPRace {
     Event event;
     GRP race;
 
+    Deque<Racer> racerList;
+    Deque<Racer> racerQueue;
+    Deque<Racer> finished;
+
+
+
 
 
     @Before
@@ -27,7 +32,7 @@ public class TestGRPRace {
         for(int i = 0; i < 8; ++i){
             channels[i] = new Channel(i + 1);
         }
-        event = new Event(channels);
+        event = new Event("GRP", channels);
         try{
             Field f = event.getClass().getDeclaredField("_racetype");
             f.setAccessible(true);
@@ -40,48 +45,124 @@ public class TestGRPRace {
 
     @Test
     public void testAddRacer(){
+        event.addRacer(123);
+        event.addRacer(123);
+        getLists();
 
+        assertEquals(racerList.size(), 1);
+
+        event.addRacer(456);
+        getLists();
+
+        assertTrue(racerList.removeFirst().getBibNumber() == 123);
+        assertTrue(racerList.removeFirst().getBibNumber() == 456);
     }
 
     @Test
     public void testSetStart(){
+        event.addRacer(123);
+        event.addRacer(456);
 
+        event.setStartTime(100, 1);
+        getLists();
 
+        assertEquals(racerQueue.size(), 2);
+        assertTrue(racerList.isEmpty());
+        assertTrue(racerQueue.removeFirst().getBibNumber() == 123);
+        assertTrue(racerQueue.removeFirst().getBibNumber() == 456);
     }
+
+
+    @Test
+    public void testAnonRacers(){
+        event.setStartTime(100, 1);
+        getLists();
+
+        assertTrue(racerQueue.getFirst().getBibNumber() == 99901);
+        assertTrue(racerQueue.size() == 1);
+        event.addRacer(123);
+        getLists();
+
+        assertTrue(racerQueue.getFirst().getBibNumber() == 123);
+        assertTrue(racerQueue.size() == 1);
+
+        event.clear();
+
+        event.setStartTime(100, 1);
+        event.setStartTime(200, 1);
+        event.setFinishTime(300, 2);
+
+        getLists();
+        assertTrue(racerQueue.getFirst().getBibNumber() == 99902);
+        assertTrue(finished.getFirst().getBibNumber() == 99901);
+
+        event.addRacer(123);
+        event.addRacer(456);
+        getLists();
+
+        assertTrue(finished.getFirst().getBibNumber() == 123);
+        assertTrue(racerQueue.getFirst().getBibNumber() == 456);
+    }
+
 
     @Test
     public void testSetFinish(){
+        event.addRacer(123);
+        event.addRacer(456);
 
+        event.setStartTime(100, 1);
+        event.setStartTime(200,1);
 
-    }
+        event.setFinishTime(400,2);
+        event.setFinishTime(500, 2);
 
-    @Test
-    public void testCancelRacer(){
-
-    }
-
-    @Test
-    public void testSwap(){
-
-
+        getLists();
+        assertTrue(racerQueue.isEmpty());
+        assertEquals(123, finished.removeFirst().getBibNumber());
+        assertEquals(456, finished.removeFirst().getBibNumber());
     }
 
     @Test
     public void testClear(){
+        event.addRacer(123);
+        event.addRacer(456);
+        event.addRacer(789);
 
+        event.setStartTime(100, 1);
+        event.setStartTime(200, 1);
+
+        event.setFinishTime(300, 2);
+        event.clear();
+        getLists();
+        assertTrue(racerList.isEmpty() && racerQueue.isEmpty()&& finished.isEmpty());
+
+        event.addRacer(123);
+        event.addRacer(456);
+        event.addRacer(789);
+        event.setStartTime(100, 1);
+
+        event.clear(123);
+        getLists();
+
+        assertTrue(racerQueue.getFirst().getBibNumber() != 123);
+
+        event.clear(456);
+        getLists();
+
+        assertTrue(racerQueue.getFirst().getBibNumber() != 456);
     }
 
     private void getLists(){
         try{
-//            Field f1 = race.getClass().getDeclaredField("_racers");
-//            Field f2 = race.getClass().getDeclaredField("_racerQueue");
-//            Field f3 = race.getClass().getDeclaredField("_finished");
-//            f1.setAccessible(true);
-//            f2.setAccessible(true);
-//            f3.setAccessible(true);
-//            racerList = (Deque<Racer>) f1.get(race);
-//            racerQueue = (Deque<Racer>) f2.get(race);
-//            finished = (Deque<Racer>) f3.get(race);
+            Field f1 = race.getClass().getDeclaredField("_racers");
+            Field f2 = race.getClass().getDeclaredField("_racerQueue");
+            Field f3 = race.getClass().getDeclaredField("_finished");
+            f1.setAccessible(true);
+            f2.setAccessible(true);
+            f3.setAccessible(true);
+            racerList = (Deque<Racer>) f1.get(race);
+            racerQueue = (Deque<Racer>) f2.get(race);
+            finished = (Deque<Racer>) f3.get(race);
 
         } catch(Exception ex){
             ex.printStackTrace();

@@ -132,7 +132,7 @@ public class GRP implements RaceType{
      */
     @Override
     public void cancelRacer() {
-
+        // Not sure how this would work
     }
 
     /**
@@ -143,24 +143,33 @@ public class GRP implements RaceType{
         _racers.clear();
         _racerQueue.clear();
         _finished.clear();
+        anonBib = 99901;
     }
 
     @Override
     public void clear(int bibNumber) {
         for(Racer r : _racers){
-            if(r.getBibNumber() == bibNumber)
+            if(r.getBibNumber() == bibNumber) {
                 _racers.remove(r);
+                break;
+            }
         }
 
         for(Racer r : _racerQueue){
-            if(r.getBibNumber() == bibNumber)
+            if(r.getBibNumber() == bibNumber) {
                 _racerQueue.remove(r);
+                break;
+            }
         }
 
         for(Racer r : _finished){
-            if(r.getBibNumber() == bibNumber)
+            if(r.getBibNumber() == bibNumber) {
                 _finished.remove(r);
+                break;
+            }
         }
+
+        anonBib = 99901;
     }
 
     /**

@@ -116,18 +116,24 @@ public class IND implements RaceType {
     @Override
     public void clear(int bibNumber) {
         for(Racer r : _racers){
-            if(r.getBibNumber() == bibNumber)
+            if(r.getBibNumber() == bibNumber) {
                 _racers.remove(r);
+                break;
+            }
         }
 
         for(Racer r : _racerQueue){
-            if(r.getBibNumber() == bibNumber)
+            if(r.getBibNumber() == bibNumber) {
                 _racerQueue.remove(r);
+                break;
+            }
         }
 
         for(Racer r : _finished){
-            if(r.getBibNumber() == bibNumber)
+            if(r.getBibNumber() == bibNumber) {
                 _finished.remove(r);
+                break;
+            }
         }
     }
 
