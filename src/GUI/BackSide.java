@@ -22,11 +22,9 @@ public class BackSide {
     private JComboBox comboBox4;
     private JComboBox comboBox2;
     private JComboBox comboBox8;
-    private static ChronoTimer chronoTimer; //need to instantiate chronoTimer or should it be passed in from ChronoGUI?
+    private static ChronoTimer chronoTimer;
 
     public BackSide(ChronoTimer ch) {
-
-        //need to instantiate chronoTimer or should it be passed in from ChronoGUI?
 
         chronoTimer = ch;
 
