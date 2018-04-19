@@ -1,6 +1,6 @@
 1.) front end GUI Components	                                                completed - Fred
 2.) back end GUI	                                                            Luke
-3.) Isaac fixing something with Time class
+3.) Isaac fixing something with Time class                                      !!! NEXT SPRINT
        Change chronotimer to do nano seconds
 5.) fix bugs from sprint 1	                                                    completed
 6.) Threads for gui if needed                                                   completed-Luke
@@ -13,18 +13,19 @@
 14.) Event needs to format a string for queue, running, finished                completed
 15.) Cant call print after endrun is called.                                    completed - Isaac
 16.) print with a certain run isn't implemented.                                completed- Isaac
-17.) the result class is unnecessary because racer class has all those fields already.
+17.) the result class is unnecessary because racer class has all those fields already.  !!! NEXT SPRINT
 18.) need to display the currently elapsed time for each racer during their race.       completed-Isaac/Luke
 19.) fix the format of the final result string from event                       completed
 21.) when the racer isn't running and just in the queue it is showed as finished in the final time pane.    completed
 22.) clear a specific racer from racetype given String param                    completed - Isaac
 23.) GRP racer numbers aren't required                                          completed - Isaac
-24.) Backside of GUI/Export                                                       Inprogress-Fred
+24.) Backside of GUI/Export                                                      completed -Fred
 25.) Start using sensors instead of sending time                                 completed
 27.) Factory for sensors                                                         completed-Luke
 28.) need to take in 3 parameters for CONN <sensor><NUM>                         completed - Luke
         - tests need to be changed because of this
-29.) TESTING ^
+29.) TESTING ^                                                                   completed
 30.) does the CONN command need to be in the function selection thing or is that backside gui?
 31.) clear given a bib number.                                                    completed - Isaac
 32.) Print Function for GUI                                                       completed - Luke (May need to formated better)
+33.) Cancel a specific racer and DNF a specific Racer                           !!! NEXT SPRINT
