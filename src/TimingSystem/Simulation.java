@@ -96,7 +96,6 @@ public class Simulation {
 
     public static void execute(String command, String value){
         if(command.equalsIgnoreCase("PRINT")){
-            //System.out.println("\nPRINT COMMAND RECIEVED");
 
             System.out.println("\n"+value);
         }

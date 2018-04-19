@@ -30,7 +30,7 @@ public class ChronoTimer {
         sysTime = new Time();
         curState = State.OFF;
         channels = new Channel[8];
-        for(int i = 0; i < 7; ++i) {
+        for(int i = 0; i < 8; ++i) {
             channels[i] = new Channel(i+1);
         }
         eventList = new ArrayList<>();
@@ -347,7 +347,6 @@ public class ChronoTimer {
     }
     private void export(String value){
         //checking whether event run exists to be exported
-        System.out.println(eventList.isEmpty());
         if(!eventList.isEmpty() && (curState == State.EVENT || curState == State.ON)){
             //get all the runs if value is null
             if(value == null){
@@ -411,7 +410,7 @@ public class ChronoTimer {
    private void connect(String sensorName, String channelNumber){
        try{
            int chanNum = Integer.parseInt(channelNumber) -1;
-           if(chanNum > 8)
+           if(chanNum >= 8)
             throw new NumberFormatException();
 
            Sensor s = SensorFactory.makeSensor(sensorName);
