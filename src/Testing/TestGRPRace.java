@@ -111,7 +111,6 @@ public class TestGRPRace {
         event.addRacer(456);
 
         event.setStartTime(100, 1);
-        event.setStartTime(200,1);
 
         event.setFinishTime(400,2);
         event.setFinishTime(500, 2);
