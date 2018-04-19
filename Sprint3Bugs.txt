@@ -1,0 +1,3 @@
+	Bugs
+1. if you change time in between triggers, elapsed time doesn't change accordingly.
+2. entering racers too fast causes panes to freeze

@@ -1,2 +1,0 @@
-	Bugs
-1. if you change time in between triggers, elapsed time doesn't change accordingly.
