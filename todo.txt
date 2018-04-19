@@ -24,7 +24,7 @@
 27.) Factory for sensors                                                         completed-Luke
 28.) need to take in 3 parameters for CONN <sensor><NUM>                         completed - Luke
         - tests need to be changed because of this
-29.) TESTING ^                                                                   completed
+29.) TESTING ^                                                                   completed -MATT
 30.) does the CONN command need to be in the function selection thing or is that backside gui?
 31.) clear given a bib number.                                                    completed - Isaac
 32.) Print Function for GUI                                                       completed - Luke (May need to formated better)
