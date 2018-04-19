@@ -327,8 +327,8 @@ public class ChronoTimer {
 
         //TODO the value field is messing it up somehow
         if(runCalled) {
-            if(value== null)
-                System.out.println("\nvalue is null");
+//            if(value== null)
+//                System.out.println("\nvalue is null");
             if (value != null) {
                 try {
 

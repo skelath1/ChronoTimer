@@ -24,6 +24,7 @@ public class PARIND implements RaceType {
 
     private boolean isRight = false;
     private boolean addRight = false;
+    private boolean inProg;
 
 
     public PARIND(Channel[] channels){
@@ -90,12 +91,14 @@ public class PARIND implements RaceType {
     @Override
     public void setStartTime(long startTime, int channelNum) {
         if(channelNum == 1){
+            inProg = true;
             if(_racersL.isEmpty()) return;
             Racer l = _racersL.removeFirst();
             l.setStartTime(startTime);
             _left.add(l);
             isRight = true;
         } else if(channelNum == 3){
+            inProg = true;
             if(_racersR.isEmpty()) return;
             Racer r = _racersR.removeFirst();
             r.setStartTime(startTime);
@@ -158,6 +161,7 @@ public class PARIND implements RaceType {
         _right.clear();
         isRight = false;
         addRight = false;
+        inProg = false;
     }
 
     @Override
@@ -224,9 +228,25 @@ public class PARIND implements RaceType {
     @Override
     public String printResults() {
         String s = "";
-        for(Run r : runs) {
-            for(Result res : r.getResults()){
-                s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
+        long t = System.currentTimeMillis();
+        if(inProg){
+            for(Racer r : _racersL){
+                s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), t) + "\n";
+            }
+            for(Racer r : _racersR){
+                s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), t) + "\n";
+            }
+        } else {
+            if(runs.isEmpty()){
+                for(Racer r : _finished){
+                    s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) +"\n";
+                }
+            }
+            else {
+                Run r = runs.get(runs.size() - 1);
+                for (Result res : r.getResults()) {
+                    s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
+                }
             }
         }
         return s;

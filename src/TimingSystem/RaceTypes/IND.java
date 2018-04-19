@@ -20,6 +20,8 @@ public class IND implements RaceType {
 
     private Deque<Racer> _racerQueue;
 
+    private boolean inProg;
+
     public IND(Channel[] channels){
         _racers = new LinkedList<>();
         runs = new ArrayList<Run>();
@@ -70,6 +72,8 @@ public class IND implements RaceType {
     public void setStartTime(long startTime, int channelNum) {
         if(channelNum%2 == 0) return;
         if(!_racers.isEmpty()){
+            inProg = true;
+
             Racer r = _racers.remove();
             r.setStartTime(startTime);
             _racerQueue.add(r);
@@ -89,6 +93,8 @@ public class IND implements RaceType {
                 r.setFinishTime(finishTime);
                 _finished.add(r);
             }
+            if(_racerQueue.isEmpty() && _racers.isEmpty())
+                inProg = false;
         }
     }
 
@@ -111,6 +117,7 @@ public class IND implements RaceType {
         _racerQueue.clear();
         _racers.clear();
         _finished.clear();
+        inProg = false;
     }
 
     @Override
@@ -135,6 +142,7 @@ public class IND implements RaceType {
                 break;
             }
         }
+
     }
 
     /**
@@ -170,9 +178,22 @@ public class IND implements RaceType {
         String s = "";
 
         //changed from racer to racerQueue
-        for(Run r : runs) {
-            for(Result res : r.getResults()){
-                s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
+        long t = System.currentTimeMillis();
+        if(inProg){
+            for(Racer r : _racerQueue){
+                s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), t) +"\n";
+            }
+        } else {
+            if(runs.isEmpty()){
+                for(Racer r : _finished){
+                    s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) +"\n";
+                }
+            }
+            else {
+                Run r = runs.get(runs.size() - 1);
+                for (Result res : r.getResults()) {
+                    s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
+                }
             }
         }
         return s;

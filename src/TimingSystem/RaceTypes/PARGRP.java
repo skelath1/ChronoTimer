@@ -17,6 +17,8 @@ public class PARGRP implements RaceType {
 
     private ArrayList<Run> runs;
 
+    private boolean inProg;
+
 
     public PARGRP(Channel[] channels){
         _racers = new LinkedList<>();
@@ -56,6 +58,7 @@ public class PARGRP implements RaceType {
     @Override
     public void setStartTime(long startTime, int channelNum) {
         if(channelNum == 1){
+            inProg = true;
             int i = 1;
             while(!_racers.isEmpty()){
                 if(_racers.peek().getStartTime() == -1) {
@@ -132,7 +135,13 @@ public class PARGRP implements RaceType {
     @Override
     public String printResults() {
         String s = "";
-        for(Run r : runs) {
+        long t = System.currentTimeMillis();
+        if(inProg){
+            for(Racer r : _racers){
+                s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), t) + "\n";
+            }
+        } else {
+            Run r = runs.get(runs.size()-1);
             for(Result res : r.getResults()){
                 s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
             }

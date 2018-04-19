@@ -15,7 +15,7 @@ public class GRP implements RaceType{
     private Deque<Racer> _racerQueue;
     private Deque<Racer> _finished;
     private ArrayList<Run> runs;
-
+    private boolean inProg;
     private int anonBib = 99901;
 
 
@@ -93,6 +93,7 @@ public class GRP implements RaceType{
     @Override
     public void setStartTime(long startTime, int channelNum) {
         if (channelNum == 1) {
+            inProg = true;
             if (_racers.isEmpty()) {
                 Racer r = new Racer(anonBib);
                 r.setStartTime(startTime);
@@ -124,6 +125,8 @@ public class GRP implements RaceType{
             Racer r = _racerQueue.removeFirst();
             r.setFinishTime(finishTime);
             _finished.add(r);
+            if(_racerQueue.isEmpty() && _racers.isEmpty())
+                inProg = false;
         }
     }
 
@@ -144,6 +147,7 @@ public class GRP implements RaceType{
         _racerQueue.clear();
         _finished.clear();
         anonBib = 99901;
+        inProg = false;
     }
 
     @Override
@@ -168,8 +172,6 @@ public class GRP implements RaceType{
                 break;
             }
         }
-
-        anonBib = 99901;
     }
 
     /**
@@ -203,9 +205,22 @@ public class GRP implements RaceType{
     @Override
     public String printResults() {
         String s = "";
-        for(Run r : runs) {
-            for(Result res : r.getResults()){
-                s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
+        long t = System.currentTimeMillis();
+        if(inProg){
+            for(Racer r : _racerQueue){
+                s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), t) +"\n";
+            }
+        } else {
+            if(runs.isEmpty()){
+                for(Racer r : _finished){
+                    s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) +"\n";
+                }
+            }
+            else {
+                Run r = runs.get(runs.size() - 1);
+                for (Result res : r.getResults()) {
+                    s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
+                }
             }
         }
         return s;

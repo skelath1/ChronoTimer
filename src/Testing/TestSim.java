@@ -21,10 +21,12 @@ public class TestSim {
     public void testParallelIndividualOne(){
         sim.enableFileOption("TestFiles/ParallelIND.txt");
     }
-    @Test
-    public void testParallelGroupOne(){
-        sim.enableFileOption("TestFiles/ParallelGroup.txt");
-    }
+
+    // NEXT SPRINT
+//    @Test
+//    public void testParallelGroupOne(){
+//        sim.enableFileOption("TestFiles/ParallelGroup.txt");
+//    }
     @Test
     public void testGroupOne(){
         sim.enableFileOption("TestFiles/Group.txt");
