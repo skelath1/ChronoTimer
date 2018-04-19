@@ -468,16 +468,6 @@
               </component>
             </children>
           </grid>
-          <component id="ab0ce" class="javax.swing.JTextPane" binding="printerPane">
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="50"/>
-              </grid>
-            </constraints>
-            <properties>
-              <editable value="false"/>
-            </properties>
-          </component>
           <component id="b55a4" class="javax.swing.JTextPane" binding="commandPane">
             <constraints>
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
@@ -496,6 +486,21 @@
             </constraints>
             <properties/>
           </component>
+          <scrollpane id="1b36d" binding="scrollPane">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="1" use-parent-layout="false">
+                <preferred-size width="150" height="150"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="f3429" class="javax.swing.JTextPane" binding="printPane">
+                <constraints/>
+                <properties/>
+              </component>
+            </children>
+          </scrollpane>
         </children>
       </grid>
     </children>

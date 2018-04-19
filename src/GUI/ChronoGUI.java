@@ -41,7 +41,7 @@ public class ChronoGUI {
     private JTextPane runningPane;
     private JTextPane queuePane;
     private JTextPane finishedPane;
-    private JTextPane printerPane;
+    private JScrollPane scrollPane;
     private JPanel NumPadPanel;
     private JButton button12;
     private JButton trigButton3;
@@ -60,9 +60,12 @@ public class ChronoGUI {
     private JButton Backside;
     private JTextPane valuePane;
     private JButton submitButton;
+    private JTextPane printPane;
     private static ChronoTimer chronoTimer;
+    private boolean printOn;
 
     private static enum Function {
+
         TIME("TIME"),
         EVENT("EVENT"),
         NEWRUN("NEWRUN"),
@@ -138,7 +141,8 @@ public class ChronoGUI {
 
 
     public ChronoGUI() {
-
+        //printer is off by default
+        printOn = false;
         //need to instantiate chronotimer here so that runnable can use it
         chronoTimer = new ChronoTimer();
 
@@ -419,17 +423,27 @@ public class ChronoGUI {
                 chronoTimer.execute(commandPane.getText(), value,null);
 
                 if (commandPane.getText().equalsIgnoreCase("PRINT")) {
-                    printerPane.setText(chronoTimer.getResults());
+                    //System.out.println("should be printing to the pane");
+                    if(printOn) {
+                        //printer keeps the old data
+                        printPane.setText(printPane.getText() +"\n\n"+ chronoTimer.getResults());
+                    }
                 }
-//
-//                commandPane.setText("");
-//                valuePane.setText("");
                 commandPane.setText(cur.getValue());
                 if(cur == Function.NUM || cur == Function.CLR)
                     valuePane.setText("");
                 else
                     valuePane.setText(value);
 
+            }
+        });
+        printerPowerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(printOn)
+                    printOn =false;
+                else
+                    printOn = true;
             }
         });
     }

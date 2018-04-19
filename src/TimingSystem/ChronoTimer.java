@@ -329,19 +329,19 @@ public class ChronoTimer {
         if(runCalled) {
             if(value== null)
                 System.out.println("\nvalue is null");
-//            if (value != null) {
-//                try {
-//
-//                    Simulation.execute("PRINT", event.printResults(Integer.parseInt(value)));
-//
-//                } catch (NumberFormatException nfm) {
-//                    Simulation.execute("ERROR", "Invalid argument for Print value = (" + value + ")");
-//                }
-//            }
-//            else {
-//                //print the most recent run
+            if (value != null) {
+                try {
+
+                    Simulation.execute("PRINT", event.printResults(Integer.parseInt(value)));
+
+                } catch (NumberFormatException nfm) {
+                    Simulation.execute("ERROR", "Invalid argument for Print value = (" + value + ")");
+                }
+            }
+            else {
+                //print the most recent run
                 Simulation.execute("PRINT", event.printResults());
-            //}
+            }
         }
 
     }
@@ -425,7 +425,13 @@ public class ChronoTimer {
    }
 
    public String getResults(){
-       return event.printResults();
+       String data = "INPROGRESS:\n";
+       data += event.getData("running");
+       data +="\n\nFINSIED:\n";
+       data += event.getData("finished");
+        Simulation.execute("Print", data);
+
+       return data;
 
    }
    public String getElapsedTime(){
