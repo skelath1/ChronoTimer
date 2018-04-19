@@ -332,7 +332,8 @@ public class ChronoGUI {
         Backside.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                BackSide.show();
+                BackSide bs = new BackSide(chronoTimer);
+                bs.show();
             }
         });
         commandButtonRight.addActionListener(new ActionListener() {

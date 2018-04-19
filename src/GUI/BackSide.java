@@ -24,11 +24,12 @@ public class BackSide {
     private JComboBox comboBox8;
     private static ChronoTimer chronoTimer; //need to instantiate chronoTimer or should it be passed in from ChronoGUI?
 
-    public BackSide() {
+    public BackSide(ChronoTimer ch) {
 
         //need to instantiate chronoTimer or should it be passed in from ChronoGUI?
 
-        chronoTimer = new ChronoTimer();
+        chronoTimer = ch;
+
         usbButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -40,6 +41,7 @@ public class BackSide {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     Object item = e.getItem();
                     String sensor = item.toString();
+                    System.out.println("sensor name = " + sensor);
                     String channelNum = "1";
                     if(sensor.equals("Electric Eye")){
                         chronoTimer.execute("conn", "electriceye", channelNum);
@@ -213,7 +215,7 @@ public class BackSide {
     }
         public static void show() {
             JFrame frame = new JFrame("Back Side Goo");
-            frame.setContentPane(new BackSide().main);
+            frame.setContentPane(new BackSide(chronoTimer).main);
             frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
             frame.setMinimumSize(new Dimension(500, 300));
 //        frame.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
