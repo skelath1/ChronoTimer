@@ -224,6 +224,26 @@ public class BackSide {
             frame.setVisible(true);
         }
 
+        private void comboBoxSetup(ItemEvent e){
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                Object item = e.getItem();
+                String sensor = item.toString();
+                String channelNum = "8";
+                if(sensor.equals("Electric Eye")){
+                    chronoTimer.execute("conn", "electriceye", channelNum);
+                }
+                if(sensor.equals("Gate")){
+                    chronoTimer.execute("conn", "gate", channelNum);
+                }
+                if(sensor.equals("Pad")){
+                    chronoTimer.execute("conn", "pad", channelNum);
+                }
+                if(sensor.equals("Push Button")){
+                    chronoTimer.execute("conn", "pushbutton", channelNum);
+                }
+            }
+        }
+
 
 
 }

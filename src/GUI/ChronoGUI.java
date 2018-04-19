@@ -41,7 +41,7 @@ public class ChronoGUI {
     private JTextPane runningPane;
     private JTextPane queuePane;
     private JTextPane finishedPane;
-    private JScrollPane scrollPane;
+    private JScrollPane printerScrollPane;
     private JPanel NumPadPanel;
     private JButton button12;
     private JButton trigButton3;
@@ -61,6 +61,9 @@ public class ChronoGUI {
     private JTextPane valuePane;
     private JButton submitButton;
     private JTextPane printPane;
+    private JScrollPane queueScrollPane;
+    private JScrollPane runningScrollPane;
+    private JScrollPane finishedScrollPane;
     private static ChronoTimer chronoTimer;
     private boolean printOn;
 
@@ -206,6 +209,14 @@ public class ChronoGUI {
         cur = Function.NEWRUN;
         curE = Event.IND;
         valuePane.setText("");
+        queueScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        runningScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        finishedScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        printerScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        queueScrollPane.setPreferredSize(queuePane.getPreferredSize());
+        runningScrollPane.setPreferredSize(runningPane.getPreferredSize());
+        finishedScrollPane.setPreferredSize(finishedPane.getPreferredSize());
+        printerScrollPane.setPreferredSize(printPane.getPreferredSize());
 
         powerButton.addActionListener(new ActionListener() {
             @Override
