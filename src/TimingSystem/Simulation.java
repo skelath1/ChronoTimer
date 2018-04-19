@@ -11,9 +11,7 @@ import com.google.gson.Gson;
 
 public class Simulation {
     private ChronoTimer chronoTimer;
-    public Simulation(ChronoTimer chronoTimer) {
-        this.chronoTimer = chronoTimer;
-    }
+    public Simulation(ChronoTimer chronoTimer) { this.chronoTimer = chronoTimer; }
     public void doInput(){
 
         Scanner stdIn = new Scanner(System.in);
@@ -76,7 +74,7 @@ public class Simulation {
                     }
                 }
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                System.out.printf("Couldn't find the input file...");
             }
 
         } else{
@@ -130,6 +128,47 @@ public class Simulation {
             writer.write(out);
         }catch(IOException ex){
             ex.printStackTrace();
+        }
+    }
+    public void enableFileOption(String testFile){
+        doInput(testFile);
+    }
+    public void doInput(String testFile){
+        try{
+            Scanner stdIn;
+            stdIn = new Scanner(new File(testFile));
+
+            while(stdIn.hasNext()){
+                String line = stdIn.nextLine();
+
+                String[] strArr = line.split("\\s+");
+                String st = strArr[0];
+                if(strArr.length ==1)
+                    chronoTimer.execute(strArr[0], null,null);
+                    //need to determine if it has a command value or Time command
+                else if(strArr.length ==2 && !strArr[0].contains(":"))
+                    chronoTimer.execute(strArr[0], strArr[1],null);
+                    //means it has no value just time + command
+                else if(strArr.length ==2 && strArr[0].contains(":"))
+                    chronoTimer.execute(strArr[0], strArr[1],null,null);
+
+                    //if it is three it can be time or it can be a third parameter with no time
+
+                    //has the ':' so it is the time
+                else if(strArr.length == 3 && strArr[0].contains(":")){
+                    chronoTimer.execute(strArr[0], strArr[1],strArr[2],null); //0 - Time, 1- - Command, 2 - Value, 3 - value2
+                }
+                //has no time but has a third parm
+                else if(strArr.length == 3){
+                    chronoTimer.execute(strArr[0], strArr[1],strArr[2]); //0 - Command, 2 - Value, 3 - value2
+                }
+                //only used if given time and the CONN command which has two parameters hence 4
+                else if(strArr.length == 4){
+                    chronoTimer.execute(strArr[0], strArr[1],strArr[2],strArr[3]);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Couldn't find the input file...");
         }
     }
 }
