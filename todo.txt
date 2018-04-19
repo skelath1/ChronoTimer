@@ -19,7 +19,7 @@
 21.) when the racer isn't running and just in the queue it is showed as finished in the final time pane.    completed
 22.) clear a specific racer from racetype given String param                    completed - Isaac
 23.) GRP racer numbers aren't required                                          completed - Isaac
-24.) Backside of GUI/Export                                                       Inprogress-Matt
+24.) Backside of GUI/Export                                                       Inprogress-Fred
 25.) Start using sensors instead of sending time                                 completed
 27.) Factory for sensors                                                         completed-Luke
 28.) need to take in 3 parameters for CONN <sensor><NUM>                         completed - Luke
@@ -27,4 +27,4 @@
 29.) TESTING ^
 30.) does the CONN command need to be in the function selection thing or is that backside gui?
 31.) clear given a bib number.                                                    completed - Isaac
-32.) Print Function for GUI
+32.) Print Function for GUI                                                       completed - Luke (May need to formated better)
