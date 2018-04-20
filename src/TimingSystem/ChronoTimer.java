@@ -17,6 +17,7 @@ public class ChronoTimer {
     private boolean timeSet = false;
     private boolean eventCalled;
     private boolean runCalled;
+    boolean sec;
 
 
     public enum State{
@@ -254,7 +255,7 @@ public class ChronoTimer {
             curState = State.OFF;
             for(Channel c: channels){
                 if(c != null)
-                    c.toggle();
+                    c.setOff();
             }
         }
     }
@@ -327,8 +328,6 @@ public class ChronoTimer {
 
         //TODO the value field is messing it up somehow
         if(runCalled) {
-//            if(value== null)
-//                System.out.println("\nvalue is null");
             if (value != null) {
                 try {
 
@@ -348,6 +347,7 @@ public class ChronoTimer {
     private void export(String value){
         //checking whether event run exists to be exported
         if(!eventList.isEmpty() && (curState == State.EVENT || curState == State.ON)){
+            sec = true;
             //get all the runs if value is null
             if(value == null){
                     Simulation.export(event.sendRuns());
@@ -355,7 +355,7 @@ public class ChronoTimer {
             //else get run from value given
             else{
                 try {
-                    Event latest = eventList.get(Integer.parseInt(value) - 1);
+                    Event latest = eventList.get(eventList.size() - 1);
                     Simulation.export(latest.sendRuns(), value);
                 }
                 catch(NumberFormatException nfe){

@@ -186,6 +186,11 @@ public class PARGRP implements RaceType {
         return data;
     }
 
+    @Override
+    public ArrayList<Run> getRuns() {
+        return runs;
+    }
+
     private String listToString(){
         return null;
     }

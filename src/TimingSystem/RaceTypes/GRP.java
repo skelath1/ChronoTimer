@@ -26,6 +26,11 @@ public class GRP implements RaceType{
         _racers = new LinkedList<>();
         _racerQueue = new LinkedList<>();
         _finished = new LinkedList<>();
+        runs = new ArrayList<>();
+    }
+    @Override
+    public ArrayList<Run> getRuns() {
+        return runs;
     }
 
     /**

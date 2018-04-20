@@ -120,6 +120,7 @@ public class Event implements RaceType{
 
     @Override
     public void saveRun(){
+        runs.addAll(_racetype.getRuns());
         _racetype.saveRun();
     }
 
@@ -135,7 +136,7 @@ public class Event implements RaceType{
 
     @Override
     public String printResults(int runNumber) {
-        return null;
+        return _racetype.printResults(runNumber);
     }
     //TODO does this need to implemented?
 
@@ -153,12 +154,18 @@ public class Event implements RaceType{
         return _racetype.getData(type);
     }
 
+    @Override
+    public ArrayList<Run> getRuns() {
+        return null;
+    }
+
     /**
      * Returns the list of runs for the Event
      * @return list of runs for the current Event
      */
     public ArrayList<Run> sendRuns(){
-        return runs;
+
+        return _racetype.getRuns();
     }
 
     public void sendTime(String time){

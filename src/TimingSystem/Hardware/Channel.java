@@ -33,4 +33,8 @@ public class Channel {
     public long triggerSensor(){
         return _sensor.trigger();
     }
+
+    public void setOff(){
+        _state = STATE.OFF;
+    }
 }

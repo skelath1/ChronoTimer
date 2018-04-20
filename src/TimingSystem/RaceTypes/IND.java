@@ -24,7 +24,7 @@ public class IND implements RaceType {
 
     public IND(Channel[] channels){
         _racers = new LinkedList<>();
-        runs = new ArrayList<Run>();
+        runs = new ArrayList<>();
         _channels = channels;
         _racerQueue = new LinkedList<>();
         _finished = new LinkedList<>();
@@ -38,6 +38,11 @@ public class IND implements RaceType {
     public void addRacer(int bibNumber) {
         if(validNewRacer(bibNumber))
             _racers.add(new Racer(bibNumber));
+    }
+
+    @Override
+    public ArrayList<Run> getRuns() {
+        return runs;
     }
 
     /**

@@ -67,7 +67,7 @@ public class ChronoGUI {
     private static ChronoTimer chronoTimer;
     private boolean printOn;
 
-    private static enum Function {
+    private enum Function {
 
         TIME("TIME"),
         EVENT("EVENT"),
@@ -104,6 +104,10 @@ public class ChronoGUI {
             --curr;
             int nextInd = Math.abs((curr)%values.length);
             return values[nextInd];
+        }
+
+        public void reset(){
+             curr = 2;
         }
     }
 
@@ -238,6 +242,7 @@ public class ChronoGUI {
                     chanButton6.setSelected(false);
                     chanButton7.setSelected(false);
                     chanButton8.setSelected(false);
+                    cur = Function.NEWRUN;
 
                 }
             }

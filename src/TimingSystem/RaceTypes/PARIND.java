@@ -34,6 +34,7 @@ public class PARIND implements RaceType {
         _racersR = new LinkedList<>();
         _left = new LinkedList<>();
         _right = new LinkedList<>();
+        runs = new ArrayList<>();
     }
 
     /**
@@ -208,6 +209,11 @@ public class PARIND implements RaceType {
     @Override
     public void swap() {
         //Not sure if there is anything for this
+    }
+
+    @Override
+    public ArrayList<Run> getRuns() {
+        return runs;
     }
 
     /**

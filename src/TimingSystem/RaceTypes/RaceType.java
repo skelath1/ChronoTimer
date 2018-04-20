@@ -2,6 +2,8 @@ package TimingSystem.RaceTypes;
 
 import TimingSystem.Run;
 
+import java.util.ArrayList;
+
 public interface RaceType{
     void addRacer(int bibNumber);
     void setStartTime(long startTime, int channelNum);
@@ -15,5 +17,6 @@ public interface RaceType{
     String printResults(int runNumber);
     String toString();
     String getData(String type);
+    ArrayList<Run> getRuns();
 
 }
