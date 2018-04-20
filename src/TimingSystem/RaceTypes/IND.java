@@ -98,7 +98,7 @@ public class IND implements RaceType {
                 r.setFinishTime(finishTime);
                 _finished.add(r);
             }
-            if(_racerQueue.isEmpty() && _racers.isEmpty())
+            if(_racerQueue.isEmpty())
                 inProg = false;
         }
     }

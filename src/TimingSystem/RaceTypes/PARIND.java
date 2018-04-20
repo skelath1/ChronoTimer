@@ -131,6 +131,8 @@ public class PARIND implements RaceType {
                 isRight = false;
             }
         }
+        if(_left.isEmpty() && _right.isEmpty())
+            inProg = false;
     }
 
     /**
