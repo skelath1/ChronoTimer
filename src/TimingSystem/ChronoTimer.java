@@ -319,7 +319,7 @@ public class ChronoTimer {
         }
     }
     private void cancel(){
-        if(runCalled){
+        if(runCalled && eventCalled){
             //put the racer back in the queue at the beginning
             event.cancelRacer();
         }
@@ -397,7 +397,7 @@ public class ChronoTimer {
         }
     }
     private void dnf(){
-        if(runCalled){
+        if(runCalled && eventCalled){
             //assign the next up racer the DNF tag represented by -1 right now
             event.setFinishTime(-1, 0);
         }
