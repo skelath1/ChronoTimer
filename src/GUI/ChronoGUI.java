@@ -80,7 +80,7 @@ public class ChronoGUI {
         DNF("DNF"),
         START("START"),
         FINISH("FINISH"),
-        CANCEL("Cancel");
+        CANCEL("CANCEL");
 
         private String value;
         private static Function[] values = values();
@@ -464,13 +464,12 @@ public class ChronoGUI {
             }
         });
     }
-
     public static void main(String[] args) {
         JFrame frame = new JFrame("ChronoGoo");
         frame.setContentPane(new ChronoGUI().panel1);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(1260, 768));
-        frame.setLocationRelativeTo(null);
+        frame.setLocation(new Point(0,0));        //frame.setLocationRelativeTo(p);
         frame.pack();
         frame.setVisible(true);
 
