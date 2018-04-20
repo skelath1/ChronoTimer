@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ConcurrentModificationException;
 
 public class ChronoGUI {
     private JPanel panel1;
@@ -168,12 +169,13 @@ public class ChronoGUI {
                     }
                     Thread.sleep(1);
                 }
-            }catch(InterruptedException ex){
+            }catch(InterruptedException  | ConcurrentModificationException cme){
+                JOptionPane.showMessageDialog(null,"Slow Down","Slow Down",JOptionPane.ERROR_MESSAGE);
                 System.out.println("done updating");
             }
         };
         Thread running = new Thread(updateRunning);
-        running.start();
+
 
 
         Runnable updateQueue =()->{
@@ -186,29 +188,36 @@ public class ChronoGUI {
                     }
                     Thread.sleep(1);
                 }
-            }catch(InterruptedException ex){
+            }catch(InterruptedException  | ConcurrentModificationException cme){
+                JOptionPane.showMessageDialog(null,"Slow Down","Slow Down",JOptionPane.ERROR_MESSAGE);
                 System.out.println("done updating");
             }
         };
         Thread queue = new Thread(updateQueue);
-        queue.start();
+
 
 
         Runnable updateFinishedTime =()->{
             try{
                 //run forever till interrupted
                 while(true) {
+
                     String data = chronoTimer.getFinishedTime();
                     if(data != null) {
                         finishedPane.setText(data);
                     }
                     Thread.sleep(1);
                 }
-            }catch(InterruptedException ex){
+            }catch(InterruptedException | ConcurrentModificationException cme){
+                JOptionPane.showMessageDialog(null,"Slow Down","Slow Down",JOptionPane.ERROR_MESSAGE);
                 System.out.println("done updating");
             }
         };
         Thread finishTime= new Thread(updateFinishedTime);
+
+
+        running.start();
+        queue.start();
         finishTime.start();
 
 
@@ -230,9 +239,12 @@ public class ChronoGUI {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 chronoTimer.execute("POWER",null,null);
-                if(chronoTimer.getState() == "ON")
+                if(chronoTimer.getState() == "ON") {
                     commandPane.setText(cur.getValue());
+                    powerButton.setBackground(onColor);
+                }
                 else {
+                    powerButton.setBackground(offColor);
                     commandPane.setText("");
                     valuePane.setText("");
                     finishedPane.setText("");
