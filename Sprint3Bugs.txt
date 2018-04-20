@@ -3,4 +3,5 @@
 2. entering racers too fast causes panes to freeze
 3. Backside toggle 8 causes NullPointer Exception
 4. Newrun, DNF causes null pointer exception
-5. POWER, NEWRUN, CLR, START, FINISH, CANCEL causes null pointer exception
+5. POWER, NEWRUN, CLR, START, FINISH, CANCEL or POWER, NEWRUN CANCEL causes null pointer exception
+6. Time needs period or semicolon
