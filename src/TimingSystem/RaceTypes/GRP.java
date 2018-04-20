@@ -130,7 +130,7 @@ public class GRP implements RaceType{
             Racer r = _racerQueue.removeFirst();
             r.setFinishTime(finishTime);
             _finished.add(r);
-            if(_racerQueue.isEmpty() && _racers.isEmpty())
+            if(_racerQueue.isEmpty())
                 inProg = false;
         }
     }
