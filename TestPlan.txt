@@ -1,3 +1,7 @@
-GRP Race-
+-GRP Race-
     -Ensure that anon racers can be entered
     -Ensure that the names of racers can be changed if they were input as anon
+
+- GUI
+    - Threading for the displays
+        - adding many anon racers to test for concurrent modification exception

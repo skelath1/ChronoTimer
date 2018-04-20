@@ -277,9 +277,10 @@ public class ChronoTimer {
         }
     }
     private void tog(String value){
-        if(runCalled){
+        if(runCalled || eventCalled){
             // too late to call event
             eventCalled = true;
+            runCalled = true;
             if(event == null) {
                 //creating a new event if there wasn't one
                 event = new Event(channels);
@@ -305,8 +306,9 @@ public class ChronoTimer {
 
     }
     private void num(String value){
-        if(runCalled){
+        if(runCalled || eventCalled){
             eventCalled = true; // too late to call event
+            runCalled = true;
             if(event == null) {
                 //creating a new event if there wasn't one
                 event = new Event(channels);

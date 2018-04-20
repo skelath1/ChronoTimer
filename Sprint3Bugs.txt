@@ -1,7 +1,6 @@
 	Bugs
 1. if you change time in between triggers, elapsed time doesn't change accordingly.
-2. entering racers too fast causes panes to freeze
-3. Backside toggle 8 causes NullPointer Exception                                                           completed
-4. Newrun, DNF causes null pointer exception                                                                completed
-5. POWER, NEWRUN, CLR, START, FINISH, CANCEL or POWER, NEWRUN CANCEL causes null pointer exception          completed
-6. Time needs period or semicolon
+2. Backside toggle 8 causes NullPointer Exception                                                           completed
+3. Newrun, DNF causes null pointer exception                                                                completed
+4. POWER, NEWRUN, CLR, START, FINISH, CANCEL or POWER, NEWRUN CANCEL causes null pointer exception          completed
+5. Time needs period or semicolon
