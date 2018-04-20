@@ -66,6 +66,8 @@ public class ChronoGUI {
     private JScrollPane finishedScrollPane;
     private static ChronoTimer chronoTimer;
     private boolean printOn;
+    private Color offColor;
+    private Color onColor;
 
     private enum Function {
 
@@ -149,6 +151,8 @@ public class ChronoGUI {
 
 
     public ChronoGUI() {
+        offColor = Color.decode("#A14442");
+        onColor = Color.decode("#42f456");
         //printer is off by default
         printOn = false;
         //need to instantiate chronotimer here so that runnable can use it
@@ -457,10 +461,14 @@ public class ChronoGUI {
         printerPowerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(printOn)
-                    printOn =false;
-                else
+                if(printOn) {
+                    printOn = false;
+                    printerPowerButton.setBackground(offColor);
+                }
+                else {
                     printOn = true;
+                    printerPowerButton.setBackground(onColor);
+                }
             }
         });
     }
