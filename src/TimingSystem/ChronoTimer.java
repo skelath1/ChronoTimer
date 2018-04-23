@@ -428,7 +428,7 @@ public class ChronoTimer {
    public String getResults(){
        String data = "INPROGRESS:\n";
        data += event.getData("running");
-       data +="\n\nFINSIED:\n";
+       data +="\n\nFINISHED:\n";
        data += event.getData("finished");
         Simulation.execute("Print", data);
 
