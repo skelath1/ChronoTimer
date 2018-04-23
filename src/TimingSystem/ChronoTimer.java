@@ -277,9 +277,10 @@ public class ChronoTimer {
         }
     }
     private void tog(String value){
-        if(runCalled){
+        if(runCalled || eventCalled){
             // too late to call event
             eventCalled = true;
+            runCalled = true;
             if(event == null) {
                 //creating a new event if there wasn't one
                 event = new Event(channels);
@@ -305,8 +306,9 @@ public class ChronoTimer {
 
     }
     private void num(String value){
-        if(runCalled){
+        if(runCalled || eventCalled){
             eventCalled = true; // too late to call event
+            runCalled = true;
             if(event == null) {
                 //creating a new event if there wasn't one
                 event = new Event(channels);
@@ -426,7 +428,7 @@ public class ChronoTimer {
    public String getResults(){
        String data = "INPROGRESS:\n";
        data += event.getData("running");
-       data +="\n\nFINSIED:\n";
+       data +="\n\nFINISHED:\n";
        data += event.getData("finished");
         Simulation.execute("Print", data);
 
@@ -445,6 +447,7 @@ public class ChronoTimer {
 
        return null;
    }
+
    public String getFinishedTime(){
        if(event != null)
            return event.getData("finished");
