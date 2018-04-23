@@ -69,6 +69,8 @@ public class ChronoGUI {
     private boolean printOn;
     private Color offColor;
     private Color onColor;
+    private static BackSide bs;
+
 
     private enum Function {
 
@@ -158,6 +160,9 @@ public class ChronoGUI {
         printOn = false;
         //need to instantiate chronotimer here so that runnable can use it
         chronoTimer = new ChronoTimer();
+        bs = new BackSide(chronoTimer);
+        bs.setPane(bs);
+
 
         Runnable updateRunning =()->{
             try{
@@ -369,7 +374,6 @@ public class ChronoGUI {
         Backside.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                BackSide bs = new BackSide(chronoTimer);
                 bs.show();
             }
         });

@@ -23,8 +23,14 @@ public class BackSide {
     private JComboBox comboBox2;
     private JComboBox comboBox8;
     private static ChronoTimer chronoTimer;
+    private static JFrame frame;
 
     public BackSide(ChronoTimer ch) {
+        frame = new JFrame("Back Side Goo");
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        frame.setMinimumSize(new Dimension(500, 300));
+        frame.setLocationRelativeTo(null);
+        frame.pack();
 
         chronoTimer = ch;
 
@@ -204,22 +210,15 @@ public class BackSide {
             }
         });
 
-
-
-
-
-
-
     }
+
+        public static void setPane(BackSide b){
+            frame.setContentPane(b.main);
+        }
         public static void show() {
-            JFrame frame = new JFrame("Back Side Goo");
-            frame.setContentPane(new BackSide(chronoTimer).main);
-            frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-            frame.setMinimumSize(new Dimension(500, 300));
-//        frame.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
-            frame.setLocationRelativeTo(null);
-            frame.pack();
-            frame.setVisible(true);
+                frame.pack();
+                frame.setVisible(true);
+
         }
 
         private void comboBoxSetup(ItemEvent e){
