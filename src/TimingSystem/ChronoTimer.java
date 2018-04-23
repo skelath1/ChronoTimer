@@ -447,6 +447,7 @@ public class ChronoTimer {
 
        return null;
    }
+
    public String getFinishedTime(){
        if(event != null)
            return event.getData("finished");
