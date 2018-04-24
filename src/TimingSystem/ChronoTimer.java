@@ -13,11 +13,10 @@ public class ChronoTimer {
     private Time sysTime;
     private Event event;
     private Channel channels[];
-    private ArrayList<Event> eventList;     //used to store all the previous events
+    private ArrayList<Event> eventList;
     private boolean timeSet = false;
     private boolean eventCalled;
     private boolean runCalled;
-    boolean sec;
     private ChronoClient client;
 
 
@@ -185,14 +184,14 @@ public class ChronoTimer {
             case "START":
                 if(runCalled){
                     if(channels[0].isReady())
-                        event.setStartTime(channels[0].triggerSensor(), 1);
+                        event.setTime(channels[0].triggerSensor(), 1);
                 }
                 break;
             //same as TRIG 2
             case "FINISH":
                 if(runCalled){
                     if(channels[1].isReady())
-                        event.setFinishTime(channels[1].triggerSensor(), 2);
+                        event.setTime(channels[1].triggerSensor(), 2);
                 }
                 break;
             case "PRINT":
@@ -267,9 +266,9 @@ public class ChronoTimer {
     private void event(String value){
         if(curState.equals(State.ON) && !eventCalled) {
             if(value == null)
-                event = new Event(channels);
+                event = new Event();
             else {
-                event = new Event(value, channels);
+                event = new Event(value);
             }
             curState = State.EVENT;
             eventCalled = true;
@@ -282,7 +281,7 @@ public class ChronoTimer {
             runCalled = true;
             if(event == null) {
                 //creating a new event if there wasn't one
-                event = new Event(channels);
+                event = new Event();
             }
             try{
                 int channelIndex = Integer.parseInt(value) -1;
@@ -310,7 +309,7 @@ public class ChronoTimer {
             runCalled = true;
             if(event == null) {
                 //creating a new event if there wasn't one
-                event = new Event(channels);
+                event = new Event();
             }
             try{
                 event.addRacer(Integer.parseInt(value));
@@ -347,7 +346,6 @@ public class ChronoTimer {
     private void export(String value){
         //checking whether event run exists to be exported
         if(!eventList.isEmpty() && (curState == State.EVENT || curState == State.ON)){
-            sec = true;
             //get all the runs if value is null
             if(value == null){
                     Simulation.export(event.sendRuns());
@@ -386,13 +384,9 @@ public class ChronoTimer {
     }
     private void endRun(){
         if(runCalled && event!= null){
-            //send the run to the server
-
-
             eventList.add(event);
             event.saveRun();
 
-            //TODO have event make this method
             client.sendRun(event.getLastRun());
 
             event.clear();
@@ -402,9 +396,9 @@ public class ChronoTimer {
         }
     }
     private void dnf(){
-        if(runCalled && eventCalled){
+        if((runCalled && eventCalled) &&(event.toString().equals("IND"))){
             //assign the next up racer the DNF tag represented by -1 right now
-            event.setFinishTime(-1, 0);
+            event.setTime(-1, 0);
         }
     }
    private void swap(){

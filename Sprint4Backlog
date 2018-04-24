@@ -2,3 +2,4 @@
 2.) Client sends a run to the server
 3.) Instead of setFinish and setStart use single event.trigger(long time, int channelNum)
 4.) Time stuff?
+

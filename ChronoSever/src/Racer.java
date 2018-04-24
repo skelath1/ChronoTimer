@@ -1,8 +1,9 @@
-package TimingSystem;
+
 
 public class Racer {
     private long _startTime;
     private long _finishTime;
+
     private int _bibNumber;
 
     public Racer(int bibNumber){
@@ -32,4 +33,5 @@ public class Racer {
     }
 
     public void setFinishTime(long _finishTime) { this._finishTime = _finishTime; }
+
 }
