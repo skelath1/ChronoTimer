@@ -29,7 +29,7 @@ public class ChronoClient {
             e.printStackTrace();
         }
     }
-    public void sendList(Run eList)
+    public void sendRun(Run eList)
     {
         Gson g = new Gson();
         String json = g.toJson(eList);

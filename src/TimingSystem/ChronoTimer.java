@@ -18,6 +18,7 @@ public class ChronoTimer {
     private boolean eventCalled;
     private boolean runCalled;
     boolean sec;
+    private ChronoClient client;
 
 
     public enum State{
@@ -35,6 +36,8 @@ public class ChronoTimer {
             channels[i] = new Channel(i+1);
         }
         eventList = new ArrayList<>();
+        //connecting to the server
+        client = new ChronoClient();
     }
 
     /**
@@ -71,12 +74,11 @@ public class ChronoTimer {
                     try {
                         int channelNum = Integer.parseInt(value);
                         //if it is odd then it is the start
+
                         if(channels[channelNum-1].isReady()) {
-                            if ((channelNum % 2) != 0)
-                                event.setStartTime(channels[channelNum - 1].triggerSensor(), channelNum);
-                            else
-                                event.setFinishTime(channels[channelNum - 1].triggerSensor(), channelNum);
+                            event.setTime(channels[channelNum - 1].triggerSensor(), channelNum);
                         }
+
                     }
                     catch(NumberFormatException ex){
                         Simulation.execute("ERROR"," " + value + " not valid.");
@@ -87,14 +89,14 @@ public class ChronoTimer {
             case "START":
                 if(runCalled){
                     if(channels[0].isReady())
-                        event.setStartTime(System.currentTimeMillis(), 1);
+                        event.setTime(channels[0].triggerSensor(), 1);
                 }
                 break;
             //same as TRIG 2
             case "FINISH":
                 if(runCalled){
                     if(channels[1].isReady())
-                        event.setFinishTime(System.currentTimeMillis(), 2);
+                        event.setTime(channels[1].triggerSensor(), 2);
                 }
                 break;
             case "PRINT":
@@ -171,10 +173,7 @@ public class ChronoTimer {
                             int channelNum = Integer.parseInt(value);
                             //if it is odd then it is the start
                             if(channels[channelNum-1].isReady()) {
-                                if ((channelNum % 2) != 0)
-                                    event.setStartTime(channels[channelNum - 1].triggerSensor(), channelNum);
-                                else
-                                    event.setFinishTime(channels[channelNum - 1].triggerSensor(), channelNum);
+                                event.setTime(channels[channelNum - 1].triggerSensor(), channelNum);
                             }
                         } catch (NumberFormatException ex) {
                             Simulation.execute("ERROR", " " + value + " not valid.");
@@ -328,7 +327,6 @@ public class ChronoTimer {
     }
     private void print(String value){
 
-        //TODO the value field is messing it up somehow
         if(runCalled) {
             if (value != null) {
                 try {
@@ -377,7 +375,6 @@ public class ChronoTimer {
                 event.clear();
             }
             else {
-                //TODO event clear with bib not implmented yet
                 try{
                     event.clear(Integer.parseInt(bibNumber));
 
@@ -389,8 +386,14 @@ public class ChronoTimer {
     }
     private void endRun(){
         if(runCalled && event!= null){
+            //send the run to the server
+
+
             eventList.add(event);
             event.saveRun();
+
+            //TODO have event make this method
+            client.sendRun(event.getLastRun());
 
             event.clear();
             curState = State.ON;
