@@ -84,55 +84,99 @@ public class PARIND implements RaceType {
         return true;
     }
 
-    /**
-     *
-     * @param startTime
-     * @param channelNum
-     */
-    @Override
-    public void setStartTime(long startTime, int channelNum) {
-        if(channelNum == 1){
-            inProg = true;
-            if(_racersL.isEmpty()) return;
-            Racer l = _racersL.removeFirst();
-            l.setStartTime(startTime);
-            _left.add(l);
-            isRight = true;
-        } else if(channelNum == 3){
-            inProg = true;
-            if(_racersR.isEmpty()) return;
-            Racer r = _racersR.removeFirst();
-            r.setStartTime(startTime);
-            _right.add(r);
-            isRight = false;
-        }
-    }
+//    /**
+//     *
+//     * @param startTime
+//     * @param channelNum
+//     */
+//    @Override
+//    public void setStartTime(long startTime, int channelNum) {
+//        if(channelNum == 1){
+//            inProg = true;
+//            if(_racersL.isEmpty()) return;
+//            Racer l = _racersL.removeFirst();
+//            l.setStartTime(startTime);
+//            _left.add(l);
+//            isRight = true;
+//        } else if(channelNum == 3){
+//            inProg = true;
+//            if(_racersR.isEmpty()) return;
+//            Racer r = _racersR.removeFirst();
+//            r.setStartTime(startTime);
+//            _right.add(r);
+//            isRight = false;
+//        }
+//    }
+//
+//    /**
+//     *
+//     * @param finishTime
+//     * @param channelNum
+//     */
+//    @Override
+//    public void setFinishTime(long finishTime, int channelNum) {
+//        if(channelNum == 2){
+//            if(!_left.isEmpty()){
+//                Racer l = _left.removeFirst();
+//                l.setFinishTime(finishTime);
+//                _finished.add(l);
+//                isRight = true;
+//
+//            }
+//        } else if(channelNum == 4){
+//            if(!_right.isEmpty()){
+//                Racer r = _right.removeFirst();
+//                r.setFinishTime(finishTime);
+//                _finished.add(r);
+//                isRight = false;
+//            }
+//        }
+//        if(_left.isEmpty() && _right.isEmpty())
+//            inProg = false;
+//    }
 
-    /**
-     *
-     * @param finishTime
-     * @param channelNum
-     */
     @Override
-    public void setFinishTime(long finishTime, int channelNum) {
-        if(channelNum == 2){
-            if(!_left.isEmpty()){
-                Racer l = _left.removeFirst();
-                l.setFinishTime(finishTime);
-                _finished.add(l);
+    public void setTime(long time, int channelNum) {
+        switch(channelNum){
+            case 1:
+                inProg = true;
+                if(_racersL.isEmpty()) return;
+                Racer ls = _racersL.removeFirst();
+                ls.setStartTime(time);
+                _left.add(ls);
                 isRight = true;
-
-            }
-        } else if(channelNum == 4){
-            if(!_right.isEmpty()){
-                Racer r = _right.removeFirst();
-                r.setFinishTime(finishTime);
-                _finished.add(r);
+                break;
+            case 2:
+                if(!_left.isEmpty()){
+                    Racer lf = _left.removeFirst();
+                    lf.setFinishTime(time);
+                    _finished.add(lf);
+                    isRight = true;
+                    if(_left.isEmpty() && _right.isEmpty())
+                        inProg = false;
+                }
+                break;
+            case 3:
+                inProg = true;
+                if(_racersR.isEmpty()) return;
+                Racer rs = _racersR.removeFirst();
+                rs.setStartTime(time);
+                _right.add(rs);
                 isRight = false;
-            }
+                break;
+            case 4:
+                if(!_right.isEmpty()){
+                    Racer rf = _right.removeFirst();
+                    rf.setFinishTime(time);
+                    _finished.add(rf);
+                    isRight = false;
+                    if(_left.isEmpty() && _right.isEmpty())
+                        inProg = false;
+                }
+                break;
+            default:
+
         }
-        if(_left.isEmpty() && _right.isEmpty())
-            inProg = false;
     }
 
     /**
@@ -211,6 +255,11 @@ public class PARIND implements RaceType {
     @Override
     public void swap() {
         //Not sure if there is anything for this
+    }
+
+    @Override
+    public Run getLastRun() {
+        return runs.get(runs.size()-1);
     }
 
     @Override

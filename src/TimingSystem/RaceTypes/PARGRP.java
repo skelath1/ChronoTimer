@@ -50,41 +50,46 @@ public class PARGRP implements RaceType {
         return true;
     }
 
-    /**
-     *
-     * @param startTime
-     * @param channelNum
-     */
-    @Override
-    public void setStartTime(long startTime, int channelNum) {
-        if(channelNum == 1){
-            inProg = true;
-            int i = 1;
-            while(!_racers.isEmpty()){
-                if(_racers.peek().getStartTime() == -1) {
-                    Racer r = _racers.removeFirst();
-                    r.setStartTime(startTime);
-                    _racerMap.put(i, r);
-                    ++i;
-                }
-            }
-        }
-    }
+//    /**
+//     *
+//     * @param startTime
+//     * @param channelNum
+//     */
+//    @Override
+//    public void setStartTime(long startTime, int channelNum) {
+//        if(channelNum == 1){
+//            inProg = true;
+//            int i = 1;
+//            while(!_racers.isEmpty()){
+//                if(_racers.peek().getStartTime() == -1) {
+//                    Racer r = _racers.removeFirst();
+//                    r.setStartTime(startTime);
+//                    _racerMap.put(i, r);
+//                    ++i;
+//                }
+//            }
+//        }
+//    }
+//
+//    /**
+//     *
+//     * @param finishTime
+//     * @param channelNum
+//     */
+//    @Override
+//    public void setFinishTime(long finishTime, int channelNum) {
+//        if(_racerMap.get(channelNum) != null) {
+//            Racer r = _racerMap.get(channelNum);
+//            r.setFinishTime(finishTime);
+//            _racers.add(r);
+//            _racerMap.remove(channelNum);
+//
+//        }
+//    }
 
-    /**
-     *
-     * @param finishTime
-     * @param channelNum
-     */
     @Override
-    public void setFinishTime(long finishTime, int channelNum) {
-        if(_racerMap.get(channelNum) != null) {
-            Racer r = _racerMap.get(channelNum);
-            r.setFinishTime(finishTime);
-            _racers.add(r);
-            _racerMap.remove(channelNum);
+    public void setTime(long time, int channelNum) {
 
-        }
     }
 
     /**
@@ -184,6 +189,11 @@ public class PARGRP implements RaceType {
             default:
         }
         return data;
+    }
+
+    @Override
+    public Run getLastRun() {
+        return runs.get(runs.size()-1);
     }
 
     @Override

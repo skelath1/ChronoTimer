@@ -29,6 +29,11 @@ public class GRP implements RaceType{
         runs = new ArrayList<>();
     }
     @Override
+    public Run getLastRun() {
+        return runs.get(runs.size()-1);
+    }
+
+    @Override
     public ArrayList<Run> getRuns() {
         return runs;
     }
@@ -90,45 +95,73 @@ public class GRP implements RaceType{
         return true;
     }
 
-    /**
-     * Sets the start times of the Racers in the Collection
-     * @param startTime: Starting time
-     * @param channelNum: Channel Triggered
-     */
+//    /**
+//     * Sets the start times of the Racers in the Collection
+//     * @param startTime: Starting time
+//     * @param channelNum: Channel Triggered
+//     */
+//    @Override
+//    public void setStartTime(long startTime, int channelNum) {
+//        if (channelNum == 1) {
+//            inProg = true;
+//            if (_racers.isEmpty()) {
+//                Racer r = new Racer(anonBib);
+//                r.setStartTime(startTime);
+//                _racerQueue.add(r);
+//                ++anonBib;
+//            } else {
+//                while (!_racers.isEmpty()) {
+//                    if (_racers.peek().getStartTime() != -1) return;
+//                    Racer r = _racers.removeFirst();
+//                    r.setStartTime(startTime);
+//                    _racerQueue.add(r);
+//                }
+//
+//            }
+//        }
+//    }
+//
+//
+//
+//    /**
+//     * Sets the finish time of A Racer from the Channel Triggered
+//     * @param finishTime: Finishing Time
+//     * @param channelNum: Channel Triggered
+//     */
+//    @Override
+//    public void setFinishTime(long finishTime, int channelNum) {
+//        if(channelNum == 2){
+//            if(_racerQueue.isEmpty()) return;
+//            Racer r = _racerQueue.removeFirst();
+//            r.setFinishTime(finishTime);
+//            _finished.add(r);
+//            if(_racerQueue.isEmpty())
+//                inProg = false;
+//        }
+//    }
+
     @Override
-    public void setStartTime(long startTime, int channelNum) {
+    public void setTime(long time, int channelNum) {
         if (channelNum == 1) {
             inProg = true;
             if (_racers.isEmpty()) {
                 Racer r = new Racer(anonBib);
-                r.setStartTime(startTime);
+                r.setStartTime(time);
                 _racerQueue.add(r);
                 ++anonBib;
             } else {
                 while (!_racers.isEmpty()) {
                     if (_racers.peek().getStartTime() != -1) return;
                     Racer r = _racers.removeFirst();
-                    r.setStartTime(startTime);
+                    r.setStartTime(time);
                     _racerQueue.add(r);
                 }
 
             }
-        }
-    }
-
-
-
-    /**
-     * Sets the finish time of A Racer from the Channel Triggered
-     * @param finishTime: Finishing Time
-     * @param channelNum: Channel Triggered
-     */
-    @Override
-    public void setFinishTime(long finishTime, int channelNum) {
-        if(channelNum == 2){
+        } else if(channelNum == 2){
             if(_racerQueue.isEmpty()) return;
             Racer r = _racerQueue.removeFirst();
-            r.setFinishTime(finishTime);
+            r.setFinishTime(time);
             _finished.add(r);
             if(_racerQueue.isEmpty())
                 inProg = false;

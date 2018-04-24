@@ -63,24 +63,29 @@ public class Event implements RaceType{
         _racetype.addRacer(bibNumber);
     }
 
-    /**
-     * Proxy method to call setStartTime
-     * @param startTime
-     * @param channelNum
-     */
-    @Override
-    public void setStartTime(long startTime, int channelNum) {
-            _racetype.setStartTime(startTime, channelNum);
-    }
+//    /**
+//     * Proxy method to call setStartTime
+//     * @param startTime
+//     * @param channelNum
+//     */
+//    @Override
+//    public void setStartTime(long startTime, int channelNum) {
+//            _racetype.setStartTime(startTime, channelNum);
+//    }
+//
+//    /**
+//     * Proxy method to call setFinishTime
+//     * @param finishTime
+//     * @param channelNum
+//     */
+//    @Override
+//    public void setFinishTime(long finishTime, int channelNum) {
+//        _racetype.setFinishTime(finishTime, channelNum);
+//    }
 
-    /**
-     * Proxy method to call setFinishTime
-     * @param finishTime
-     * @param channelNum
-     */
     @Override
-    public void setFinishTime(long finishTime, int channelNum) {
-        _racetype.setFinishTime(finishTime, channelNum);
+    public void setTime(long time, int channelNum) {
+        _racetype.setTime(time,channelNum);
     }
 
     /**
@@ -155,8 +160,13 @@ public class Event implements RaceType{
     }
 
     @Override
+    public Run getLastRun() {
+        return _racetype.getLastRun();
+    }
+
+    @Override
     public ArrayList<Run> getRuns() {
-        return null;
+        return _racetype.getRuns();
     }
 
     /**

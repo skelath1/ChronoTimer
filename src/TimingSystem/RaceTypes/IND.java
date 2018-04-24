@@ -22,6 +22,10 @@ public class IND implements RaceType {
 
     private boolean inProg;
 
+    /**
+     *
+     * @param channels
+     */
     public IND(Channel[] channels){
         _racers = new LinkedList<>();
         runs = new ArrayList<>();
@@ -38,6 +42,15 @@ public class IND implements RaceType {
     public void addRacer(int bibNumber) {
         if(validNewRacer(bibNumber))
             _racers.add(new Racer(bibNumber));
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public Run getLastRun() {
+        return runs.get(runs.size()-1);
     }
 
     @Override
@@ -68,38 +81,66 @@ public class IND implements RaceType {
         return true;
     }
 
+//    /**
+//     *  Get/Removes first TimingSystem.Racer from _racers, then sets start time and
+//     *  Adds the racer to _racerQueue
+//     * @param startTime
+//     */
+//    @Override
+//    public void setStartTime(long startTime, int channelNum) {
+//        if(channelNum%2 == 0) return;
+//        if(!_racers.isEmpty()){
+//            inProg = true;
+//
+//            Racer r = _racers.remove();
+//            r.setStartTime(startTime);
+//            _racerQueue.add(r);
+//        }
+//    }
+//
+//    /**
+//     * Sets the finish time of the racer
+//     * @param finishTime
+//     */
+//    @Override
+//    public void setFinishTime(long finishTime, int channelNum) {
+//        if(channelNum%2 == 1) return;
+//        if(!_racerQueue.isEmpty()){
+//            if(_racerQueue.peek().getStartTime() != -1) {
+//                Racer r = _racerQueue.remove();
+//                r.setFinishTime(finishTime);
+//                _finished.add(r);
+//            }
+//            if(_racerQueue.isEmpty())
+//                inProg = false;
+//        }
+//    }
+
     /**
-     *  Get/Removes first TimingSystem.Racer from _racers, then sets start time and
-     *  Adds the racer to _racerQueue
-     * @param startTime
+     * Sets Start / Finish time for a racer depending on the channel number
+     * @param time : Start / Finish time of racer
+     * @param channelNum : Channel of sensor that was triggered
      */
     @Override
-    public void setStartTime(long startTime, int channelNum) {
-        if(channelNum%2 == 0) return;
-        if(!_racers.isEmpty()){
-            inProg = true;
+    public void setTime(long time, int channelNum) {
+        if(channelNum%2 == 0){
+            if(!_racers.isEmpty()){
+                inProg = true;
 
-            Racer r = _racers.remove();
-            r.setStartTime(startTime);
-            _racerQueue.add(r);
-        }
-    }
-
-    /**
-     * Sets the finish time of the racer
-     * @param finishTime
-     */
-    @Override
-    public void setFinishTime(long finishTime, int channelNum) {
-        if(channelNum%2 == 1) return;
-        if(!_racerQueue.isEmpty()){
-            if(_racerQueue.peek().getStartTime() != -1) {
-                Racer r = _racerQueue.remove();
-                r.setFinishTime(finishTime);
-                _finished.add(r);
+                Racer r = _racers.remove();
+                r.setStartTime(time);
+                _racerQueue.add(r);
             }
-            if(_racerQueue.isEmpty())
-                inProg = false;
+        } else{
+            if(!_racerQueue.isEmpty()){
+                if(_racerQueue.peek().getStartTime() != -1) {
+                    Racer r = _racerQueue.remove();
+                    r.setFinishTime(time);
+                    _finished.add(r);
+                }
+                if(_racerQueue.isEmpty())
+                    inProg = false;
+            }
         }
     }
 
@@ -125,6 +166,10 @@ public class IND implements RaceType {
         inProg = false;
     }
 
+    /**
+     * Clears a specific racer from the queues depending on the bibNumber
+     * @param bibNumber : bibNumber of the racer to clear
+     */
     @Override
     public void clear(int bibNumber) {
         for(Racer r : _racers){
@@ -151,7 +196,7 @@ public class IND implements RaceType {
     }
 
     /**
-     *
+     * Swaps next two racers to finish in the queue
      */
     @Override
     public void swap() {
@@ -164,8 +209,7 @@ public class IND implements RaceType {
     }
 
     /**
-     *
-     * @return
+     * Saves the run in runs to be used in export
      */
     @Override
     public void saveRun(){
@@ -175,8 +219,8 @@ public class IND implements RaceType {
     }
 
     /**
-     *
-     * @return
+     * Prints the results of the race to the console
+     * @return String of the results of the race
      */
     @Override
     public String printResults() {
@@ -204,6 +248,11 @@ public class IND implements RaceType {
         return s;
     }
 
+    /**
+     *
+     * @param runNumber
+     * @return
+     */
     @Override
     public String printResults(int runNumber) {
         String s = "";
@@ -215,14 +264,19 @@ public class IND implements RaceType {
     }
 
     /**
-     *
-     * @return
+     * returns the type of the Race as a String
+     * @return the type of the Race
      */
     @Override
     public String toString(){
         return "IND";
     }
 
+    /**
+     *
+     * @param type
+     * @return
+     */
     @Override
     public String getData(String type) {
         String data = "";
@@ -240,6 +294,13 @@ public class IND implements RaceType {
         return data;
     }
 
+    /**
+     *
+     * @param e
+     * @param running
+     * @param finished
+     * @return
+     */
     private String listToString(Deque<Racer> e, boolean running,  boolean finished){
         String data = "";
         long cTime = System.currentTimeMillis();
