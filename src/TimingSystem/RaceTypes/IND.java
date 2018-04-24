@@ -11,7 +11,6 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 public class IND implements RaceType {
-    private Channel[] _channels;
     private Deque<Racer> _racers;
 
     private ArrayList<Run> runs;
@@ -24,12 +23,10 @@ public class IND implements RaceType {
 
     /**
      *
-     * @param channels
      */
-    public IND(Channel[] channels){
+    public IND(){
         _racers = new LinkedList<>();
         runs = new ArrayList<>();
-        _channels = channels;
         _racerQueue = new LinkedList<>();
         _finished = new LinkedList<>();
     }

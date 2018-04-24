@@ -18,11 +18,7 @@ public class GRP implements RaceType{
     private boolean inProg;
     private int anonBib = 99901;
 
-
-    private Channel[] _channels;
-
-    public GRP(Channel[] channels){
-        _channels = channels;
+    public GRP(){
         _racers = new LinkedList<>();
         _racerQueue = new LinkedList<>();
         _finished = new LinkedList<>();

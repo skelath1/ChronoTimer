@@ -12,19 +12,17 @@ public class PARGRP implements RaceType {
     private Deque<Racer> _racers;
 
     private HashMap<Integer, Racer> _racerMap;
-
-    private Channel[] _channels;
+    private Deque<Racer> _finished;
 
     private ArrayList<Run> runs;
 
     private boolean inProg;
 
 
-    public PARGRP(Channel[] channels){
+    public PARGRP(){
         _racers = new LinkedList<>();
         _racerMap = new HashMap<>();
-
-        _channels = channels;
+        _finished = new LinkedList<>();
     }
 
     /**
@@ -44,6 +42,11 @@ public class PARGRP implements RaceType {
     private boolean validNewRacer(int bibNumber){
         for(Racer r : _racers){
             if(r.getBibNumber() == bibNumber)
+                return false;
+        }
+
+        for(int i = 0; i < _racerMap.size(); ++i){
+            if(bibNumber == _racerMap.get(i).getBibNumber())
                 return false;
         }
 
@@ -89,7 +92,25 @@ public class PARGRP implements RaceType {
 
     @Override
     public void setTime(long time, int channelNum) {
-
+        if(channelNum == 1 && !inProg){
+            inProg = true;
+            int i = 1;
+            while(!_racers.isEmpty()){
+                if(_racers.peek().getStartTime() == -1) {
+                    Racer r = _racers.removeFirst();
+                    r.setStartTime(time);
+                    _racerMap.put(i, r);
+                    ++i;
+                }
+            }
+        } else {
+            if(_racerMap.get(channelNum) != null) {
+            Racer r = _racerMap.get(channelNum);
+            r.setFinishTime(time);
+            _finished.add(r);
+            _racerMap.remove(channelNum);
+            }
+        }
     }
 
     /**

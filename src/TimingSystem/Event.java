@@ -18,35 +18,33 @@ public class Event implements RaceType{
     private String timeStamp = "";
     /**
      * Default Constructor to handle default TimingSystem.Event type
-     * @param channels: Array of Channels
      */
-    public Event(Channel[] channels){
-        this("IND",channels);
+    public Event(){
+        this("IND");
 
     }
 
     /**
      * Constructor to create TimingSystem.Event
      * @param racetype: Type of event to be created
-     * @param channels: Array of Channels
      */
-    public Event(String racetype, Channel[] channels){
+    public Event(String racetype){
         Time time = new Time();
         switch(racetype.toUpperCase()){
             case "IND":
-                _racetype = new IND(channels);
+                _racetype = new IND();
                 break;
             case "PARIND":
-                _racetype = new PARIND(channels);
+                _racetype = new PARIND();
                 break;
             case "GRP":
-                _racetype = new GRP(channels);
+                _racetype = new GRP();
                 break;
             case "PARGRP":
-                _racetype = new PARGRP(channels);
+                _racetype = new PARGRP();
                 break;
             default:
-                _racetype = new IND(channels);
+                _racetype = new IND();
                 break;
         }
         runs = new ArrayList<>();

@@ -11,8 +11,6 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 public class PARIND implements RaceType {
-    private Channel[] _channels;
-
     private ArrayList<Run> runs;
 
     private Deque<Racer> _finished;
@@ -27,8 +25,7 @@ public class PARIND implements RaceType {
     private boolean inProg;
 
 
-    public PARIND(Channel[] channels){
-        _channels = channels;
+    public PARIND(){
         _finished = new LinkedList<>();
         _racersL = new LinkedList<>();
         _racersR = new LinkedList<>();
