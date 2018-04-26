@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.InetAddress;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -19,11 +20,11 @@ public class ChronoClient {
         start();
     }
 
-    public void start() {
+    private void start() {
 
         try {
             // Client will connect to this location
-            site = new URL("http://localhost:8000/sendresults");
+            site = new URL(InetAddress.getLocalHost().getHostAddress()+":8000/sendresults");
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -396,9 +396,9 @@ public class ChronoTimer {
         }
     }
     private void dnf(){
-        if((runCalled && eventCalled) &&(event.toString().equals("IND"))){
+        if((runCalled && eventCalled)){
             //assign the next up racer the DNF tag represented by -1 right now
-            event.setTime(-1, 0);
+            event.dnf();
         }
     }
    private void swap(){
