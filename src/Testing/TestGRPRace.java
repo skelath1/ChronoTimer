@@ -32,7 +32,7 @@ public class TestGRPRace {
         for(int i = 0; i < 8; ++i){
             channels[i] = new Channel(i + 1);
         }
-        event = new Event("GRP", channels);
+        event = new Event("GRP");
         try{
             Field f = event.getClass().getDeclaredField("_racetype");
             f.setAccessible(true);
@@ -63,7 +63,7 @@ public class TestGRPRace {
         event.addRacer(123);
         event.addRacer(456);
 
-        event.setStartTime(100, 1);
+        event.setTime(100, 1);
         getLists();
 
         assertEquals(racerQueue.size(), 2);
@@ -75,7 +75,7 @@ public class TestGRPRace {
 
     @Test
     public void testAnonRacers(){
-        event.setStartTime(100, 1);
+        event.setTime(100, 1);
         getLists();
 
         assertTrue(racerQueue.getFirst().getBibNumber() == 99901);
@@ -88,9 +88,9 @@ public class TestGRPRace {
 
         event.clear();
 
-        event.setStartTime(100, 1);
-        event.setStartTime(200, 1);
-        event.setFinishTime(300, 2);
+        event.setTime(100, 1);
+        event.setTime(200, 1);
+        event.setTime(300, 2);
 
         getLists();
         assertTrue(racerQueue.getFirst().getBibNumber() == 99902);
@@ -110,10 +110,10 @@ public class TestGRPRace {
         event.addRacer(123);
         event.addRacer(456);
 
-        event.setStartTime(100, 1);
+        event.setTime(100, 1);
 
-        event.setFinishTime(400,2);
-        event.setFinishTime(500, 2);
+        event.setTime(400,2);
+        event.setTime(500, 2);
 
         getLists();
         assertTrue(racerQueue.isEmpty());
@@ -127,10 +127,10 @@ public class TestGRPRace {
         event.addRacer(456);
         event.addRacer(789);
 
-        event.setStartTime(100, 1);
-        event.setStartTime(200, 1);
+        event.setTime(100, 1);
+        event.setTime(200, 1);
 
-        event.setFinishTime(300, 2);
+        event.setTime(300, 2);
         event.clear();
         getLists();
         assertTrue(racerList.isEmpty() && racerQueue.isEmpty()&& finished.isEmpty());
@@ -138,7 +138,7 @@ public class TestGRPRace {
         event.addRacer(123);
         event.addRacer(456);
         event.addRacer(789);
-        event.setStartTime(100, 1);
+        event.setTime(100, 1);
 
         event.clear(123);
         getLists();

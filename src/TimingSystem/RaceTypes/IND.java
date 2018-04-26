@@ -55,6 +55,14 @@ public class IND implements RaceType {
         return runs;
     }
 
+    @Override
+    public void dnf() {
+        if(_racerQueue.isEmpty()) return;
+        Racer r = _racerQueue.removeFirst();
+        r.setFinishTime(-1);
+        _finished.add(r);
+    }
+
     /**
      *
      * @param bibNumber
@@ -120,7 +128,7 @@ public class IND implements RaceType {
      */
     @Override
     public void setTime(long time, int channelNum) {
-        if(channelNum%2 == 0){
+        if(channelNum%2 == 1){
             if(!_racers.isEmpty()){
                 inProg = true;
 

@@ -1,6 +1,5 @@
 package TimingSystem.RaceTypes;
 
-import TimingSystem.Hardware.Channel;
 import TimingSystem.Racer;
 import TimingSystem.Result;
 import TimingSystem.Run;
@@ -32,6 +31,15 @@ public class GRP implements RaceType{
     @Override
     public ArrayList<Run> getRuns() {
         return runs;
+    }
+
+    @Override
+    public void dnf() {
+        for(Racer r : _racerQueue){
+            Racer a = _racerQueue.removeFirst();
+            a.setFinishTime(-1);
+            _finished.add(a);
+        }
     }
 
     /**
@@ -298,7 +306,7 @@ public class GRP implements RaceType{
         long cTime = System.currentTimeMillis();
         String s = "";
         for(Racer r : list){
-            s += r.getBibNumber() + " ";
+            s += r.getBibNumber() + ": ";
             if(!q) {
                 if (finished)
                     s += Time.getElapsed(r.getStartTime(), r.getFinishTime());

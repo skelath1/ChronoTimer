@@ -25,7 +25,7 @@ public class TestINDRace {
         for(int i = 0; i < 8; ++i){
             channels[i] = new Channel(i + 1);
         }
-        event = new Event(channels);
+        event = new Event();
         try{
             Field f = event.getClass().getDeclaredField("_racetype");
             f.setAccessible(true);
@@ -53,7 +53,7 @@ public class TestINDRace {
 
         assertTrue("No duplicate Racers", racerList.size() == 1);
 
-        event.setStartTime(500, 1);
+        event.setTime(500, 1);
         event.addRacer(123);
         getLists();
 
@@ -62,8 +62,8 @@ public class TestINDRace {
 
 
         event.addRacer(456);
-        event.setStartTime(500,1);
-        event.setStartTime(600,1);
+        event.setTime(500,1);
+        event.setTime(600,1);
         getLists();
 
         assertEquals("Racer 123 first in racerQueue", 123, racerQueue.removeFirst().getBibNumber());
@@ -76,10 +76,10 @@ public class TestINDRace {
     public void testSetFinish(){
         event.addRacer(123);
         event.addRacer(456);
-        event.setStartTime(500,1);
-        event.setStartTime(600,1);
-        event.setFinishTime(700,2);
-        event.setFinishTime(700,2);
+        event.setTime(500,1);
+        event.setTime(600,1);
+        event.setTime(700,2);
+        event.setTime(700,2);
         getLists();
 
         assertTrue("racerQueue is empty", racerQueue.isEmpty());
@@ -92,15 +92,15 @@ public class TestINDRace {
     public void testCancelRacer(){
         event.addRacer(123);
         event.addRacer(456);
-        event.setStartTime(500, 1);
+        event.setTime(500, 1);
         event.cancelRacer();
         getLists();
 
         assertTrue("racerQueue is empty", racerQueue.isEmpty());
         assertEquals("Racer 123 is still first in racers", 123, racerList.removeFirst().getBibNumber());
 
-        event.setStartTime(500,1);
-        event.setStartTime(600,1);
+        event.setTime(500,1);
+        event.setTime(600,1);
         event.cancelRacer();
 
         assertEquals("Racer 456 is back in racers", 456, racerList.removeFirst().getBibNumber());
@@ -110,11 +110,11 @@ public class TestINDRace {
     public void testSwap(){
         event.addRacer(123);
         event.addRacer(456);
-        event.setStartTime(100, 1);
-        event.setStartTime(200, 1);
+        event.setTime(100, 1);
+        event.setTime(200, 1);
         event.swap();
-        event.setFinishTime(500,2);
-        event.setFinishTime(500,2);
+        event.setTime(500,2);
+        event.setTime(500,2);
         getLists();
 
         assertTrue("Racer 456 is first in Queue", finished.getFirst().getBibNumber() == 456);
@@ -126,10 +126,10 @@ public class TestINDRace {
         event.addRacer(123);
         event.addRacer(456);
         event.addRacer(789);
-        event.setStartTime(100,1);
-        event.setStartTime(200, 1);
+        event.setTime(100,1);
+        event.setTime(200, 1);
 
-        event.setFinishTime(300, 2);
+        event.setTime(300, 2);
         event.clear();
         getLists();
         assertTrue("Lists should be empty", racerList.isEmpty() && racerQueue.isEmpty() && finished.isEmpty());
@@ -137,7 +137,7 @@ public class TestINDRace {
         event.addRacer(123);
         event.addRacer(456);
         event.addRacer(789);
-        event.setStartTime(100, 1);
+        event.setTime(100, 1);
 
         event.clear(123);
         getLists();

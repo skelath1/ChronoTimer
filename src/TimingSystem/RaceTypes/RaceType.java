@@ -20,5 +20,6 @@ public interface RaceType{
     String getData(String type);
     Run getLastRun();
     ArrayList<Run> getRuns();
+    void dnf();
 
 }

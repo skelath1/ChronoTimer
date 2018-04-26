@@ -167,6 +167,11 @@ public class Event implements RaceType{
         return _racetype.getRuns();
     }
 
+    @Override
+    public void dnf() {
+        _racetype.dnf();
+    }
+
     /**
      * Returns the list of runs for the Event
      * @return list of runs for the current Event

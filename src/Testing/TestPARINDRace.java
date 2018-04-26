@@ -34,7 +34,7 @@ public class TestPARINDRace {
         for(int i = 0; i < 8; ++i){
             channels[i] = new Channel(i + 1);
         }
-        event = new Event("PARIND",channels);
+        event = new Event("PARIND");
 
         try{
             Field f = event.getClass().getDeclaredField("_racetype");
@@ -60,7 +60,7 @@ public class TestPARINDRace {
     public void testSetStart(){
         // One Racer
         event.addRacer(123);
-        event.setStartTime(500, 1);
+        event.setTime(500, 1);
         getLists();
         assertEquals("Racer 123 in Left Queue", 123, left.removeFirst().getBibNumber());
         assertTrue(leftQueue.isEmpty());
@@ -69,8 +69,8 @@ public class TestPARINDRace {
         // Two Racers
         event.addRacer(123);
         event.addRacer(456);
-        event.setStartTime(500,1);
-        event.setStartTime(700, 3);
+        event.setTime(500,1);
+        event.setTime(700, 3);
         getLists();
 
         assertEquals("Racer 123 in Left Queue", 123, left.removeFirst().getBibNumber());
@@ -82,9 +82,9 @@ public class TestPARINDRace {
         event.addRacer(123);
         event.addRacer(456);
         event.addRacer(789);
-        event.setStartTime(500,1);
-        event.setStartTime(700, 3);
-        event.setStartTime(900, 1);
+        event.setTime(500,1);
+        event.setTime(700, 3);
+        event.setTime(900, 1);
         getLists();
 
         assertEquals("Racer 123 in Left Queue", 123, left.removeFirst().getBibNumber());
@@ -98,8 +98,8 @@ public class TestPARINDRace {
     public void testSetFinish(){
         // One Racer
         event.addRacer(123);
-        event.setStartTime(500, 1);
-        event.setFinishTime(600, 2);
+        event.setTime(500, 1);
+        event.setTime(600, 2);
         getLists();
 
         assertTrue(left.isEmpty());
@@ -109,10 +109,10 @@ public class TestPARINDRace {
         // Two Racers
         event.addRacer(123);
         event.addRacer(456);
-        event.setStartTime(500,1);
-        event.setStartTime(700, 3);
-        event.setFinishTime(600, 2);
-        event.setFinishTime(800, 4);
+        event.setTime(500,1);
+        event.setTime(700, 3);
+        event.setTime(600, 2);
+        event.setTime(800, 4);
         getLists();
 
         assertTrue(left.isEmpty());
@@ -126,12 +126,12 @@ public class TestPARINDRace {
         event.addRacer(123);
         event.addRacer(456);
         event.addRacer(789);
-        event.setStartTime(500,1);
-        event.setStartTime(700, 3);
-        event.setStartTime(900, 1);
-        event.setFinishTime(600, 2);
-        event.setFinishTime(800, 4);
-        event.setFinishTime(1000, 2);
+        event.setTime(500,1);
+        event.setTime(700, 3);
+        event.setTime(900, 1);
+        event.setTime(600, 2);
+        event.setTime(800, 4);
+        event.setTime(1000, 2);
         getLists();
 
         assertTrue(left.isEmpty());
@@ -148,7 +148,7 @@ public class TestPARINDRace {
     public void testCancelRacer(){
         event.addRacer(123);
         event.addRacer(456);
-        event.setStartTime(500,1);
+        event.setTime(500,1);
         event.cancelRacer();
         getLists();
 
@@ -159,8 +159,8 @@ public class TestPARINDRace {
         event.addRacer(123);
         event.addRacer(456);
 
-        event.setStartTime(500,1);
-        event.setStartTime(600, 3);
+        event.setTime(500,1);
+        event.setTime(600, 3);
         event.cancelRacer();
         getLists();
 
@@ -172,7 +172,7 @@ public class TestPARINDRace {
     public void testClear(){
         event.addRacer(123);
         event.addRacer(456);
-        event.setStartTime(100, 1);
+        event.setTime(100, 1);
         event.clear();
         getLists();
 
@@ -180,7 +180,7 @@ public class TestPARINDRace {
 
         event.addRacer(123);
         event.addRacer(456);
-        event.setStartTime(100, 1);
+        event.setTime(100, 1);
         event.clear(123);
         getLists();
 

@@ -34,6 +34,7 @@ public class PARIND implements RaceType {
         runs = new ArrayList<>();
     }
 
+
     /**
      *
      * @param bibNumber
@@ -264,6 +265,19 @@ public class PARIND implements RaceType {
         return runs;
     }
 
+    @Override
+    public void dnf() {
+        if(isRight){
+            Racer l = _left.removeFirst();
+            l.setStartTime(-1);
+            _finished.addFirst(l);
+        } else{
+            Racer r = _right.removeFirst();
+            r.setStartTime(-1);
+            _finished.addFirst(r);
+        }
+    }
+
     /**
      *
      * @return
@@ -353,14 +367,14 @@ public class PARIND implements RaceType {
         String s = "";
         for(Racer r : list1) {
             if(finished)
-                s += r.getBibNumber() + " " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + " \n";
+                s += r.getBibNumber() + ": " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + " \n";
             else
                 s += r.getBibNumber() + "\n";
         }
         if(list2 != null) {
             for (Racer r : list2) {
                 if (finished)
-                    s += r.getBibNumber() + " " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + " \n";
+                    s += r.getBibNumber() + ": " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + " \n";
                 else
                     s += r.getBibNumber() + "\n";
             }

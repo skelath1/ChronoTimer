@@ -199,14 +199,11 @@ public class PARGRP implements RaceType {
         String data = "";
         switch(type){
             case "queue":
-
-                break;
+                return listToString(_racers, false, true);
             case "running":
-
-                break;
+                return mapToString();
             case "finished":
-
-                break;
+                return listToString(_finished, true, false);
             default:
         }
         return data;
@@ -222,8 +219,43 @@ public class PARGRP implements RaceType {
         return runs;
     }
 
-    private String listToString(){
-        return null;
+    @Override
+    public void dnf() {
+        Set<Integer> keys = _racerMap.keySet();
+        for(int key : keys){
+            Racer r  = _racerMap.remove(key);
+            r.setFinishTime(-1);
+            _finished.add(r);
+        }
+    }
+
+    private String listToString(Deque<Racer> list, boolean finished, boolean q) {
+        long cTime = System.currentTimeMillis();
+        String s = "";
+        for(Racer r : list){
+            s += r.getBibNumber() + ": ";
+            if(!q){
+                if (finished)
+                    s += Time.getElapsed(r.getStartTime(), r.getFinishTime());
+                else
+                    s += Time.getElapsed(r.getStartTime(), cTime);
+            }
+            s += "\n";
+        }
+        return s;
+    }
+
+    private String mapToString(){
+        long cTime = System.currentTimeMillis();
+        Set<Integer> keys = _racerMap.keySet();
+        String s = "";
+        for(Integer key : keys){
+            Racer r = _racerMap.get(key);
+            s += r.getBibNumber() + ": ";
+            s += Time.getElapsed(r.getStartTime(), cTime);
+            s += "\n";
+        }
+        return s;
     }
 }
 
