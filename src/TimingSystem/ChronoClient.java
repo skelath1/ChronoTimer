@@ -43,13 +43,12 @@ public class ChronoClient {
             DataOutputStream out = new DataOutputStream(conn.getOutputStream());
 
 
-
             if (content != null) {
                 out.writeBytes(content);
                 out.flush();
                 out.close();
             }
-            System.out.println("Done sent to server");
+            System.out.println("Run sent to server");
 
 
             InputStreamReader inputStr = new InputStreamReader(conn.getInputStream());
@@ -62,9 +61,9 @@ public class ChronoClient {
             while ((nextChar = inputStr.read()) > -1) {
                 sb = sb.append((char) nextChar);
             }
-            System.out.println("Return String: " + sb);
+            //System.out.println("Return String: " + sb);
         }catch(Exception e){
-            e.printStackTrace();
+           Simulation.execute("ERROR","Run not sent to server.");
         }
     }
 }

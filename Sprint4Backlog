@@ -1,5 +1,8 @@
 1.) ENDRUN causes the server to update
-2.) Client sends a run to the server
-3.) Instead of setFinish and setStart use single event.trigger(long time, int channelNum)
+2.) Client sends a run to the server                                                            completed - Luke
+3.) Instead of setFinish and setStart use single event.trigger(long time, int channelNum)       completed - Isaac
 4.) Time stuff?
+5.) server
+6.) frontend of server
+7.) send a specific run to the server?
 
