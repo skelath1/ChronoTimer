@@ -32,7 +32,7 @@ public class TestGRPRace {
         for(int i = 0; i < 8; ++i){
             channels[i] = new Channel(i + 1);
         }
-        event = new Event("GRP", channels);
+        event = new Event("GRP");
         try{
             Field f = event.getClass().getDeclaredField("_racetype");
             f.setAccessible(true);
