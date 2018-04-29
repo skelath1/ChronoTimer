@@ -23,11 +23,10 @@ public class ChronoClient {
     private void start() {
 
         try {
-            // Client will connect to this location
             site = new URL(InetAddress.getLocalHost().getHostAddress()+":8000/sendresults");
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Simulation.execute("ERROR","CANNOT CREATE URL");
         }
     }
     public void sendRun(Run eList)
@@ -64,7 +63,7 @@ public class ChronoClient {
             }
             //System.out.println("Return String: " + sb);
         }catch(Exception e){
-           Simulation.execute("ERROR","Run not sent to server.");
+            Simulation.execute("ERROR","COULD NOT SEND RUN TO SERVER");
         }
     }
 }

@@ -252,8 +252,8 @@ public class ChronoTimer {
             event = null;
             curState = State.OFF;
             for(Channel c: channels){
-                if(c != null)
-                    c.setOff();
+              if(c != null)
+                c.setOff();
             }
         }
     }
@@ -275,12 +275,12 @@ public class ChronoTimer {
         }
     }
     private void tog(String value){
-        if(runCalled || eventCalled){
+        if(!curState.equals(State.OFF)){
             // too late to call event
             eventCalled = true;
             runCalled = true;
             if(event == null) {
-                //creating a new event if there wasn't one
+                //creating a new default event if there wasn't one
                 event = new Event();
             }
             try{
@@ -397,7 +397,6 @@ public class ChronoTimer {
     }
     private void dnf(){
         if((runCalled && eventCalled)){
-            //assign the next up racer the DNF tag represented by -1 right now
             event.dnf();
         }
     }
