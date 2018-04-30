@@ -72,12 +72,9 @@ public class ChronoTimer {
                 if(runCalled){
                     try {
                         int channelNum = Integer.parseInt(value);
-                        //if it is odd then it is the start
-
                         if(channels[channelNum-1].isReady()) {
                             event.setTime(channels[channelNum - 1].triggerSensor(), channelNum);
                         }
-
                     }
                     catch(NumberFormatException ex){
                         Simulation.execute("ERROR"," " + value + " not valid.");
@@ -232,15 +229,16 @@ public class ChronoTimer {
 
         }
     }
-
-    //util methods
-
-
-
-    //case methods
+    /**
+     * method for saving the run of an event
+     */
     private void saveRun(){
         event.saveRun();
     }
+
+    /**
+     * turns the chrono timer on when the curState is off and turns off when curState is on
+     */
     private void power(){
         if(curState.equals(State.OFF)){
             curState = State.ON;
@@ -257,12 +255,24 @@ public class ChronoTimer {
             }
         }
     }
+
+    /**
+     * sets runCalled to true
+     * doesn't create a run here because event still could be called
+     */
     private void newRun(){
-        if((curState.equals(State.EVENT) || curState.equals(State.ON)) && !runCalled){
+        if(!curState.equals(State.OFF)){
             runCalled =true;
         }
 
     }
+
+    /**
+     * creates and event given the string param
+     * if the param is null it creates a default event witch is IND
+     * set eventCalled true so that you cant call event again during the run
+     * @param value String
+     */
     private void event(String value){
         if(curState.equals(State.ON) && !eventCalled) {
             if(value == null)
@@ -274,6 +284,11 @@ public class ChronoTimer {
             eventCalled = true;
         }
     }
+
+    /**
+     * toggles the channel given the channel number
+     * @param value String
+     */
     private void tog(String value){
         if(!curState.equals(State.OFF)){
             // too late to call event
@@ -292,6 +307,10 @@ public class ChronoTimer {
             }
         }
     }
+
+    /**
+     * just like power and power
+     */
     private void reset(){
         runCalled = false;
         eventCalled = false;
@@ -303,6 +322,11 @@ public class ChronoTimer {
         }
 
     }
+
+    /**
+     * creates a racer with the value as a bib number
+     * @param value String
+     */
     private void num(String value){
         if(runCalled || eventCalled){
             eventCalled = true; // too late to call event
@@ -318,12 +342,22 @@ public class ChronoTimer {
             }
         }
     }
+
+    /**
+     * cancels the next up racer
+     * marks the racer as DNF
+     */
     private void cancel(){
         if(runCalled && eventCalled){
             //put the racer back in the queue at the beginning
             event.cancelRacer();
         }
     }
+
+    /**
+     * prints the current run if value is null otherwise prints the run from param
+     * @param value String
+     */
     private void print(String value){
 
         if(runCalled) {
@@ -341,8 +375,14 @@ public class ChronoTimer {
                 Simulation.execute("PRINT", event.printResults());
             }
         }
-
     }
+
+    /**
+     * creates the run as a json string
+     * exports all the runs if value === null
+     * exports the run given the value
+     * @param value String
+     */
     private void export(String value){
         //checking whether event run exists to be exported
         if(!eventList.isEmpty() && (curState == State.EVENT || curState == State.ON)){
@@ -362,11 +402,21 @@ public class ChronoTimer {
             }
         }
     }
+
+    /**
+     * exits the program
+     */
     private void exit(){
         if(runCalled){
             Simulation.execute("EXIT",null);
         }
     }
+
+    /**
+     * clears a racer from the queue
+     * if bibNumber == null clears all the racers from the run
+     * @param bibNumber String
+     */
     private void clear(String bibNumber){
         if(event != null){
             if(bibNumber == null){
@@ -382,6 +432,10 @@ public class ChronoTimer {
             }
         }
     }
+
+    /**
+     * ends the current run and sets up for the next one
+     */
     private void endRun(){
         if(runCalled && event!= null){
             eventList.add(event);
@@ -395,16 +449,30 @@ public class ChronoTimer {
             eventCalled = false;
         }
     }
+
+    /**
+     * marks the next racer as DNF
+     */
     private void dnf(){
         if((runCalled && eventCalled)){
             event.dnf();
         }
     }
+
+    /**
+     * swaps the racers
+     */
    private void swap(){
         if(runCalled) {
             event.swap();
         }
    }
+
+    /**
+     * connects and creates sensors to the given channel
+     * @param sensorName String
+     * @param channelNumber String
+     */
    private void connect(String sensorName, String channelNumber){
        try{
            int chanNum = Integer.parseInt(channelNumber) -1;
@@ -421,6 +489,10 @@ public class ChronoTimer {
        }
    }
 
+    /**
+     * gets the results of the current run
+     * @return formatted string for the GUI
+     */
    public String getResults(){
        String data = "INPROGRESS:\n";
        data += event.getData("running");
@@ -429,14 +501,23 @@ public class ChronoTimer {
         Simulation.execute("Print", data);
 
        return data;
-
    }
+
+    /**
+     *
+     * @return String of the current running racers
+     */
    public String getElapsedTime(){
        if(event != null)
         return event.getData("running");
 
        return null;
    }
+
+    /**
+     *
+     * @return String of current queue
+     */
    public String getQueue(){
        if(event != null)
            return event.getData("queue");
@@ -444,16 +525,20 @@ public class ChronoTimer {
        return null;
    }
 
+    /**
+     *
+     * @return String gets finished times of the racers
+     */
    public String getFinishedTime(){
        if(event != null)
            return event.getData("finished");
-
        return null;
    }
-    public Time getSysTime()
-    {
-        return sysTime;
-    }
+
+    /**
+     *
+     * @return the curState as a String
+     */
     public String getState(){return curState.toString();}
 
 }
