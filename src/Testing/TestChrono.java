@@ -63,8 +63,72 @@ public class TestChrono {
         assertTrue(state.equalsIgnoreCase("ON"));
 
     }
+    @Test
     public void testOrder(){
 
+        getRunCalled();
+        getEventCalled();
+        assertFalse(runCalled);
+        assertFalse(eventCalled);
+
+        ct.execute("POWER", null,null);
+        ct.execute("NEWRUN", null,null);
+        getRunCalled();
+        getEventCalled();
+        assertTrue(runCalled);
+        assertFalse(eventCalled);
+
+        ct.execute("NEWRUN", null,null);
+        getRunCalled();
+        getEventCalled();
+        assertTrue(runCalled);
+        assertFalse(eventCalled);
+
+        ct.execute("EVENT", null,null);
+        getRunCalled();
+        getEventCalled();
+        assertTrue(runCalled);
+        assertTrue(eventCalled);
+
+        ct.execute("POWER", null,null);
+        getRunCalled();
+        getEventCalled();
+        assertFalse(runCalled);
+        assertFalse(eventCalled);
+
+        ct.execute("POWER", null,null);
+        ct.execute("NEWRUN", null,null);
+        getRunCalled();
+        getEventCalled();
+        assertTrue(runCalled);
+        assertFalse(eventCalled);
+
+        ct.execute("TOG", "1",null);
+        getRunCalled();
+        getEventCalled();
+        assertTrue(runCalled);
+        assertTrue(eventCalled);
+
+        ct.execute("POWER", null,null);
+        getRunCalled();
+        getEventCalled();
+        assertFalse(runCalled);
+        assertFalse(eventCalled);
+
+        ct.execute("POWER", null,null);
+        ct.execute("EVENT", "IND",null);
+        getRunCalled();
+        getEventCalled();
+        assertFalse(runCalled);
+        assertTrue(eventCalled);
+
+        //testing after endRun called
+        ct.execute("NEWRUN", null,null);
+        ct.execute("ENDRUN", null,null);
+        getRunCalled();
+        getEventCalled();
+        assertFalse(runCalled);
+        assertFalse(eventCalled);
     }
 
     private void getState(){
@@ -80,7 +144,7 @@ public class TestChrono {
         try {
             runField = ct.getClass().getDeclaredField("runCalled");
             runField.setAccessible(true);
-            state = (String) m.invoke(ct);
+            runCalled = runField.getBoolean(ct);
         } catch(Exception ex){
             ex.printStackTrace();
         }
@@ -89,7 +153,7 @@ public class TestChrono {
         try {
             eventField = ct.getClass().getDeclaredField("eventCalled");
             eventField.setAccessible(true);
-            state = (String) m.invoke(ct);
+            eventCalled = eventField.getBoolean(ct);
         } catch(Exception ex){
             ex.printStackTrace();
         }
