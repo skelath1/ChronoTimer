@@ -109,7 +109,7 @@ public class Simulation {
 
     }
     /**
-     * This method exports the latest runs data to a txt file
+     * exports the latest runs data to a txt file
      */
     public static void export(ArrayList<Run> runs, String runNumber){
         try(FileWriter writer = new FileWriter( "RUN" + runNumber + ".txt")){
