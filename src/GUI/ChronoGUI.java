@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ConcurrentModificationException;
 
 public class ChronoGUI {
@@ -502,6 +505,14 @@ public class ChronoGUI {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(1260, 768));
         frame.setLocation(new Point(0,0));        //frame.setLocationRelativeTo(p);
+
+
+            ImageIcon image = new ImageIcon("src/goodmeme.jpg");
+            frame.setIconImage(image.getImage());
+
+
+
+
         frame.pack();
         frame.setVisible(true);
 
@@ -509,6 +520,7 @@ public class ChronoGUI {
         sim.doInput();
 
     }
+
 
     private boolean clearForInput(String function){
         return function.equalsIgnoreCase("Event");
