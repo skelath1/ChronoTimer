@@ -76,7 +76,7 @@ public class IND implements RaceType {
      */
     private boolean validNewRacer(int bibNumber){
         for(Racer r : _racers){
-            if(r.getBibNumber() == bibNumber)
+            if(r.getBibNumber() ==   bibNumber)
                 return false;
         }
 
