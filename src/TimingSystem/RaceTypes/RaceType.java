@@ -4,6 +4,9 @@ import TimingSystem.Run;
 
 import java.util.ArrayList;
 
+/**
+ * Interface for Racetypes
+ */
 public interface RaceType{
     void addRacer(int bibNumber);
 //    void setStartTime(long startTime, int channelNum);

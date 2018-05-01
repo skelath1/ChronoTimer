@@ -1,6 +1,5 @@
 package TimingSystem.RaceTypes;
 
-import TimingSystem.Hardware.Channel;
 import TimingSystem.Racer;
 import TimingSystem.Result;
 import TimingSystem.Run;
@@ -22,7 +21,7 @@ public class IND implements RaceType {
     private boolean inProg;
 
     /**
-     *
+     * Constructor for Individual RaceType
      */
     public IND(){
         _racers = new LinkedList<>();
@@ -50,11 +49,18 @@ public class IND implements RaceType {
         return runs.get(runs.size()-1);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public ArrayList<Run> getRuns() {
         return runs;
     }
 
+    /**
+     *
+     */
     @Override
     public void dnf() {
         if(_racerQueue.isEmpty()) return;
@@ -85,41 +91,6 @@ public class IND implements RaceType {
         }
         return true;
     }
-
-//    /**
-//     *  Get/Removes first TimingSystem.Racer from _racers, then sets start time and
-//     *  Adds the racer to _racerQueue
-//     * @param startTime
-//     */
-//    @Override
-//    public void setStartTime(long startTime, int channelNum) {
-//        if(channelNum%2 == 0) return;
-//        if(!_racers.isEmpty()){
-//            inProg = true;
-//
-//            Racer r = _racers.remove();
-//            r.setStartTime(startTime);
-//            _racerQueue.add(r);
-//        }
-//    }
-//
-//    /**
-//     * Sets the finish time of the racer
-//     * @param finishTime
-//     */
-//    @Override
-//    public void setFinishTime(long finishTime, int channelNum) {
-//        if(channelNum%2 == 1) return;
-//        if(!_racerQueue.isEmpty()){
-//            if(_racerQueue.peek().getStartTime() != -1) {
-//                Racer r = _racerQueue.remove();
-//                r.setFinishTime(finishTime);
-//                _finished.add(r);
-//            }
-//            if(_racerQueue.isEmpty())
-//                inProg = false;
-//        }
-//    }
 
     /**
      * Sets Start / Finish time for a racer depending on the channel number

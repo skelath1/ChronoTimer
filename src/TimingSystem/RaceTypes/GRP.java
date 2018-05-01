@@ -17,22 +17,37 @@ public class GRP implements RaceType{
     private boolean inProg;
     private int anonBib = 99901;
 
+    /**
+     * Constructor for Group Race
+     */
     public GRP(){
         _racers = new LinkedList<>();
         _racerQueue = new LinkedList<>();
         _finished = new LinkedList<>();
         runs = new ArrayList<>();
     }
+
+    /**
+     * Gets the last run of the event
+     * @return : Last Run of event
+     */
     @Override
     public Run getLastRun() {
         return runs.get(runs.size()-1);
     }
 
+    /**
+     * Gets all the runs in the event
+     * @return : ArrayList of runs from the event
+     */
     @Override
     public ArrayList<Run> getRuns() {
         return runs;
     }
 
+    /**
+     * Sets the racers times to dnf if dnf command is given
+     */
     @Override
     public void dnf() {
         for(Racer r : _racerQueue){
@@ -76,9 +91,9 @@ public class GRP implements RaceType{
     }
 
     /**
-     *
-     * @param bibNumber
-     * @return
+     * Validates that the racer is not already in the event
+     * @param bibNumber : Bib Number to be checked
+     * @return : whether the racer is in the event
      */
     private boolean validNewRacer(int bibNumber){
         for(Racer r : _racers){
@@ -99,51 +114,13 @@ public class GRP implements RaceType{
         return true;
     }
 
-//    /**
-//     * Sets the start times of the Racers in the Collection
-//     * @param startTime: Starting time
-//     * @param channelNum: Channel Triggered
-//     */
-//    @Override
-//    public void setStartTime(long startTime, int channelNum) {
-//        if (channelNum == 1) {
-//            inProg = true;
-//            if (_racers.isEmpty()) {
-//                Racer r = new Racer(anonBib);
-//                r.setStartTime(startTime);
-//                _racerQueue.add(r);
-//                ++anonBib;
-//            } else {
-//                while (!_racers.isEmpty()) {
-//                    if (_racers.peek().getStartTime() != -1) return;
-//                    Racer r = _racers.removeFirst();
-//                    r.setStartTime(startTime);
-//                    _racerQueue.add(r);
-//                }
-//
-//            }
-//        }
-//    }
-//
-//
-//
-//    /**
-//     * Sets the finish time of A Racer from the Channel Triggered
-//     * @param finishTime: Finishing Time
-//     * @param channelNum: Channel Triggered
-//     */
-//    @Override
-//    public void setFinishTime(long finishTime, int channelNum) {
-//        if(channelNum == 2){
-//            if(_racerQueue.isEmpty()) return;
-//            Racer r = _racerQueue.removeFirst();
-//            r.setFinishTime(finishTime);
-//            _finished.add(r);
-//            if(_racerQueue.isEmpty())
-//                inProg = false;
-//        }
-//    }
-
+    /**
+     * Sets the start or finish time of the racer on the given channel
+     * if channel 1 is passed and the race is not in progress,
+     * all racers will have be started
+     * @param time : start/finish time
+     * @param channelNum : channel number triggered
+     */
     @Override
     public void setTime(long time, int channelNum) {
         if (channelNum == 1) {
@@ -192,6 +169,10 @@ public class GRP implements RaceType{
         inProg = false;
     }
 
+    /**
+     * Clears the racer with the given Bib Number from the race
+     * @param bibNumber : Racers Bib Number to be cleared
+     */
     @Override
     public void clear(int bibNumber) {
         for(Racer r : _racers){
@@ -221,17 +202,11 @@ public class GRP implements RaceType{
      */
     @Override
     public void swap() {
-//        if(_racerQueue.size() >= 2) {
-//            Racer r1 = _racerQueue.removeFirst();
-//            Racer r2 = _racerQueue.removeFirst();
-//            _racerQueue.addFirst(r2);
-//            _racerQueue.addFirst(r1);
-//        }
+        // Not valid command for this RaceType
     }
 
     /**
      * Saves the run results
-     * @return results as Run
      */
     @Override
     public void saveRun(){
@@ -241,8 +216,8 @@ public class GRP implements RaceType{
     }
 
     /**
-     * Puts the results from the race in a readable format
-     * @return
+     * Prints all the results from the race in a readable format
+     * @return : String of results in readable format
      */
     @Override
     public String printResults() {
@@ -268,6 +243,11 @@ public class GRP implements RaceType{
         return s;
     }
 
+    /**
+     * Prints the result of a given run number
+     * @param runNumber : Run number to print results for
+     * @return : String of results in readable format
+     */
     @Override
     public String printResults(int runNumber) {
         String s = "";
@@ -280,13 +260,18 @@ public class GRP implements RaceType{
 
     /**
      * return the RaceType
-     * @return
+     * @return : Racetype
      */
     @Override
     public String toString(){
         return "GRP";
     }
 
+    /**
+     * Gets the specified data from the race
+     * @param type : String of where to grab the data from
+     * @return : String of data in readable format
+     */
     @Override
     public String getData(String type) {
         String data = "";
@@ -302,6 +287,13 @@ public class GRP implements RaceType{
         return data;
     }
 
+    /**
+     * Helper method to put specified list in a readable format
+     * @param list : list to be formatted
+     * @param finished : boolean of if list is the finished list
+     * @param q : boolean if if the list is the queue list
+     * @return : String of list in readable format
+     */
     private String listToString(Deque<Racer> list, boolean finished, boolean q) {
         long cTime = System.currentTimeMillis();
         String s = "";

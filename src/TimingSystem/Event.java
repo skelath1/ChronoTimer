@@ -55,32 +55,16 @@ public class Event implements RaceType{
      * Proxy method to call addRacer
      * @param bibNumber
      */
-
     @Override
     public void addRacer(int bibNumber) {
         _racetype.addRacer(bibNumber);
     }
 
-//    /**
-//     * Proxy method to call setStartTime
-//     * @param startTime
-//     * @param channelNum
-//     */
-//    @Override
-//    public void setStartTime(long startTime, int channelNum) {
-//            _racetype.setStartTime(startTime, channelNum);
-//    }
-//
-//    /**
-//     * Proxy method to call setFinishTime
-//     * @param finishTime
-//     * @param channelNum
-//     */
-//    @Override
-//    public void setFinishTime(long finishTime, int channelNum) {
-//        _racetype.setFinishTime(finishTime, channelNum);
-//    }
-
+    /**
+     *
+     * @param time
+     * @param channelNum
+     */
     @Override
     public void setTime(long time, int channelNum) {
         _racetype.setTime(time,channelNum);
@@ -102,18 +86,21 @@ public class Event implements RaceType{
         _racetype.clear();
     }
 
+    /**
+     *
+     * @param bibNumber
+     */
     @Override
     public void clear(int bibNumber) {
         _racetype.clear(bibNumber);
     }
 
+    /**
+     *
+     */
     @Override
     public void swap() {
         _racetype.swap();
-    }
-
-    public void newRun(String timeStamp) {
-        this.timeStamp = timeStamp;
     }
 
     /**
@@ -136,12 +123,15 @@ public class Event implements RaceType{
         return _racetype.printResults();
     }
 
-
+    /**
+     *
+     * @param runNumber
+     * @return
+     */
     @Override
     public String printResults(int runNumber) {
         return _racetype.printResults(runNumber);
     }
-    //TODO does this need to implemented?
 
     /**
      * Proxy method to call toString
@@ -152,21 +142,37 @@ public class Event implements RaceType{
         return _racetype.toString();
     }
 
+    /**
+     *
+     * @param type
+     * @return
+     */
     @Override
     public String getData(String type) {
         return _racetype.getData(type);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Run getLastRun() {
         return _racetype.getLastRun();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public ArrayList<Run> getRuns() {
         return _racetype.getRuns();
     }
 
+    /**
+     *
+     */
     @Override
     public void dnf() {
         _racetype.dnf();
@@ -179,9 +185,5 @@ public class Event implements RaceType{
     public ArrayList<Run> sendRuns(){
 
         return _racetype.getRuns();
-    }
-
-    public void sendTime(String time){
-        _time = time;
     }
 }
