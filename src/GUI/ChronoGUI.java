@@ -65,6 +65,12 @@ public class ChronoGUI {
     private JScrollPane queueScrollPane;
     private JScrollPane runningScrollPane;
     private JScrollPane finishedScrollPane;
+    private JTextPane prevCommandPane;
+    private JTextPane prevValuePane;
+    private JLabel commandLabel;
+    private JLabel valueLabel;
+    private JLabel prevCommandLabel;
+    private JLabel prevValueLabel;
     private static ChronoTimer chronoTimer;
     private boolean printOn;
     private Color offColor;
@@ -466,11 +472,16 @@ public class ChronoGUI {
                         printPane.setText(printPane.getText() +"\n\n"+ chronoTimer.getResults());
                     }
                 }
+                //setting the prev command and value pane from the current ones
+                prevCommandPane.setText(commandPane.getText());
+                prevValuePane.setText(valuePane.getText());
+
                 commandPane.setText(cur.getValue());
                 if(cur == Function.NUM || cur == Function.CLR || cur == Function.CANCEL || cur == Function.DNF)
                     valuePane.setText("");
                 else
                     valuePane.setText(value);
+
 
             }
         });
