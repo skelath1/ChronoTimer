@@ -12,8 +12,12 @@ import com.google.gson.Gson;
 public class Simulation {
     private ChronoTimer chronoTimer;
     public Simulation(ChronoTimer chronoTimer) { this.chronoTimer = chronoTimer; }
-    public void doInput(){
 
+    /**
+     * Asks the user if they want to do input from file or console
+     * If file option is closed it looks for input.txt for the commands
+     */
+    public void doInput(){
         Scanner stdIn = new Scanner(System.in);
 
         String s;
@@ -21,7 +25,7 @@ public class Simulation {
             System.out.print("[f]ile or [c]onsole: ");
             s = stdIn.nextLine();
         }while(!(s.equalsIgnoreCase("f") || s.equalsIgnoreCase("c")));
-        boolean addTimeStamp = true;
+
         if(s.equalsIgnoreCase("f")){
             // File
             try{
@@ -31,23 +35,7 @@ public class Simulation {
                     String line = stdIn.nextLine();
 
                     String[] strArr = line.split("\\s+");
-                    String st = strArr[0];
-                    //if(strArr.length > 1){
-                       // String[] strArr1 = strArr[1].split(" ");
 
-                        //if(strArr1.length > 1){
-                         //   strArr = new String[3];
-
-                         //   strArr[0] = st;
-                        //    strArr[1] = strArr1[0];
-                       //     strArr[2] = strArr1[1];
-                       // }
-                        //else{
-                        //    strArr = new String[2];
-                       //     strArr[0] = st;
-                       //     strArr[1] = strArr1[0];
-                     //   }
-                   // }
 
                     if(strArr.length ==1)
                         chronoTimer.execute(strArr[0], null,null);
@@ -129,9 +117,11 @@ public class Simulation {
             ex.printStackTrace();
         }
     }
-    public void enableFileOption(String testFile){
-        doInput(testFile);
-    }
+
+    /**
+     * Takes in the name of test file and executes each one of the commands
+     * @param testFile String
+     */
     public void doInput(String testFile){
         try{
             Scanner stdIn;
@@ -151,9 +141,8 @@ public class Simulation {
                 else if(strArr.length ==2 && strArr[0].contains(":"))
                     chronoTimer.execute(strArr[0], strArr[1],null,null);
 
-                    //if it is three it can be time or it can be a third parameter with no time
 
-                    //has the ':' so it is the time
+                //has the ':' so it has a time
                 else if(strArr.length == 3 && strArr[0].contains(":")){
                     chronoTimer.execute(strArr[0], strArr[1],strArr[2],null); //0 - Time, 1- - Command, 2 - Value, 3 - value2
                 }

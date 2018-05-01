@@ -460,7 +460,7 @@
                   <text value="9"/>
                 </properties>
               </component>
-              <component id="d2bc5" class="javax.swing.JButton" binding="button8" default-binding="true">
+              <component id="d2bc5" class="javax.swing.JButton" binding="starButton">
                 <constraints>
                   <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -468,7 +468,7 @@
                   <text value="*"/>
                 </properties>
               </component>
-              <component id="9cc18" class="javax.swing.JButton" binding="button12" default-binding="true">
+              <component id="9cc18" class="javax.swing.JButton" binding="poundButton">
                 <constraints>
                   <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -532,7 +532,9 @@
                 <maximum-size width="-1" height="25"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <editable value="false"/>
+            </properties>
           </component>
           <component id="fac63" class="javax.swing.JTextPane" binding="prevValuePane">
             <constraints>
@@ -541,7 +543,9 @@
                 <maximum-size width="-1" height="25"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <editable value="false"/>
+            </properties>
           </component>
           <component id="b7f1f" class="javax.swing.JLabel" binding="commandLabel">
             <constraints>

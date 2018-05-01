@@ -35,7 +35,7 @@ public class ChronoGUI {
     private JButton a5Button;
     private JButton a6Button;
     private JButton a7Button;
-    private JButton button8;
+    private JButton starButton;
     private JButton a8Button;
     private JButton a9Button;
     private JButton a0Button;
@@ -44,7 +44,7 @@ public class ChronoGUI {
     private JTextPane finishedPane;
     private JScrollPane printerScrollPane;
     private JPanel NumPadPanel;
-    private JButton button12;
+    private JButton poundButton;
     private JButton trigButton3;
     private JButton trigButton5;
     private JButton commandButtonLeft;
@@ -76,11 +76,13 @@ public class ChronoGUI {
     private Color offColor;
     private Color onColor;
     private static BackSide bs;
+    private Function cur;
+    private Event curE;
 
 
     private enum Function {
 
-        TIME("TIME"),
+        //TIME("TIME"),
         EVENT("EVENT"),
         NEWRUN("NEWRUN"),
         ENDRUN("ENDRUN"),
@@ -151,20 +153,15 @@ public class ChronoGUI {
             int nextInd = Math.abs((curr)%values.length);
             return values[nextInd];
         }
-
-
     }
-
-    private Function cur;
-    private Event curE;
-
 
     public ChronoGUI() {
         offColor = Color.decode("#A14442");
         onColor = Color.decode("#42f456");
+
         //printer is off by default
         printOn = false;
-        //need to instantiate chronotimer here so that runnable can use it
+
         chronoTimer = new ChronoTimer();
         bs = new BackSide(chronoTimer);
         bs.setPane(bs);
@@ -454,8 +451,8 @@ public class ChronoGUI {
         a8Button.addActionListener(listener);
         a0Button.addActionListener(listener);
         a9Button.addActionListener(listener);
-        button8.addActionListener(listener);
-        button12.addActionListener(listener);
+        starButton.addActionListener(listener);
+        poundButton.addActionListener(listener);
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {

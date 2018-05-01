@@ -11,26 +11,25 @@ public class TestSim {
     Simulation sim = new Simulation(new ChronoTimer());
     @Test
     public void testIndividualOne(){
-        sim.enableFileOption("TestFiles/Individual1.txt");
+        sim.doInput("TestFiles/Individual1.txt");
     }
     @Test
     public void testIndividualTwo(){
-        sim.enableFileOption("TestFiles/Individual2.txt");
+        sim.doInput("TestFiles/Individual2.txt");
     }
     @Test
     public void testParallelIndividualOne(){
-        sim.enableFileOption("TestFiles/ParallelIND.txt");
+        sim.doInput("TestFiles/ParallelIND.txt");
     }
 
-    // NEXT SPRINT
-//    @Test
-//    public void testParallelGroupOne(){
-//        sim.enableFileOption("TestFiles/ParallelGroup.txt");
-//    }
+    @Test
+    public void testParallelGroupOne(){
+        sim.doInput("TestFiles/ParallelGroup.txt");
+    }
 
     @Test
     public void testGroupOne(){
-        sim.enableFileOption("TestFiles/Group.txt");
+        sim.doInput("TestFiles/Group.txt");
     }
 }
 
