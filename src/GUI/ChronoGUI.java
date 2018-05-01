@@ -510,7 +510,7 @@ public class ChronoGUI {
             ImageIcon image = new ImageIcon("src/goodmeme.jpg");
             frame.setIconImage(image.getImage());
 
-
+//
 
 
         frame.pack();
