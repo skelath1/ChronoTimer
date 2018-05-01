@@ -27,9 +27,5 @@ public class TestSim {
         sim.doInput("TestFiles/ParallelGroup.txt");
     }
 
-    @Test
-    public void testGroupOne(){
-        sim.doInput("TestFiles/Group.txt");
-    }
 }
 
