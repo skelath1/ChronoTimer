@@ -1,6 +1,5 @@
 package TimingSystem.RaceTypes;
 
-import TimingSystem.Hardware.Channel;
 import TimingSystem.Racer;
 import TimingSystem.Result;
 import TimingSystem.Run;
@@ -19,6 +18,9 @@ public class PARGRP implements RaceType {
     private boolean inProg;
 
 
+    /**
+     * Constructor for Parallel Group RaceType
+     */
     public PARGRP(){
         _racers = new LinkedList<>();
         _racerMap = new HashMap<>();
@@ -53,43 +55,11 @@ public class PARGRP implements RaceType {
         return true;
     }
 
-//    /**
-//     *
-//     * @param startTime
-//     * @param channelNum
-//     */
-//    @Override
-//    public void setStartTime(long startTime, int channelNum) {
-//        if(channelNum == 1){
-//            inProg = true;
-//            int i = 1;
-//            while(!_racers.isEmpty()){
-//                if(_racers.peek().getStartTime() == -1) {
-//                    Racer r = _racers.removeFirst();
-//                    r.setStartTime(startTime);
-//                    _racerMap.put(i, r);
-//                    ++i;
-//                }
-//            }
-//        }
-//    }
-//
-//    /**
-//     *
-//     * @param finishTime
-//     * @param channelNum
-//     */
-//    @Override
-//    public void setFinishTime(long finishTime, int channelNum) {
-//        if(_racerMap.get(channelNum) != null) {
-//            Racer r = _racerMap.get(channelNum);
-//            r.setFinishTime(finishTime);
-//            _racers.add(r);
-//            _racerMap.remove(channelNum);
-//
-//        }
-//    }
-
+    /**
+     *
+     * @param time
+     * @param channelNum
+     */
     @Override
     public void setTime(long time, int channelNum) {
         if(channelNum == 1 && !inProg){
@@ -130,6 +100,10 @@ public class PARGRP implements RaceType {
         _racerMap.clear();
     }
 
+    /**
+     *
+     * @param bibNumber
+     */
     @Override
     public void clear(int bibNumber) {
 
@@ -175,6 +149,11 @@ public class PARGRP implements RaceType {
         return s;
     }
 
+    /**
+     *
+     * @param runNumber
+     * @return
+     */
     @Override
     public String printResults(int runNumber) {
         String s = "";
@@ -194,6 +173,11 @@ public class PARGRP implements RaceType {
         return "PARGRP";
     }
 
+    /**
+     *
+     * @param type
+     * @return
+     */
     @Override
     public String getData(String type) {
         String data = "";
@@ -209,16 +193,27 @@ public class PARGRP implements RaceType {
         return data;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Run getLastRun() {
         return runs.get(runs.size()-1);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public ArrayList<Run> getRuns() {
         return runs;
     }
 
+    /**
+     *
+     */
     @Override
     public void dnf() {
         Set<Integer> keys = _racerMap.keySet();
@@ -229,6 +224,13 @@ public class PARGRP implements RaceType {
         }
     }
 
+    /**
+     *
+     * @param list
+     * @param finished
+     * @param q
+     * @return
+     */
     private String listToString(Deque<Racer> list, boolean finished, boolean q) {
         long cTime = System.currentTimeMillis();
         String s = "";
@@ -245,6 +247,10 @@ public class PARGRP implements RaceType {
         return s;
     }
 
+    /**
+     *
+     * @return
+     */
     private String mapToString(){
         long cTime = System.currentTimeMillis();
         Set<Integer> keys = _racerMap.keySet();
