@@ -1,8 +1,10 @@
+
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,6 +20,7 @@ import com.google.gson.reflect.TypeToken;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import jdk.nashorn.internal.runtime.Timing;
 
 
 public class Server{
@@ -25,20 +28,24 @@ public class Server{
         static String sharedResponse = "";
         static String command = "";
         static String value = null;
-        public static void main(String[] args) throws Exception {
+        static Run theRuns = new Run();
+        static Members mem = new Members("ChronoSever/src/racers.txt");
+
+	public static void main(String[] args) throws Exception {
 
             // set up a simple HTTP server on our local host
-            HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+            HttpServer server = HttpServer.create(new InetSocketAddress(InetAddress.getLocalHost().getHostAddress(),8000), 0);
+			//add members from racers.txt
 
             // create a context to get the request for the POST
             server.createContext("/sendresults",new PostHandler());
-            server.createContext("/displayresults/directory", new DirectoryHandler());
+            server.createContext("/results", new DirectoryHandler());
             //create a context to display employees
             server.setExecutor(null); // creates a default executor
             // get it going
             System.out.println("Starting Server...");
             server.start();
-
+			System.out.println("addresss: " +InetAddress.getLocalHost().getHostAddress());
         }
 
         static class PostHandler implements HttpHandler {
@@ -66,17 +73,6 @@ public class Server{
                 // create our response String to use in other handler
                 sharedResponse = sharedResponse+sb.toString();
 
-                // respond to the POST with ROGER
-
-
-
-
-                //Desktop dt = Desktop.getDesktop();
-                //dt.open(new File("raceresults.html"));
-
-                // assume that stuff works all the time
-
-
                 String postResponse = "ERROR";
 
                 ///DOnt need this here
@@ -86,21 +82,18 @@ public class Server{
                     command = parts[0];
                     value = null;
                     System.out.println("command " + command);
-                    //print or clear
-                    if(command.equals("PRINT")) {
-                        //postResponse = editor.print();
+                    if(command.equals("clear")){
+						theRuns.clear();
                     }
-                    else if(command.equals("CLEAR"))
-                        postResponse = "List has been cleared.";
-                    //editor.clear();
                 }else{
                     //2 parts
                     postResponse = "JSON HAS BEEN RECEIVED";
                     command = parts[0];
                     value = parts[1];
                     //add json
+					theRuns.add(value);
                     System.out.println("Value: " + value);
-                    //editor.add(value);
+					theRuns.printResults();
                 }
 
                 transmission.sendResponseHeaders(300, postResponse.length());
@@ -114,19 +107,26 @@ public class Server{
         static class DirectoryHandler implements HttpHandler{
             public void handle(HttpExchange t) throws IOException{
                 System.out.println("in Director handler");
-                //todo:
 
                 String response = "";
-                //ArrayList<Employee> db = editor.sendData();
-                response += readContents("src/index.txt");
-                /*for(Employee e: db){
-                    response += "<tr> <th>" + e.getTitle() +"</th>" +
-                            "<th>" + e.getFirstName() +"</th>"+
-                            "<th>" + e.getLastName() +"</th>" +
-                            "<th>" + e.getDepartment() +"</th>"+
-                            "<th>" + e.getPhoneNumber() +"</th>" +
-                            "<th>" + e.getGender() +"</th> </tr>";
-                }*/
+                ArrayList<Result> db = theRuns.getResults();
+                response += readContents("ChronoSever/src/index.txt");
+                int count = 1;
+                for(Result r: db){
+                	String name =mem.getName(r.get_bib());
+                	if(name !=null){
+						response += "<tr> <th>" + count +"</th>" +
+							"<th>" + r.get_bib() +"</th>"+
+							"<th>" + name +"</th>" +
+							"<th>" + r.get_time() +"</th></tr>";
+					}else{
+						response += "<tr> <th>" + count +"</th>" +
+							"<th>" + r.get_bib() +"</th>"+
+							"<th>" + "</th>" +
+							"<th>" + r.get_time() +"</th></tr>";
+					}
+                    ++count;
+                }
                 response += " </table>\n" +
                         "</body>\n" +
                         "</html>";

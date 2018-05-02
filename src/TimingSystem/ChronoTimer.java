@@ -36,7 +36,7 @@ public class ChronoTimer {
         }
         eventList = new ArrayList<>();
         //connecting to the server
-        client = new ChronoClient();
+        //client = new ChronoClient();
     }
 
     /**
@@ -263,6 +263,8 @@ public class ChronoTimer {
     private void newRun(){
         if(!curState.equals(State.OFF)){
             runCalled =true;
+            if(client == null) client = new ChronoClient();
+            client.startRun();
         }
 
     }
