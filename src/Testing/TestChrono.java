@@ -217,12 +217,29 @@ public class TestChrono {
         //disconnect turn off and try to connect sensor
         ct.execute("DISC", "1",null);
         ct.execute("POWER", null,null);
+        ct.execute("TOG", "1",null);
         ct.execute("CONN", "Gate","1");
         getChannels();
         assertFalse(channels[0].isReady());
     }
     @Test
     public void test9(){
+        //disconnect
+        ct.execute("POWER", null,null);
+        ct.execute("TOG", "1",null);
+        ct.execute("CONN", "Gate","1");
+        ct.execute("DISC", "1",null);
+        getChannels();
+        assertFalse(channels[0].isReady());
+
+        //disconnect turn off and try to connect sensor
+
+        ct.execute("POWER", null,null);
+        ct.execute("CONN", "Gate","1");
+        ct.execute("DISC", "1",null);
+        getChannels();
+        assertFalse(channels[0].isReady());
+
 
     }@Test
     public void test10(){
