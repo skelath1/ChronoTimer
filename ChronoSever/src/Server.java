@@ -48,7 +48,7 @@ public class Server{
 			System.out.println("addresss: " +InetAddress.getLocalHost().getHostAddress());
         }
 
-        static class PostHandler implements HttpHandler {
+         static class PostHandler implements HttpHandler {
             public void handle(HttpExchange transmission) throws IOException {
 
                 //  shared data that is used with other handlers
