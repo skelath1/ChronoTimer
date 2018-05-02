@@ -187,8 +187,6 @@ public class ChronoGUI {
         };
         Thread running = new Thread(updateRunning);
 
-
-
         Runnable updateQueue =()->{
             try{
                 //run forever till interrupted

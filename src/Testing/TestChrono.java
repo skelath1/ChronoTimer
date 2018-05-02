@@ -61,7 +61,6 @@ public class TestChrono {
     }
     @Test
     public void testOrder(){
-
         getRunCalled();
         getEventCalled();
         assertFalse(runCalled);
@@ -126,6 +125,112 @@ public class TestChrono {
         assertFalse(runCalled);
         assertFalse(eventCalled);
     }
+    @Test
+    public void test1(){
+        getState();
+        assertTrue(state.equalsIgnoreCase("OFF"));
+        ct.execute("POWER", null,null);
+        getState();
+        assertTrue(state.equalsIgnoreCase("ON"));
+
+        ct.execute("POWER", null,null);
+        getState();
+        assertTrue(state.equalsIgnoreCase("OFF"));
+
+        ct.execute("POWER", null,null);
+        ct.execute("EVENT", "IND",null);
+        ct.execute("POWER", null,null);
+        getState();
+        assertTrue(state.equalsIgnoreCase("OFF"));
+        getRunCalled();
+        getEventCalled();
+        assertFalse(runCalled);
+        assertFalse(eventCalled);
+
+    }
+    @Test
+    public void test2(){
+
+
+    }
+    @Test
+    public void test3(){
+
+    }@Test
+    public void test4(){
+
+    }@Test
+    public void test5(){
+
+    }
+    @Test
+    public void test6(){
+
+    }
+    @Test
+    public void test7(){
+
+    }
+    @Test
+    public void test8(){
+
+    }
+    @Test
+    public void test9(){
+
+    }@Test
+    public void test10(){
+
+    }@Test
+    public void test11(){
+
+    }
+    @Test
+    public void test12(){
+
+    }
+    @Test
+    public void test13(){
+
+    }@Test
+    public void test14(){
+
+    }
+    @Test
+    public void test15(){
+
+    }
+    @Test
+    public void test16(){
+
+    }
+    @Test
+    public void test17(){
+
+    }
+    @Test
+    public void test18(){
+
+    }@Test
+    public void test19(){
+
+    }@Test
+    public void test20(){
+
+    }@Test
+    public void test21(){
+
+    }
+
+
+
+
+
+
+
+
+
+
 
     private void getState(){
         try {
