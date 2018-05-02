@@ -1,5 +1,6 @@
 package Testing;
 import TimingSystem.ChronoTimer;
+import TimingSystem.Hardware.Channel;
 import org.junit.*;
 
 import java.lang.reflect.Field;
@@ -14,7 +15,9 @@ public class TestChrono {
     Method m;
     Field runField;
     Field eventField;
+    Field channelField;
 
+    Channel []channels;
     String state;
     Boolean runCalled;
     Boolean eventCalled;
@@ -150,11 +153,41 @@ public class TestChrono {
     }
     @Test
     public void test2(){
+        ct.execute("POWER", null,null);
+        ct.execute("TOG", "1",null);
+        ct.execute("CONN", "Gate","1");
+        getChannels();
+        assertTrue(channels[0].isReady());
+        ct.execute("TOG", "1",null);
+        getChannels();
+        assertFalse(channels[0].isReady());
 
 
     }
     @Test
     public void test3(){
+        ct.execute("POWER", null,null);
+        ct.execute("RESET", null,null);
+        getState();
+        getChannels();
+        getRunCalled();
+        getEventCalled();
+        assertFalse(channels[0].isReady());
+        assertFalse(runCalled);
+        assertFalse(eventCalled);
+        assertTrue(state.equalsIgnoreCase("ON"));
+
+        ct.execute("POWER", null,null);
+        ct.execute("TOG", "1",null);
+        ct.execute("CONN", "Gate","1");
+        ct.execute("RESET", null,null);
+        getChannels();
+        getRunCalled();
+        getEventCalled();
+        assertFalse(channels[0].isReady());
+        assertFalse(runCalled);
+        assertFalse(eventCalled);
+        assertTrue(state.equalsIgnoreCase("ON"));
 
     }@Test
     public void test4(){
@@ -255,6 +288,15 @@ public class TestChrono {
             eventField = ct.getClass().getDeclaredField("eventCalled");
             eventField.setAccessible(true);
             eventCalled = eventField.getBoolean(ct);
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    private void getChannels(){
+        try {
+            channelField = ct.getClass().getDeclaredField("channels");
+            channelField.setAccessible(true);
+            channels = (Channel[])channelField.get(ct);
         } catch(Exception ex){
             ex.printStackTrace();
         }
