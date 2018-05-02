@@ -63,7 +63,7 @@ public class TestChrono {
 
     }
     @Test
-    public void testOrder(){
+    public void test6(){
         getRunCalled();
         getEventCalled();
         assertFalse(runCalled);
@@ -191,22 +191,35 @@ public class TestChrono {
 
     }@Test
     public void test4(){
+        //done in event test files
+
 
     }@Test
     public void test5(){
-
+        //cant test system.exit
     }
-    @Test
-    public void test6(){
 
-    }
+    //test 6 is done above
+
     @Test
     public void test7(){
-
+        //testing time in in TestTime
     }
     @Test
     public void test8(){
+      //Testing conn command
+        ct.execute("POWER", null,null);
+        ct.execute("TOG", "1",null);
+        ct.execute("CONN", "Gate","1");
+        getChannels();
+        assertTrue(channels[0].isReady());
 
+        //disconnect turn off and try to connect sensor
+        ct.execute("DISC", "1",null);
+        ct.execute("POWER", null,null);
+        ct.execute("CONN", "Gate","1");
+        getChannels();
+        assertFalse(channels[0].isReady());
     }
     @Test
     public void test9(){

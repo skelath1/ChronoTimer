@@ -16,7 +16,9 @@ public class Channel {
     public void connectSensor(Sensor sensor){
         _sensor = sensor;
     }
-
+    public void disconnectSensor(){
+        _sensor = null;
+    }
     public void toggle(){
         if(_state == STATE.ON)
             _state = STATE.OFF;

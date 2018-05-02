@@ -130,6 +130,9 @@ public class ChronoTimer {
             case "CONN":
                 connect(value,value2);
                 break;
+            case "DISC":
+                disconnect(value);
+                break;
         }
     }
     /**
@@ -226,6 +229,9 @@ public class ChronoTimer {
             case "CONN":
                 connect(value,value2);
                 break;
+            case "DISC":
+                disconnect(value);
+                break;
 
         }
     }
@@ -320,7 +326,7 @@ public class ChronoTimer {
         event = null;
         curState = State.ON;
         for(Channel c: channels){
-            c.toggle();
+            c.setOff();
         }
 
     }
@@ -490,6 +496,18 @@ public class ChronoTimer {
            Simulation.execute("Error",channelNumber +" is not a valid number");
        }
    }
+    private void disconnect(String channelNumber){
+        try{
+            int chanNum = Integer.parseInt(channelNumber) -1;
+            if(chanNum >= 8)
+                throw new NumberFormatException();
+
+            channels[chanNum].disconnectSensor();
+        }
+        catch(NumberFormatException ex){
+            Simulation.execute("Error",channelNumber +" is not a valid number");
+        }
+    }
 
     /**
      * gets the results of the current run
