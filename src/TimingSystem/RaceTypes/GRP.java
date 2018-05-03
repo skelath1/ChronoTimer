@@ -35,7 +35,6 @@ public class GRP implements RaceType{
     public Run getLastRun() {
         return runs.get(runs.size()-1);
     }
-
     /**
      * Gets all the runs in the event
      * @return : ArrayList of runs from the event
