@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Directory Server</title>
-    <link rel="stylesheet" href="src/css/style.css" type="text/css"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="results/style.css" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
+
 <body>
-<table>
-    <tr>
-        <th>Rank</th>
-        <th>Bib Number</th>
-        <th>Name</th>
-        <th>Time</th>
-    </tr>
+    <div class="container">
+        <h1>Directory Server</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Bib Number</th>
+                    <th>Name</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>

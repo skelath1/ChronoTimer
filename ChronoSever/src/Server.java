@@ -7,20 +7,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Scanner;
-import java.io.*;
-import java.net.InetSocketAddress;
-import java.util.ArrayList;
-import java.util.Scanner;
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpServer;
-import jdk.nashorn.internal.runtime.Timing;
 
 
 public class Server{
@@ -40,6 +27,7 @@ public class Server{
             // create a context to get the request for the POST
             server.createContext("/sendresults",new PostHandler());
             server.createContext("/results", new DirectoryHandler());
+            server.createContext("/results/style.css", new StyleHandler());
             //create a context to display employees
             server.setExecutor(null); // creates a default executor
             // get it going
@@ -127,8 +115,9 @@ public class Server{
 					}
                     ++count;
                 }
-                response += " </table>\n" +
-                        "</body>\n" +
+                response += " </tbody></table>\n" +
+                        "</div><script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>\n" +
+					"    <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script></body>\n" +
                         "</html>";
                 //write database content to web page
                 t.sendResponseHeaders(200, response.length());
@@ -139,7 +128,23 @@ public class Server{
             }
         }
 
-
+        static class StyleHandler implements HttpHandler{
+            public void handle(HttpExchange t) throws IOException{
+                String response = "";
+                System.out.println("css handler working...");
+                try(Scanner fr = new Scanner(new File("ChronoSever/src/css/style.css"))){
+                    while(fr.hasNextLine()){
+                        response += fr.nextLine();
+                    }
+                }
+                System.out.println(response);
+                t.sendResponseHeaders(200, response.length());
+                OutputStream os = t.getResponseBody();
+                os.write(response.getBytes());
+                os.flush();
+                os.close();
+            }
+        }
         static String readContents(String filename){
             StringBuilder responseBuilder = new StringBuilder();
             try {

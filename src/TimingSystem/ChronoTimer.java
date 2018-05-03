@@ -448,8 +448,8 @@ public class ChronoTimer {
         if(runCalled && event!= null){
             eventList.add(event);
             event.saveRun();
-
-            client.sendRun(event.getLastRun());
+            if(client != null)
+                client.sendRun(event.getLastRun());
 
             event.clear();
             curState = State.ON;
