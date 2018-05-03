@@ -63,7 +63,6 @@ public class GRP implements RaceType{
      */
     @Override
     public void addRacer(int bibNumber) {
-        //TODO loop through all the racers in every list and if there is a temp bib replace with bibnumber
         boolean newR = true;
         for(Racer r : _finished){
             String b = r.getBibNumber() + "";
