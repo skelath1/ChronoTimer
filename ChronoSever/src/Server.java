@@ -14,6 +14,8 @@ public class Server{
         // a shared area where we get the POST data and then use it in the other handler
         static String sharedResponse = "";
         static String command = "";
+
+        static ArrayList<String> runStrings;
         static String value = null;
         static Run theRuns = new Run();
         static Members mem = new Members("ChronoSever/src/racers.txt");
@@ -80,6 +82,8 @@ public class Server{
                     value = parts[1];
                     //add json
 					theRuns.add(value);
+
+					//add the run to the list of runs to use so it can be viewed later
                     System.out.println("Value: " + value);
 					theRuns.printResults();
                 }
@@ -126,6 +130,10 @@ public class Server{
                         "        </div>\n" +
                         "    </div></body>\n" +
                         "</html>";
+
+                //added the html string so that it can be displayed later
+                runStrings.add(response);
+
                 //write database content to web page
                 t.sendResponseHeaders(200, response.length());
                 OutputStream os = t.getResponseBody();
