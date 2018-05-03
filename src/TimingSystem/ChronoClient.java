@@ -31,10 +31,11 @@ public class ChronoClient {
             e.printStackTrace();
         }
     }
-    public void sendRun(Run eList)
+    public void sendRun(Run runList)
     {
         Gson g = new Gson();
-        String json = g.toJson(eList.getResults());
+        String json = g.toJson(runList.getResults());
+
         content = "ADD " + json;
         try {
 
@@ -50,8 +51,6 @@ public class ChronoClient {
                 out.flush();
                 out.close();
             }
-            System.out.println("Run sent to server");
-
 
             InputStreamReader inputStr = new InputStreamReader(conn.getInputStream());
 
@@ -69,7 +68,7 @@ public class ChronoClient {
             Simulation.execute("ERROR","COULD NOT SEND RUN TO SERVER");
         }
     }
-    public void startRun(){
+    /*public void startRun(){
         String post = "clear";
         try {
 
@@ -103,5 +102,5 @@ public class ChronoClient {
             Simulation.execute("ERROR","COULD NOT SEND RUN TO SERVER");
             e.printStackTrace();
         }
-    }
+    }*/
 }

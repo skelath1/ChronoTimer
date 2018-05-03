@@ -94,7 +94,7 @@ public class Server{
         }
         static class DirectoryHandler implements HttpHandler{
             public void handle(HttpExchange t) throws IOException{
-                System.out.println("in Director handler");
+               // System.out.println("in Director handler");
 
                 String response = "";
                 ArrayList<Result> db = theRuns.getResults();
@@ -117,7 +117,14 @@ public class Server{
                 }
                 response += " </tbody></table>\n" +
                         "</div><script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>\n" +
-					"    <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script></body>\n" +
+					"    <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script><div class=\"dropdown\">\n" +
+                        "        <button onclick=\"myFunction()\" class=\"dropbtn\">Dropdown</button>\n" +
+                        "        <div id=\"myDropdown\" class=\"dropdown-content\">\n" +
+                        "            <a href=\"#run1\">Run 1</a>\n" +
+                        "            <a href=\"#run2\">Run 2</a>\n" +
+                        "            <a href=\"#run3\">Run 3</a>\n" +
+                        "        </div>\n" +
+                        "    </div></body>\n" +
                         "</html>";
                 //write database content to web page
                 t.sendResponseHeaders(200, response.length());
@@ -131,13 +138,13 @@ public class Server{
         static class StyleHandler implements HttpHandler{
             public void handle(HttpExchange t) throws IOException{
                 String response = "";
-                System.out.println("css handler working...");
+                //System.out.println("css handler working...");
                 try(Scanner fr = new Scanner(new File("ChronoSever/src/css/style.css"))){
                     while(fr.hasNextLine()){
                         response += fr.nextLine();
                     }
                 }
-                System.out.println(response);
+               // System.out.println(response);
                 t.sendResponseHeaders(200, response.length());
                 OutputStream os = t.getResponseBody();
                 os.write(response.getBytes());

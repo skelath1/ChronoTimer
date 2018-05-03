@@ -3,16 +3,19 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Directory Server</title>
-    <meta charset="utf-8">
+    <title>ChronoTimer Server</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="results/index.js"></script>
     <link rel="stylesheet" href="results/style.css" type="text/css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
+
+
 <body>
-    <div class="container">
-        <h1>Directory Server</h1>
+
+    <div class="results">
+        <h1 align="center">ChronoTimer Results</h1>
         <table class="table table-striped">
             <thead>
                 <tr>

@@ -270,7 +270,7 @@ public class ChronoTimer {
         if(!curState.equals(State.OFF)){
             runCalled =true;
             if(client == null) client = new ChronoClient();
-            client.startRun();
+            //client.startRun();
         }
 
     }

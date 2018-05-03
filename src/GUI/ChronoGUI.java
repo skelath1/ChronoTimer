@@ -503,13 +503,8 @@ public class ChronoGUI {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(1260, 768));
         frame.setLocation(new Point(0,0));        //frame.setLocationRelativeTo(p);
-
-
-            ImageIcon image = new ImageIcon("src/goodmeme.jpg");
-            frame.setIconImage(image.getImage());
-
-//
-
+        ImageIcon image = new ImageIcon("src/goodmeme.jpg");
+        frame.setIconImage(image.getImage());
 
         frame.pack();
         frame.setVisible(true);
