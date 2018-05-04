@@ -159,8 +159,8 @@ public class ChronoGUI {
     }
 
     public ChronoGUI() {
-        offColor = Color.decode("#A14442");
-        onColor = Color.decode("#42f456");
+        offColor = Color.decode("#B5CDE1");
+        onColor = Color.decode("#6a9bc3");
 
         //printer is off by default
         printOn = false;
