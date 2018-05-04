@@ -39,7 +39,7 @@ public class Server{
 
          static class PostHandler implements HttpHandler {
             public void handle(HttpExchange transmission) throws IOException {
-
+                theRuns.clear();
                 //  shared data that is used with other handlers
                 sharedResponse = "";
 
