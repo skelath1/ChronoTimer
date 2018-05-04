@@ -246,9 +246,11 @@ public class PARIND implements RaceType {
         if(isRight){
             Racer l = _left.removeFirst();
             l.setStartTime(-1);
+            l.setStartTime(-1);
             _finished.addFirst(l);
         } else{
             Racer r = _right.removeFirst();
+            r.setStartTime(-1);
             r.setStartTime(-1);
             _finished.addFirst(r);
         }
@@ -261,6 +263,9 @@ public class PARIND implements RaceType {
     @Override
     public void saveRun(){
         Run r = new Run(this.toString());
+        r.addResults(_racersL);
+        r.addResults(_racersR);
+        this.dnf();
         r.addResults(_finished);
         runs.add(r);
     }

@@ -191,6 +191,8 @@ public class IND implements RaceType {
     @Override
     public void saveRun(){
         Run r = new Run(this.toString());
+        r.addResults(_racers);
+        this.dnf();
         r.addResults(_finished);
         runs.add(r);
     }
