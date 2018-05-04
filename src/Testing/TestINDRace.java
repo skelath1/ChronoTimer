@@ -118,8 +118,8 @@ public class TestINDRace {
         getLists();
 
         assertTrue("Racer 456 is first in Queue", finished.getFirst().getBibNumber() == 456);
-
     }
+
 
     @Test
     public void testClear(){

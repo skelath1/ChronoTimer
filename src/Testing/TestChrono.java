@@ -3,10 +3,12 @@ import TimingSystem.ChronoTimer;
 import TimingSystem.Event;
 import TimingSystem.Hardware.Channel;
 import TimingSystem.RaceTypes.RaceType;
+import TimingSystem.Run;
 import org.junit.*;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Iterator;
 
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
@@ -303,6 +305,7 @@ public class TestChrono {
 		ct.execute("TRIG", "1", null);
 		ct.execute("TRIG", "3", null);
 		ct.execute("TRIG", "3", null);
+        ct.execute("CLEAR", null, null);
 		assertFalse(raceType.getRuns().isEmpty());
     }
     @Test
@@ -313,12 +316,51 @@ public class TestChrono {
     public void test18(){
 		//Testing DNF, see TestSim -> testDNF()
     }@Test
-    public void test19(){
-
+    public void test19(){//testing trig
+        ct.execute("POWER", null, null);
+        ct.execute("EVENT", "IND", null);
+        ct.execute("NEWRUN", null, null);
+        ct.execute("NUM", "211", null);
+        ct.execute("NUM", "311", null);
+        getRacetype();
+        assertTrue(raceType.getRuns().isEmpty());
+        ct.execute("CONN", "GATE", "1");
+        ct.execute("CONN", "GATE", "3");
+        ct.execute("TOG", "1", null);
+        ct.execute("TOG", "3", null);
+        ct.execute("TRIG", "1", null);
+        assertTrue(raceType.getRuns().isEmpty());
+        ct.execute("TRIG", "3", null);
+        ct.execute("ENDRUN", null,null);
+        assertFalse(raceType.getRuns().isEmpty());
+        Iterator<Run> it = raceType.getRuns().iterator();
+        for(Iterator<Run> itr = it; itr.hasNext();){
+            assertTrue(itr.next().getResults().isEmpty());
+        }
     }@Test
     public void test20(){
-
-    }@Test
+        ct.execute("POWER", null, null);
+        ct.execute("CONN", "GATE", "1");
+        ct.execute("CONN", "GATE", "3");
+        ct.execute("EVENT", "IND", null);
+        ct.execute("NEWRUN", null, null);
+        getChannels();
+        getRunCalled();
+        getRacetype();
+        ct.execute("START", null,null);
+        assertTrue(runCalled);
+        assertFalse(channels[0].isReady());
+        assertTrue(raceType.getRuns().isEmpty());
+        ct.execute("NUM ", "111", null);
+        ct.execute("START", null, null);
+        assertFalse(channels[0].isReady());
+        assertTrue(raceType.getRuns().isEmpty());
+        ct.execute("TRIG 3", null, null);
+        ct.execute("ENDRUN", null,null);
+        assertFalse(channels[0].isReady());
+        assertFalse(raceType.getRuns().isEmpty());
+    }
+    @Test
     public void test21(){
 
     }
