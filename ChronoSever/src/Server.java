@@ -15,7 +15,6 @@ public class Server{
         static String sharedResponse = "";
         static String command = "";
 
-        static ArrayList<String> runStrings;
         static String value = null;
         static Run theRuns = new Run();
         static Members mem = new Members("ChronoSever/src/racers.txt");
@@ -89,16 +88,16 @@ public class Server{
                 }
 
                 transmission.sendResponseHeaders(300, postResponse.length());
-                OutputStream os = transmission.getResponseBody();
-                os.write(postResponse.getBytes());
-                os.close();
+                outputStream = transmission.getResponseBody();
+                outputStream.write(postResponse.getBytes());
+                outputStream.close();
 
 
             }
         }
         static class DirectoryHandler implements HttpHandler{
             public void handle(HttpExchange t) throws IOException{
-               // System.out.println("in Director handler");
+                System.out.println("in Director handler");
 
                 String response = "";
                 ArrayList<Result> db = theRuns.getResults();
@@ -119,20 +118,12 @@ public class Server{
 					}
                     ++count;
                 }
-                response += " </tbody></table>\n" +
-                        "</div><script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>\n" +
-					"    <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script><div class=\"dropdown\">\n" +
-                        "        <button onclick=\"myFunction()\" class=\"dropbtn\">Dropdown</button>\n" +
-                        "        <div id=\"myDropdown\" class=\"dropdown-content\">\n" +
-                        "            <a href=\"#run1\">Run 1</a>\n" +
-                        "            <a href=\"#run2\">Run 2</a>\n" +
-                        "            <a href=\"#run3\">Run 3</a>\n" +
-                        "        </div>\n" +
-                        "    </div></body>\n" +
-                        "</html>";
 
-                //added the html string so that it can be displayed later
-                runStrings.add(response);
+                response += " </tbody></table>" +
+                        "</div><script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>" +
+					    " <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>" +
+                        "</body>" +
+                        "</html>";
 
                 //write database content to web page
                 t.sendResponseHeaders(200, response.length());

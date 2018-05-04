@@ -68,7 +68,7 @@ public class ChronoClient {
             Simulation.execute("ERROR","COULD NOT SEND RUN TO SERVER");
         }
     }
-    /*public void startRun(){
+    public void startRun(){
         String post = "clear";
         try {
 
@@ -102,5 +102,5 @@ public class ChronoClient {
             Simulation.execute("ERROR","COULD NOT SEND RUN TO SERVER");
             e.printStackTrace();
         }
-    }*/
+    }
 }

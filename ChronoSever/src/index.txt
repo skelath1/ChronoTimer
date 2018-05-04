@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>ChronoTimer Server</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="results/index.js"></script>
     <link rel="stylesheet" href="results/style.css" type="text/css" />
@@ -14,7 +15,7 @@
 
 <body>
 
-    <div class="results">
+    <div class="container">
         <h1 align="center">ChronoTimer Results</h1>
         <table class="table table-striped">
             <thead>

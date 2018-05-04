@@ -4,7 +4,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        TestChannel.class, TestChrono.class, TestINDRace.class, TestRacer.class, TestSim.class, TestTime.class, TestPARINDRace.class, TestGRPRace.class
+        TestChannel.class, TestChrono.class, TestINDRace.class, TestRacer.class, TestSim.class, TestTime.class, TestPARINDRace.class, TestGRPRace.class, TestPARGRP.class
 
 })
 public class TestSuite {

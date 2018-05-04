@@ -65,6 +65,7 @@ public class IND implements RaceType {
     public void dnf() {
         if(_racerQueue.isEmpty()) return;
         Racer r = _racerQueue.removeFirst();
+        r.setStartTime(-1);
         r.setFinishTime(-1);
         _finished.add(r);
     }

@@ -170,6 +170,8 @@ public class ChronoGUI {
         bs.setPane(bs);
 
 
+
+
         Runnable updateRunning =()->{
             try{
                 //run forever till interrupted
