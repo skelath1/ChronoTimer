@@ -125,6 +125,8 @@ public class PARGRP implements RaceType {
     public void saveRun(){
         Run r = new Run(this.toString());
         r.addResults(_racers);
+        this.dnf();
+        r.addResults(_racers);
         runs.add(r);
     }
 
@@ -220,6 +222,7 @@ public class PARGRP implements RaceType {
         for(int key : keys){
             Racer r  = _racerMap.remove(key);
             r.setFinishTime(-1);
+            r.setStartTime(-1);
             _finished.add(r);
         }
     }

@@ -52,6 +52,7 @@ public class GRP implements RaceType{
         for(Racer r : _racerQueue){
             Racer a = _racerQueue.removeFirst();
             a.setFinishTime(-1);
+            a.setStartTime(-1);
             _finished.add(a);
         }
     }
@@ -209,6 +210,8 @@ public class GRP implements RaceType{
     @Override
     public void saveRun(){
         Run r = new Run(this.toString());
+        r.addResults(_racers);
+        this.dnf();
         r.addResults(_finished);
         runs.add(r);
     }
