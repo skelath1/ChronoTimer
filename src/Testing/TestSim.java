@@ -26,6 +26,7 @@ public class TestSim {
     public void testParallelGroupOne(){
         sim.doInput("TestFiles/ParallelGroup.txt");
     }
-
+    @Test
+    public void testDNF(){sim.doInput("TestFiles/TestDNF");}
 }
 

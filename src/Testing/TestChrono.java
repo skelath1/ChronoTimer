@@ -1,6 +1,8 @@
 package Testing;
 import TimingSystem.ChronoTimer;
+import TimingSystem.Event;
 import TimingSystem.Hardware.Channel;
+import TimingSystem.RaceTypes.RaceType;
 import org.junit.*;
 
 import java.lang.reflect.Field;
@@ -21,7 +23,9 @@ public class TestChrono {
     String state;
     Boolean runCalled;
     Boolean eventCalled;
-
+    Event event;
+    Field raceTypeField;
+    RaceType raceType;
     @Before
     public void setUp(){
         ct = new ChronoTimer();
@@ -243,10 +247,8 @@ public class TestChrono {
 
     }@Test
     public void test10(){
-
     }@Test
     public void test11(){
-
     }
     @Test
     public void test12(){
@@ -261,19 +263,55 @@ public class TestChrono {
     }
     @Test
     public void test15(){
+		//testing NUM
+		ct.execute("POWER", null, null);
+		ct.execute("NEWRUN", null, null);
+		ct.execute("NUM", "211", null);
+		getRacetype();
+		assertTrue(raceType.getRuns().isEmpty());
+		ct.execute("CONN", "GATE", "1");
+		ct.execute("CONN", "GATE", "3");
+		ct.execute("TOG", "1", null);
+		ct.execute("TOG", "3", null);
+		ct.execute("TRIG", "1", null);
+		ct.execute("TRIG", "3", null);
+		ct.execute("ENDRUN", null,null);
+		assertFalse(raceType.getRuns().isEmpty());
 
-    }
+
+	}
     @Test
     public void test16(){
-
+//Testing clear
+		ct.execute("POWER", null, null);
+		ct.execute("NEWRUN", null, null);
+		ct.execute("NUM", "211", null);
+		getRacetype();
+		ct.execute("CONN", "GATE", "1");
+		ct.execute("CONN", "GATE", "3");
+		ct.execute("TOG", "1", null);
+		ct.execute("TOG", "3", null);
+		ct.execute("TRIG", "1", null);
+		ct.execute("TRIG", "3", null);
+		ct.execute("CLEAR", null, null);
+		assertTrue(raceType.getRuns().isEmpty());
+		ct.execute("ENDRUN",null,null);
+		ct.execute("EVENT", "PARIND", null);
+		ct.execute("NEWRUN", null, null);
+		ct.execute("NUM", "344", null);
+		ct.execute("NUM", "555", null);
+		ct.execute("TRIG", "1", null);
+		ct.execute("TRIG", "3", null);
+		ct.execute("TRIG", "3", null);
+		assertFalse(raceType.getRuns().isEmpty());
     }
     @Test
     public void test17(){
-
+		//For swap, see TESTINDRace -> testSwap()
     }
     @Test
     public void test18(){
-
+		//Testing DNF, see TestSim -> testDNF()
     }@Test
     public void test19(){
 
@@ -331,5 +369,17 @@ public class TestChrono {
             ex.printStackTrace();
         }
     }
+    private void getRacetype(){
+    	try{
+    		eventField = ct.getClass().getDeclaredField("event");
+    		eventField.setAccessible(true);
+    		event = (Event)eventField.get(ct);
+    		raceTypeField = event.getClass().getDeclaredField("_racetype");
+    		raceTypeField.setAccessible(true);
+    		raceType = (RaceType)raceTypeField.get(event);
 
+		}catch(Exception e){
+    		e.printStackTrace();
+		}
+	}
 }
