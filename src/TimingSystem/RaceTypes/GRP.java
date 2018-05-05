@@ -16,6 +16,7 @@ public class GRP implements RaceType{
     private ArrayList<Run> runs;
     private boolean inProg;
     private int anonBib = 99901;
+    private long sTime;
 
     /**
      * Constructor for Group Race
@@ -67,18 +68,22 @@ public class GRP implements RaceType{
         for(Racer r : _finished){
             String b = r.getBibNumber() + "";
             if(b.length() > 3 && b.substring(0,3).equalsIgnoreCase("999")){
-                r.setBibNumber(bibNumber);
-                newR = false;
-                break;
-            }
-        }
-        if(newR == true){
-            for(Racer r : _racerQueue){
-                String b = r.getBibNumber()+"";
-                if(b.length() > 3 && b.substring(0,3).equalsIgnoreCase("999")){
+                if(validNewRacer(bibNumber)) {
                     r.setBibNumber(bibNumber);
                     newR = false;
                     break;
+                }
+            }
+        }
+        if(newR == true){
+            if(validNewRacer(bibNumber)) {
+                for (Racer r : _racerQueue) {
+                    String b = r.getBibNumber() + "";
+                    if (b.length() > 3 && b.substring(0, 3).equalsIgnoreCase("999")) {
+                        r.setBibNumber(bibNumber);
+                        newR = false;
+                        break;
+                    }
                 }
             }
             if(newR == true) {
@@ -123,13 +128,11 @@ public class GRP implements RaceType{
     @Override
     public void setTime(long time, int channelNum) {
         if (channelNum == 1) {
-            inProg = true;
-            if (_racers.isEmpty()) {
-                Racer r = new Racer(anonBib);
-                r.setStartTime(time);
-                _racerQueue.add(r);
-                ++anonBib;
-            } else {
+            if(!inProg){
+                sTime = time;
+                inProg = true;
+            }
+            if (!_racers.isEmpty()) {
                 while (!_racers.isEmpty()) {
                     if (_racers.peek().getStartTime() != -1) return;
                     Racer r = _racers.removeFirst();
@@ -139,12 +142,18 @@ public class GRP implements RaceType{
 
             }
         } else if(channelNum == 2){
-            if(_racerQueue.isEmpty()) return;
-            Racer r = _racerQueue.removeFirst();
-            r.setFinishTime(time);
-            _finished.add(r);
-            if(_racerQueue.isEmpty())
-                inProg = false;
+            if(_racerQueue.isEmpty()){
+                Racer r = new Racer(anonBib);
+                r.setStartTime(sTime);
+                r.setFinishTime(time);
+                _finished.add(r);
+                ++anonBib;
+            } else {
+                Racer r = _racerQueue.removeFirst();
+                r.setFinishTime(time);
+                _finished.add(r);
+            }
+
         }
     }
 
@@ -165,6 +174,7 @@ public class GRP implements RaceType{
         _racerQueue.clear();
         _finished.clear();
         anonBib = 99901;
+        sTime = -1;
         inProg = false;
     }
 

@@ -129,7 +129,7 @@ public class ChronoGUI {
 
     private enum Event{
         IND("IND"),
-        PARIND("PARIN"),
+        PARIND("PARIND"),
         GRP("GRP"),
         PARGRP("PARGRP");
 

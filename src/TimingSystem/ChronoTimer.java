@@ -270,7 +270,6 @@ public class ChronoTimer {
         if(!curState.equals(State.OFF)){
             runCalled =true;
             if(client == null) client = new ChronoClient();
-            client.startRun();
         }
 
     }
@@ -368,21 +367,21 @@ public class ChronoTimer {
      */
     private void print(String value){
 
-        if(runCalled) {
+        if(event != null) {
+
             if (value != null) {
                 try {
-
                     Simulation.execute("PRINT", event.printResults(Integer.parseInt(value)));
 
                 } catch (NumberFormatException nfm) {
                     Simulation.execute("ERROR", "Invalid argument for Print value = (" + value + ")");
                 }
-            }
-            else {
+            } else {
                 //print the most recent run
                 Simulation.execute("PRINT", event.printResults());
             }
         }
+
     }
 
     /**
@@ -446,6 +445,9 @@ public class ChronoTimer {
      */
     private void endRun(){
         if(runCalled && event!= null){
+            if(client != null)
+                client.clear();
+
             eventList.add(event);
             event.saveRun();
             if(client != null)
