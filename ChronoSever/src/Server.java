@@ -1,4 +1,7 @@
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
@@ -7,6 +10,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
 
 
@@ -22,7 +26,7 @@ public class Server{
 	public static void main(String[] args) throws Exception {
 
             // set up a simple HTTP server on our local host
-            HttpServer server = HttpServer.create(new InetSocketAddress(InetAddress.getLocalHost().getHostAddress(),8000), 0);
+            HttpServer server = HttpServer.create(new InetSocketAddress(InetAddress.getLocalHost().getHostAddress(),80), 0);
 			//add members from racers.txt
 
             // create a context to get the request for the POST
@@ -32,14 +36,17 @@ public class Server{
             //create a context to display employees
             server.setExecutor(null); // creates a default executor
             // get it going
-            System.out.println("Starting Server...");
+            System.out.println("Server Online.");
             server.start();
-			System.out.println("addresss: " +InetAddress.getLocalHost().getHostAddress());
+			System.out.println("addresss: " +InetAddress.getLocalHost().getHostAddress() + ":8000/results");
         }
 
          static class PostHandler implements HttpHandler {
             public void handle(HttpExchange transmission) throws IOException {
-                theRuns.clear();
+                if(theRuns != null)
+                    theRuns.clear();
+
+
                 //  shared data that is used with other handlers
                 sharedResponse = "";
 
@@ -79,11 +86,15 @@ public class Server{
                     postResponse = "JSON HAS BEEN RECEIVED";
                     command = parts[0];
                     value = parts[1];
-                    //add json
-					theRuns.add(value);
 
-					//add the run to the list of runs to use so it can be viewed later
-                    System.out.println("Value: " + value);
+                    //add json
+                    Gson gson = new Gson();
+                    try{
+                        theRuns = gson.fromJson(value, Run.class);
+                    }catch(JsonSyntaxException ex){
+                        System.out.println("Error in syntax occured.");
+                    }
+
 					theRuns.printResults();
                 }
 
@@ -91,14 +102,12 @@ public class Server{
                 outputStream = transmission.getResponseBody();
                 outputStream.write(postResponse.getBytes());
                 outputStream.close();
-
-
             }
         }
         static class DirectoryHandler implements HttpHandler{
             public void handle(HttpExchange t) throws IOException{
-                System.out.println("in Director handler");
 
+                //add the event type to the html string with javascript
                 String response = "";
                 ArrayList<Result> db = theRuns.getResults();
                 response += readContents("ChronoSever/src/index.txt");
@@ -118,14 +127,20 @@ public class Server{
 					}
                     ++count;
                 }
+                String eventName = "Race Type: " + theRuns.getEventType();
+                if(theRuns.getEventType() == null){
+                    eventName = "";
+                }
 
-                response += " </tbody></table>" +
+                response += " </tbody></table>" +"<script>\n" +
+                        "\tdocument.getElementById(\"event\").innerHTML = \""+ eventName+"\";\n" +
+                        "</script>"+
                         "</div><script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>" +
 					    " <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>" +
                         "</body>" +
                         "</html>";
 
-                //write database content to web page
+                //write
                 t.sendResponseHeaders(200, response.length());
                 OutputStream os = t.getResponseBody();
                 os.write(response.getBytes());

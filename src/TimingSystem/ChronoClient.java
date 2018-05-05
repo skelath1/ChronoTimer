@@ -23,7 +23,7 @@ public class ChronoClient {
     private void start() {
 
         try {
-            site = new URL("http://" + InetAddress.getLocalHost().getHostAddress()+":8000/sendresults");
+            site = new URL("http://" + InetAddress.getLocalHost().getHostAddress()+":80/sendresults");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -34,7 +34,7 @@ public class ChronoClient {
     public void sendRun(Run runList)
     {
         Gson g = new Gson();
-        String json = g.toJson(runList.getResults());
+        String json = g.toJson(runList);
 
         content = "ADD " + json;
         try {

@@ -28,4 +28,19 @@ public class Run {
     public ArrayList<Result> getResults(){
         return results;
     }
+    public String getStrResults(){
+        int cnt = 0;
+        String val = "";
+        for(Result res: results){
+            ++cnt;
+            String time = res.get_time();
+            if(time.equals("-1"))
+            {
+                time.equals("00:00:00:00");
+            }
+
+            val +=(cnt + ": " + res.get_bib() + " " + time);
+        }
+        return val;
+    }
 }

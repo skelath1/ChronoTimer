@@ -12,6 +12,7 @@ public class Run {
 
 	public Run(){
 		results = new ArrayList<>();
+
 	}
 
 	public void add(String str){
@@ -19,7 +20,8 @@ public class Run {
 		try{
 			ArrayList<Result> fromJson = gson.fromJson(str, new TypeToken<Collection<Result>>(){
 			}.getType());
-			results.addAll(fromJson);
+
+
 		}catch(JsonSyntaxException ex){
 			System.out.println("Error in syntax occured.");
 		}
@@ -32,10 +34,16 @@ public class Run {
 		}
 	}
 
+
 	public void clear() {
 		results.clear();
 	}
-	public ArrayList<Result> getResults(){
+	public ArrayList<Result> getResults() {
 		return results;
 	}
+
+	public String getEventType(){
+		return eventType;
+	}
 }
+

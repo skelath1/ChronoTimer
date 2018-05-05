@@ -12,4 +12,8 @@
 12.) sorting the racers                                                                         Matt
 13.) 15-20 Test cases                                                                           Matt
 14.) 10-14 Test cases                                                                           Fred
-15.) store the races so you can view them for later                                             Luke
+15.) display race type on the server with the results                                           Luke
+16.) fix print
+17.) dont have to connect sensor to tog
+18.) if printing from previous runs how can i get the racers that where in progress
+    - does it assign them dnf?

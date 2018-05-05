@@ -465,13 +465,22 @@ public class ChronoGUI {
                     value = null;
                 chronoTimer.execute(commandPane.getText(), value,null);
 
+                //updating the printer pane
                 if (commandPane.getText().equalsIgnoreCase("PRINT")) {
-                    //System.out.println("should be printing to the pane");
-                    if(printOn) {
-                        //printer keeps the old data
-                        printPane.setText(printPane.getText() +"\n\n"+ chronoTimer.getResults());
+                    if (value == null) {
+                        if (printOn) {
+                            printPane.setText(printPane.getText() + "\n\n" + chronoTimer.getResults());
+                        }
+                    }
+                    //need to check if there is a value associated with the command
+                    else {
+                        System.out.println("trying to get into getRestults(value)");
+                        printPane.setText(printPane.getText() + "\n\n" + chronoTimer.getResults(value));
+
                     }
                 }
+
+
                 //setting the prev command and value pane from the current ones
                 prevCommandPane.setText(commandPane.getText());
                 prevValuePane.setText(valuePane.getText());

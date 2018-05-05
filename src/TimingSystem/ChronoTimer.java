@@ -514,14 +514,54 @@ public class ChronoTimer {
      * @return formatted string for the GUI
      */
    public String getResults(){
+       //need to check if the run is over and then get the most recent run if it is
+       if(!runCalled && !eventCalled){
+           //get the previous run that has ended
+           int index = eventList.size()-1;
+           if(index >= 0) {
+               String data = "INPROGRESS:\n";
+
+               data +="\n\nFINISHED:\n";
+               data += event.getLastRun().getStrResults();
+
+               //Simulation.execute("Print", data);
+               return data;
+           }
+           else{
+               //print out nothing
+               String data = "INPROGRESS:\n";
+               data +="\n\nFINISHED:\n";
+               return data;
+           }
+       }
+       //printing out the current race
        String data = "INPROGRESS:\n";
        data += event.getData("running");
        data +="\n\nFINISHED:\n";
        data += event.getData("finished");
-        Simulation.execute("Print", data);
+       //Simulation.execute("Print", data);
 
        return data;
    }
+    public String getResults(String runNumber){
+        //need to check if the run is over and then get the most recent run if it is
+        try{
+            int runNum = Integer.parseInt(runNumber) -1;
+            if(runNum >= 0 && runNum < event.getRuns().size()) {
+                String data = "INPROGRESS:\n";
+                data +="\n\nFINISHED:\n";
+
+                //get specific run
+                data += event.getRuns().get(runNum).getStrResults();
+                //Simulation.execute("Print", data);
+                return data;
+            }
+
+        }catch(NumberFormatException ex){
+            Simulation.execute("ERROR","Invalid run number.");
+        }
+        return null;
+    }
 
     /**
      *
