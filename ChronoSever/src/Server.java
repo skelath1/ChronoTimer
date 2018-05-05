@@ -176,7 +176,7 @@ public class Server{
                 }
                 in.close();
             } catch (IOException e) {
-                System.out.println("couln't get file");
+                System.out.println("couldn't get file");
             }
             return responseBuilder.toString();
         }
