@@ -7,8 +7,8 @@
     </constraints>
     <properties>
       <background color="-2431248"/>
-      <minimumSize width="1600" height="600"/>
-      <preferredSize width="1600" height="600"/>
+      <minimumSize width="-1" height="-1"/>
+      <preferredSize width="-1" height="-1"/>
     </properties>
     <border type="none"/>
     <children>

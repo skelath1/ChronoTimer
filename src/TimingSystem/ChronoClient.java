@@ -68,7 +68,7 @@ public class ChronoClient {
             Simulation.execute("ERROR","COULD NOT SEND RUN TO SERVER");
         }
     }
-    public void startRun(){
+    public void clear(){
         String post = "clear";
         try {
 
