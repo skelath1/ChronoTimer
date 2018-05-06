@@ -25,6 +25,7 @@ public class PARGRP implements RaceType {
         _racers = new LinkedList<>();
         _racerMap = new HashMap<>();
         _finished = new LinkedList<>();
+        runs = new ArrayList<>();
     }
 
     /**
@@ -66,7 +67,7 @@ public class PARGRP implements RaceType {
             inProg = true;
             int i = 1;
             while(!_racers.isEmpty()){
-                if(_racers.peek().getStartTime() == -1) {
+                if(_racers.peek().getStartTime() == 0) {
                     Racer r = _racers.removeFirst();
                     r.setStartTime(time);
                     _racerMap.put(i, r);
@@ -88,7 +89,7 @@ public class PARGRP implements RaceType {
      */
     @Override
     public void cancelRacer() {
-// ???
+        // ???
     }
 
     /**
@@ -98,6 +99,8 @@ public class PARGRP implements RaceType {
     public void clear() {
         _racers.clear();
         _racerMap.clear();
+        _finished.clear();
+        inProg = false;
     }
 
     /**
@@ -106,7 +109,26 @@ public class PARGRP implements RaceType {
      */
     @Override
     public void clear(int bibNumber) {
+        for(Racer r : _racers){
+            if(r.getBibNumber() == bibNumber){
+                _racers.remove(r);
+                return;
+            }
+        }
 
+        for(int ind : _racerMap.keySet()){
+            if(_racerMap.get(ind).getBibNumber() == bibNumber){
+                _racerMap.remove(ind);
+                return;
+            }
+        }
+
+        for(Racer r : _finished){
+            if(r.getBibNumber() == bibNumber){
+                _finished.remove(r);
+                return;
+            }
+        }
     }
 
     /**
@@ -126,7 +148,7 @@ public class PARGRP implements RaceType {
         Run r = new Run(this.toString());
         r.addResults(_racers);
         this.dnf();
-        r.addResults(_racers);
+        r.addResults(_finished);
         runs.add(r);
     }
 

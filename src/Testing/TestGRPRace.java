@@ -14,7 +14,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class TestGRPRace {
-    Channel[] channels;
     Event event;
     GRP race;
 
@@ -28,10 +27,6 @@ public class TestGRPRace {
 
     @Before
     public void setUp(){
-        channels = new Channel[8];
-        for(int i = 0; i < 8; ++i){
-            channels[i] = new Channel(i + 1);
-        }
         event = new Event("GRP");
         try{
             Field f = event.getClass().getDeclaredField("_racetype");
@@ -126,7 +121,6 @@ public class TestGRPRace {
         event.addRacer(789);
 
         event.setTime(100, 1);
-        event.setTime(200, 1);
 
         event.setTime(300, 2);
         event.clear();

@@ -110,7 +110,7 @@ public class IND implements RaceType {
             }
         } else{
             if(!_racerQueue.isEmpty()){
-                if(_racerQueue.peek().getStartTime() != -1) {
+                if(_racerQueue.peek().getStartTime() != 0) {
                     Racer r = _racerQueue.remove();
                     r.setFinishTime(time);
                     _finished.add(r);
