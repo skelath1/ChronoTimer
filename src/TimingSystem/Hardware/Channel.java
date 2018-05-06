@@ -27,7 +27,7 @@ public class Channel {
     }
 
     public boolean isReady(){
-        if(_state == STATE.ON && _sensor != null)
+        if(_state == STATE.ON)
             return true;
         return false;
     }

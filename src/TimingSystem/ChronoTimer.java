@@ -73,7 +73,7 @@ public class ChronoTimer {
                     try {
                         int channelNum = Integer.parseInt(value);
                         if(channels[channelNum-1].isReady()) {
-                            event.setTime(channels[channelNum - 1].triggerSensor(), channelNum);
+                            event.setTime(System.currentTimeMillis(),channelNum);
                         }
                     }
                     catch(NumberFormatException ex){
@@ -85,14 +85,14 @@ public class ChronoTimer {
             case "START":
                 if(runCalled){
                     if(channels[0].isReady())
-                        event.setTime(channels[0].triggerSensor(), 1);
+                        event.setTime(System.currentTimeMillis(),2);
                 }
                 break;
             //same as TRIG 2
             case "FINISH":
                 if(runCalled){
                     if(channels[1].isReady())
-                        event.setTime(channels[1].triggerSensor(), 2);
+                        event.setTime(System.currentTimeMillis(),2);
                 }
                 break;
             case "PRINT":
@@ -172,7 +172,7 @@ public class ChronoTimer {
                             int channelNum = Integer.parseInt(value);
                             //if it is odd then it is the start
                             if(channels[channelNum-1].isReady()) {
-                                event.setTime(channels[channelNum - 1].triggerSensor(), channelNum);
+                                event.setTime(Time.stringToMilliseconds(time),channelNum);
                             }
                         } catch (NumberFormatException ex) {
                             Simulation.execute("ERROR", " " + value + " not valid.");
@@ -184,14 +184,14 @@ public class ChronoTimer {
             case "START":
                 if(runCalled){
                     if(channels[0].isReady())
-                        event.setTime(channels[0].triggerSensor(), 1);
+                        event.setTime(Time.stringToMilliseconds(time),1);
                 }
                 break;
             //same as TRIG 2
             case "FINISH":
                 if(runCalled){
                     if(channels[1].isReady())
-                        event.setTime(channels[1].triggerSensor(), 2);
+                        event.setTime(Time.stringToMilliseconds(time),2);
                 }
                 break;
             case "PRINT":
