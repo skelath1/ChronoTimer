@@ -78,30 +78,28 @@ public class TestGRPRace {
         event.setTime(100, 1);
         getLists();
 
-        assertTrue(racerQueue.getFirst().getBibNumber() == 99901);
-        assertTrue(racerQueue.size() == 1);
-        event.addRacer(123);
+        assertTrue(racerQueue.isEmpty());
+
+        event.setTime(200, 2);
+        event.setTime(300, 2);
         getLists();
 
-        assertTrue(racerQueue.getFirst().getBibNumber() == 123);
-        assertTrue(racerQueue.size() == 1);
-
+        assertTrue(racerQueue.isEmpty());
+        assertEquals(99901, finished.removeFirst().getBibNumber());
+        assertEquals(99902, finished.removeFirst().getBibNumber());
         event.clear();
 
         event.setTime(100, 1);
-        event.setTime(200, 1);
+        event.setTime(200, 2);
         event.setTime(300, 2);
-
-        getLists();
-        assertTrue(racerQueue.getFirst().getBibNumber() == 99902);
-        assertTrue(finished.getFirst().getBibNumber() == 99901);
-
-        event.addRacer(123);
-        event.addRacer(456);
+        event.addRacer(1);
+        event.addRacer(1);
+        event.addRacer(2);
         getLists();
 
-        assertTrue(finished.getFirst().getBibNumber() == 123);
-        assertTrue(racerQueue.getFirst().getBibNumber() == 456);
+        assertEquals(1, finished.removeFirst().getBibNumber());
+        assertEquals(2, finished.removeFirst().getBibNumber());
+
     }
 
 

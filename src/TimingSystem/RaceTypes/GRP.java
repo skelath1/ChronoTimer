@@ -50,7 +50,7 @@ public class GRP implements RaceType{
      */
     @Override
     public void dnf() {
-        for(Racer r : _racerQueue){
+        for(int i = 0; i < _racerQueue.size(); ++i){
             Racer a = _racerQueue.removeFirst();
             a.setFinishTime(-1);
             a.setStartTime(-1);
@@ -134,7 +134,7 @@ public class GRP implements RaceType{
             }
             if (!_racers.isEmpty()) {
                 while (!_racers.isEmpty()) {
-                    if (_racers.peek().getStartTime() != -1) return;
+                    if (_racers.peek().getStartTime() != 0) return;
                     Racer r = _racers.removeFirst();
                     r.setStartTime(time);
                     _racerQueue.add(r);

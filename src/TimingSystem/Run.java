@@ -34,9 +34,10 @@ public class Run {
         for(Result res: results){
             ++cnt;
             String time = res.get_time();
-            if(time.equals("-1"))
-            {
-                time = ("00:00:00:00");
+            if(time.equals("0")) {
+                time = "00:00:00:00";
+            } else if(time.equals("-1")){
+                time = "DNF";
             }
 
             val +=(cnt + ": " + res.get_bib() + " " + time +"\n");

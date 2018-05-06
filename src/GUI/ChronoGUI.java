@@ -7,9 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ConcurrentModificationException;
 
 public class ChronoGUI {
@@ -509,12 +506,13 @@ public class ChronoGUI {
         });
     }
     public static void main(String[] args) {
+
         JFrame frame = new JFrame("ChronoGoo");
         frame.setContentPane(new ChronoGUI().panel1);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(1260, 768));
-        frame.setLocation(new Point(0,0));        //frame.setLocationRelativeTo(p);
-        ImageIcon image = new ImageIcon("src/goodmeme.jpg");
+        frame.setLocation(new Point(0,0));
+        ImageIcon image = new ImageIcon("src/logo.png");
         frame.setIconImage(image.getImage());
 
         frame.pack();

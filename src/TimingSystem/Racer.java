@@ -7,8 +7,8 @@ public class Racer {
 
     public Racer(int bibNumber){
         _bibNumber = bibNumber;
-        _startTime = -1;
-        _finishTime = -1;
+        _startTime = 0;
+        _finishTime = 0;
     }
 
     public void setBibNumber(int _bibNumber) {
