@@ -36,10 +36,10 @@ public class Run {
             String time = res.get_time();
             if(time.equals("-1"))
             {
-                time.equals("00:00:00:00");
+                time = ("00:00:00:00");
             }
 
-            val +=(cnt + ": " + res.get_bib() + " " + time);
+            val +=(cnt + ": " + res.get_bib() + " " + time +"\n");
         }
         return val;
     }

@@ -552,7 +552,7 @@ public class ChronoTimer {
                 data +="\n\nFINISHED:\n";
 
                 //get specific run
-                data += event.getRuns().get(runNum).getStrResults();
+                data += event.getRuns().get(runNum).getStrResults() + "\n";
                 //Simulation.execute("Print", data);
                 return data;
             }
