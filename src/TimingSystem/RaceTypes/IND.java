@@ -124,10 +124,12 @@ public class IND implements RaceType {
      */
     @Override
     public void cancelRacer() {
-        Racer r = _racerQueue.removeLast();
-        r.setStartTime(-1);
-        r.setFinishTime(-1);
-        _racers.addFirst(r);
+        if(!_racerQueue.isEmpty()) {
+            Racer r = _racerQueue.removeLast();
+            r.setStartTime(-1);
+            r.setFinishTime(-1);
+            _racers.addFirst(r);
+        }
     }
 
     /**
