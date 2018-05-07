@@ -298,13 +298,7 @@ public class ChronoTimer {
      */
     private void tog(String value){
         if(!curState.equals(State.OFF)){
-            // too late to call event
-            eventCalled = true;
-            runCalled = true;
-            if(event == null) {
-                //creating a new default event if there wasn't one
-                event = new Event();
-            }
+
             try{
                 int channelIndex = Integer.parseInt(value) -1;
                 channels[channelIndex].toggle();
