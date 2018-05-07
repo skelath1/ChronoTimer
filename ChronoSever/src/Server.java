@@ -137,6 +137,7 @@ public class Server{
                         "\tdocument.getElementById(\"event\").innerHTML = \""+ eventName+"\";\n" +
                         "</script>"+
                         "</div><script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>" +
+                        "<script src=\"results/index.js\"></script>" +
 					    " <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>" +
                         "</body>" +
                         "</html>";
