@@ -11,12 +11,10 @@ import java.util.LinkedList;
 
 public class IND implements RaceType {
     private Deque<Racer> _racers;
+    private Deque<Racer> _finished;
+    private Deque<Racer> _racerQueue;
 
     private ArrayList<Run> runs;
-
-    private Deque<Racer> _finished;
-
-    private Deque<Racer> _racerQueue;
 
     private boolean inProg;
 
@@ -32,7 +30,7 @@ public class IND implements RaceType {
 
     /**
      * Creates new TimingSystem.Racer and adds it to the TimingSystem.Racer Queue
-     * @param bibNumber: bib number of racer
+     * @param bibNumber : bib number of racer
      */
     @Override
     public void addRacer(int bibNumber) {
@@ -41,8 +39,8 @@ public class IND implements RaceType {
     }
 
     /**
-     *
-     * @return
+     * Grabs the last run in the list of runs
+     * @return : Last run
      */
     @Override
     public Run getLastRun() {
@@ -50,8 +48,8 @@ public class IND implements RaceType {
     }
 
     /**
-     *
-     * @return
+     * Grabs all the runs in the event
+     * @return : List of runs
      */
     @Override
     public ArrayList<Run> getRuns() {
@@ -59,7 +57,7 @@ public class IND implements RaceType {
     }
 
     /**
-     *
+     * Sets all in progress racers to dnf
      */
     @Override
     public void dnf() {
@@ -71,9 +69,9 @@ public class IND implements RaceType {
     }
 
     /**
-     *
-     * @param bibNumber
-     * @return
+     * Checks whether the racer is already in the event
+     * @param bibNumber : Racer to check
+     * @return : If racer is in the event
      */
     private boolean validNewRacer(int bibNumber){
         for(Racer r : _racers){
@@ -173,7 +171,7 @@ public class IND implements RaceType {
     }
 
     /**
-     * Swaps next two racers to finish in the queue
+     * Swaps next two racers to finish
      */
     @Override
     public void swap() {
@@ -198,8 +196,8 @@ public class IND implements RaceType {
     }
 
     /**
-     * Prints the results of the race to the console
-     * @return String of the results of the race
+     * Puts the results of the race into a readable format
+     * @return : String of the results of the race
      */
     @Override
     public String printResults() {
@@ -207,20 +205,22 @@ public class IND implements RaceType {
 
         //changed from racer to racerQueue
         long t = System.currentTimeMillis();
-        if(inProg){
-            for(Racer r : _racerQueue){
-                s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), t) +"\n";
-            }
-        } else {
-            if(runs.isEmpty()){
-                for(Racer r : _finished){
-                    s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) +"\n";
+        if(!runs.isEmpty() && null != runs.get(runs.size()-1)) {
+
+            if (inProg) {
+                for (Racer r : _racerQueue) {
+                    s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), t) + "\n";
                 }
-            }
-            else {
-                Run r = runs.get(runs.size() - 1);
-                for (Result res : r.getResults()) {
-                    s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
+            } else {
+                if (runs.isEmpty()) {
+                    for (Racer r : _finished) {
+                        s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + "\n";
+                    }
+                } else {
+                    Run r = runs.get(runs.size() - 1);
+                    for (Result res : r.getResults()) {
+                        s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
+                    }
                 }
             }
         }
@@ -228,15 +228,17 @@ public class IND implements RaceType {
     }
 
     /**
-     *
-     * @param runNumber
-     * @return
+     * Puts the results of a specified run into a readable format
+     * @param runNumber : Number of the run to get
+     * @return : Readable version of results for the specified run
      */
     @Override
     public String printResults(int runNumber) {
         String s = "";
-        Run r = runs.get(runNumber-1);
-        for(Result res : r.getResults()){
+
+        if(runs.size() <= runNumber-1) return s;
+        Run r = runs.get(runNumber - 1);
+        for (Result res : r.getResults()) {
             s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
         }
         return s;
@@ -252,9 +254,9 @@ public class IND implements RaceType {
     }
 
     /**
-     *
-     * @param type
-     * @return
+     * Grabs data for specified list
+     * @param type : Place to get data from
+     * @return : Readable version of data
      */
     @Override
     public String getData(String type) {
@@ -267,18 +269,16 @@ public class IND implements RaceType {
 
             case "finished":
                 return listToString(_finished, false, true);
-
-            default:
         }
         return data;
     }
 
     /**
-     *
-     * @param e
-     * @param running
-     * @param finished
-     * @return
+     * Converts a list to a string
+     * @param e : List to convert
+     * @param running : If the racers are in progress
+     * @param finished : If the racers are finished
+     * @return : Converted List in string format
      */
     private String listToString(Deque<Racer> e, boolean running,  boolean finished){
         String data = "";

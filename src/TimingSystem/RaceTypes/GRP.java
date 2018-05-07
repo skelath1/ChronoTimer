@@ -59,7 +59,8 @@ public class GRP implements RaceType{
     }
 
     /**
-     * Adds a Racer to the Collection
+     * Adds a Racer to the racer list or assigns a Bib number to a racer
+     * already in the race
      * @param bibNumber: Racer bib number
      */
     @Override
@@ -122,6 +123,10 @@ public class GRP implements RaceType{
      * Sets the start or finish time of the racer on the given channel
      * if channel 1 is passed and the race is not in progress,
      * all racers will have be started
+     *
+     * If the race is in Progress and channel 2 is passed while there
+     * are no racers in the waiting queue then anonymous racers will
+     * be started
      * @param time : start/finish time
      * @param channelNum : channel number triggered
      */
@@ -262,6 +267,7 @@ public class GRP implements RaceType{
     @Override
     public String printResults(int runNumber) {
         String s = "";
+        if(runs.size() <= runNumber-1) return s;
         Run r = runs.get(runNumber-1);
         for(Result res : r.getResults()){
             s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";

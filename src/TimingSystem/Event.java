@@ -4,7 +4,6 @@
 
 package TimingSystem;
 
-import TimingSystem.Hardware.Channel;
 import TimingSystem.RaceTypes.*;
 import Util.Time;
 
@@ -61,7 +60,7 @@ public class Event implements RaceType{
     }
 
     /**
-     *
+     * Proxy method to call setTime
      * @param time
      * @param channelNum
      */
@@ -87,7 +86,7 @@ public class Event implements RaceType{
     }
 
     /**
-     *
+     * Proxy method to call clear with a bib number
      * @param bibNumber
      */
     @Override
@@ -96,7 +95,7 @@ public class Event implements RaceType{
     }
 
     /**
-     *
+     * Proxy method to call swap
      */
     @Override
     public void swap() {
@@ -107,7 +106,6 @@ public class Event implements RaceType{
      * Saves the results of the run
      * @return Results of the run
      */
-
     @Override
     public void saveRun(){
         runs.addAll(_racetype.getRuns());
@@ -124,9 +122,9 @@ public class Event implements RaceType{
     }
 
     /**
-     *
-     * @param runNumber
-     * @return
+     * Proxy method to call printResults with specified run number
+     * @param runNumber : Run number
+     * @return : Formatted run data
      */
     @Override
     public String printResults(int runNumber) {
@@ -143,9 +141,9 @@ public class Event implements RaceType{
     }
 
     /**
-     *
-     * @param type
-     * @return
+     * Proxy method to call getData
+     * @param type : List to get data from
+     * @return : Data from list as string
      */
     @Override
     public String getData(String type) {
@@ -153,8 +151,8 @@ public class Event implements RaceType{
     }
 
     /**
-     *
-     * @return
+     * Proxy method to call getLastRun
+     * @return : Last run
      */
     @Override
     public Run getLastRun() {
@@ -162,8 +160,8 @@ public class Event implements RaceType{
     }
 
     /**
-     *
-     * @return
+     * Proxy method to call getRuns
+     * @return : List of runs
      */
     @Override
     public ArrayList<Run> getRuns() {
@@ -171,7 +169,7 @@ public class Event implements RaceType{
     }
 
     /**
-     *
+     * Proxy method to call dnf
      */
     @Override
     public void dnf() {

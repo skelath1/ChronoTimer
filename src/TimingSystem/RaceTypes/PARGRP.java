@@ -29,8 +29,8 @@ public class PARGRP implements RaceType {
     }
 
     /**
-     *
-     * @param bibNumber
+     * Creates new TimingSystem.Racer and adds it to the TimingSystem.Racer Queue
+     * @param bibNumber : bib number of racer
      */
     @Override
     public void addRacer(int bibNumber) {
@@ -38,9 +38,9 @@ public class PARGRP implements RaceType {
             _racers.add(new Racer(bibNumber));
     }
     /**
-     *
-     * @param bibNumber
-     * @return
+     * Checks whether the racer is already in the event
+     * @param bibNumber : Racer to check
+     * @return : If racer is in the event
      */
     private boolean validNewRacer(int bibNumber){
         for(Racer r : _racers){
@@ -57,9 +57,9 @@ public class PARGRP implements RaceType {
     }
 
     /**
-     *
-     * @param time
-     * @param channelNum
+     * Sets Start / Finish time for a racer depending on the channel number
+     * @param time : Start / Finish time of racer
+     * @param channelNum : Channel of sensor that was triggered
      */
     @Override
     public void setTime(long time, int channelNum) {
@@ -85,7 +85,7 @@ public class PARGRP implements RaceType {
     }
 
     /**
-     *
+     * Cancels racer and adds the racer back to start of queue
      */
     @Override
     public void cancelRacer() {
@@ -93,7 +93,7 @@ public class PARGRP implements RaceType {
     }
 
     /**
-     *
+     * Clears the queues
      */
     @Override
     public void clear() {
@@ -104,8 +104,8 @@ public class PARGRP implements RaceType {
     }
 
     /**
-     *
-     * @param bibNumber
+     * Clears a specific racer from the queues depending on the bibNumber
+     * @param bibNumber : bibNumber of the racer to clear
      */
     @Override
     public void clear(int bibNumber) {
@@ -132,16 +132,15 @@ public class PARGRP implements RaceType {
     }
 
     /**
-     *
+     * Swaps next two racers to finish
      */
     @Override
     public void swap() {
-
+        // Does Nothing
     }
 
     /**
-     *
-     * @return
+     * Saves the run in runs to be used in export
      */
     @Override
     public void saveRun(){
@@ -153,8 +152,8 @@ public class PARGRP implements RaceType {
     }
 
     /**
-     *
-     * @return
+     * Puts the results of the race into a readable format
+     * @return : String of the results of the race
      */
     @Override
     public String printResults() {
@@ -174,13 +173,14 @@ public class PARGRP implements RaceType {
     }
 
     /**
-     *
-     * @param runNumber
-     * @return
+     * Puts the results of a specified run into a readable format
+     * @param runNumber : Number of the run to get
+     * @return : Readable version of results for the specified run
      */
     @Override
     public String printResults(int runNumber) {
         String s = "";
+        if(runs.size() <= runNumber-1) return s;
         Run r = runs.get(runNumber-1);
         for(Result res : r.getResults()){
             s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
@@ -189,8 +189,8 @@ public class PARGRP implements RaceType {
     }
 
     /**
-     *
-     * @return
+     * returns the type of the Race as a String
+     * @return the type of the Race
      */
     @Override
     public String toString(){
@@ -198,9 +198,9 @@ public class PARGRP implements RaceType {
     }
 
     /**
-     *
-     * @param type
-     * @return
+     * Grabs data for specified list
+     * @param type : Place to get data from
+     * @return : Readable version of data
      */
     @Override
     public String getData(String type) {
@@ -218,8 +218,8 @@ public class PARGRP implements RaceType {
     }
 
     /**
-     *
-     * @return
+     * Grabs the last run in the list of runs
+     * @return : Last run
      */
     @Override
     public Run getLastRun() {
@@ -227,8 +227,8 @@ public class PARGRP implements RaceType {
     }
 
     /**
-     *
-     * @return
+     * Grabs all the runs in the event
+     * @return : List of runs
      */
     @Override
     public ArrayList<Run> getRuns() {
@@ -236,7 +236,7 @@ public class PARGRP implements RaceType {
     }
 
     /**
-     *
+     * Sets all in progress racers to dnf
      */
     @Override
     public void dnf() {
@@ -251,11 +251,11 @@ public class PARGRP implements RaceType {
     }
 
     /**
-     *
-     * @param list
-     * @param finished
-     * @param q
-     * @return
+     * Helper method to put specified list in a readable format
+     * @param list : list to be formatted
+     * @param finished : boolean of if list is the finished list
+     * @param q : boolean if if the list is the queue list
+     * @return : String of list in readable format
      */
     private String listToString(Deque<Racer> list, boolean finished, boolean q) {
         long cTime = System.currentTimeMillis();
@@ -274,8 +274,8 @@ public class PARGRP implements RaceType {
     }
 
     /**
-     *
-     * @return
+     * Converts a Map to a readable format
+     * @return : Map data as String
      */
     private String mapToString(){
         long cTime = System.currentTimeMillis();

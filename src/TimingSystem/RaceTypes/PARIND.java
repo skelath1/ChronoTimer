@@ -38,8 +38,8 @@ public class PARIND implements RaceType {
 
 
     /**
-     *
-     * @param bibNumber
+     * Creates new TimingSystem.Racer and adds it to the TimingSystem.Racer Queue
+     * @param bibNumber : bib number of racer
      */
     @Override
     public void addRacer(int bibNumber) {
@@ -55,9 +55,9 @@ public class PARIND implements RaceType {
     }
 
     /**
-     *
-     * @param bibNumber
-     * @return
+     * Checks whether the racer is already in the event
+     * @param bibNumber : Racer to check
+     * @return : If racer is in the event
      */
     private boolean validNewRacer(int bibNumber){
         for(Racer r : _racersL){
@@ -89,9 +89,9 @@ public class PARIND implements RaceType {
     }
 
     /**
-     *
-     * @param time
-     * @param channelNum
+     * Sets Start / Finish time for a racer depending on the channel number
+     * @param time : Start / Finish time of racer
+     * @param channelNum : Channel of sensor that was triggered
      */
     @Override
     public void setTime(long time, int channelNum) {
@@ -138,7 +138,7 @@ public class PARIND implements RaceType {
     }
 
     /**
-     *
+     * Cancels racer and adds the racer back to start of queue
      */
     @Override
     public void cancelRacer() {
@@ -155,7 +155,7 @@ public class PARIND implements RaceType {
     }
 
     /**
-     *
+     * Clears the queues
      */
     @Override
     public void clear() {
@@ -170,8 +170,8 @@ public class PARIND implements RaceType {
     }
 
     /**
-     * |
-     * @param bibNumber
+     * Clears a specific racer from the queues depending on the bibNumber
+     * @param bibNumber : bibNumber of the racer to clear
      */
     @Override
     public void clear(int bibNumber) {
@@ -212,7 +212,7 @@ public class PARIND implements RaceType {
     }
 
     /**
-     *
+     * Does nothing for this RaceType
      */
     @Override
     public void swap() {
@@ -220,8 +220,8 @@ public class PARIND implements RaceType {
     }
 
     /**
-     *
-     * @return
+     * Grabs the last run in the list of runs
+     * @return : Last run
      */
     @Override
     public Run getLastRun() {
@@ -229,8 +229,8 @@ public class PARIND implements RaceType {
     }
 
     /**
-     *
-     * @return
+     * Grabs all the runs in the event
+     * @return : List of runs
      */
     @Override
     public ArrayList<Run> getRuns() {
@@ -238,7 +238,7 @@ public class PARIND implements RaceType {
     }
 
     /**
-     *
+     * Sets all in progress racers to dnf
      */
     @Override
     public void dnf() {
@@ -259,8 +259,7 @@ public class PARIND implements RaceType {
     }
 
     /**
-     *
-     * @return
+     * Saves the run in runs to be used in export
      */
     @Override
     public void saveRun(){
@@ -273,8 +272,8 @@ public class PARIND implements RaceType {
     }
 
     /**
-     *
-     * @return
+     * Puts the results of the race into a readable format
+     * @return : String of the results of the race
      */
     @Override
     public String printResults() {
@@ -304,13 +303,14 @@ public class PARIND implements RaceType {
     }
 
     /**
-     *
-     * @param runNumber
-     * @return
+     * Puts the results of a specified run into a readable format
+     * @param runNumber : Number of the run to get
+     * @return : Readable version of results for the specified run
      */
     @Override
     public String printResults(int runNumber) {
         String s = "";
+        if(runs.size() <= runNumber-1) return s;
         Run r = runs.get(runNumber-1);
         for(Result res : r.getResults()){
                 s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
@@ -319,8 +319,8 @@ public class PARIND implements RaceType {
     }
 
     /**
-     *
-     * @return
+     * returns the type of the Race as a String
+     * @return the type of the Race
      */
     @Override
     public String toString(){
@@ -328,9 +328,9 @@ public class PARIND implements RaceType {
     }
 
     /**
-     *
-     * @param type
-     * @return
+     * Grabs data for specified list
+     * @param type : Place to get data from
+     * @return : Readable version of data
      */
     @Override
     public String getData(String type) {
@@ -357,11 +357,11 @@ public class PARIND implements RaceType {
     }
 
     /**
-     *
-     * @param list1
-     * @param list2
-     * @param finished
-     * @return
+     * Converts a list to a string
+     * @param list1 : First list to convert
+     * @param list2 : Second list to convert or null
+     * @param finished : If the racers are finished
+     * @return : Converted List(s) in string format
      */
     private String listToString(Deque<Racer> list1, Deque<Racer> list2, boolean finished){
         String s = "";
@@ -380,15 +380,5 @@ public class PARIND implements RaceType {
             }
         }
         return s;
-    }
-
-    /**
-     *
-     * @param list
-     */
-    private void printList(Deque<Racer> list){
-        for(Racer r : list){
-            System.out.println(r.getBibNumber());
-        }
     }
 }
