@@ -51,7 +51,6 @@ public class PARIND implements RaceType {
         } else{
             _racersR.add(new Racer(bibNumber));
             addRight = !addRight;
-
         }
     }
 
@@ -243,12 +242,15 @@ public class PARIND implements RaceType {
      */
     @Override
     public void dnf() {
+
         if(isRight){
+            if(_left.isEmpty()) return;
             Racer l = _left.removeFirst();
             l.setStartTime(-1);
             l.setStartTime(-1);
             _finished.addFirst(l);
         } else{
+            if(_right.isEmpty()) return;
             Racer r = _right.removeFirst();
             r.setStartTime(-1);
             r.setStartTime(-1);

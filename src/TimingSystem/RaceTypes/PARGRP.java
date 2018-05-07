@@ -240,6 +240,7 @@ public class PARGRP implements RaceType {
      */
     @Override
     public void dnf() {
+        if(_racerMap.isEmpty()) return;
         Set<Integer> keys = _racerMap.keySet();
         for(int key : keys){
             Racer r  = _racerMap.remove(key);
