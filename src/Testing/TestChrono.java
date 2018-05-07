@@ -237,10 +237,9 @@ public class TestChrono {
         ct.execute("CONN", "Gate","1");
         ct.execute("DISC", "1",null);
         getChannels();
-        assertFalse(channels[0].isReady());
+        assertTrue(channels[0].isReady());
 
         //disconnect turn off and try to connect sensor
-
         ct.execute("POWER", null,null);
         ct.execute("CONN", "Gate","1");
         ct.execute("DISC", "1",null);

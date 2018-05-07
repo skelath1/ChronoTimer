@@ -38,7 +38,7 @@ public class Server{
             // get it going
             System.out.println("Server Online.");
             server.start();
-			System.out.println("addresss: " +InetAddress.getLocalHost().getHostAddress() + ":8000/results");
+			System.out.println("addresss: " +InetAddress.getLocalHost().getHostAddress() + ":80/results");
         }
 
          static class PostHandler implements HttpHandler {
