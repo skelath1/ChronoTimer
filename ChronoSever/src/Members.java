@@ -26,7 +26,6 @@ public class Members {
 		}catch(IOException exc){
 			System.out.println("File not found.");
 		}
-		print();
 	}
 	public String getName(int bibNum){//if null then not found
 		return bibMap.get(bibNum);

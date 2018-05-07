@@ -26,7 +26,7 @@ public class Server{
 	public static void main(String[] args) throws Exception {
 
             // set up a simple HTTP server on our local host
-            HttpServer server = HttpServer.create(new InetSocketAddress(InetAddress.getLocalHost().getHostAddress(),80), 0);
+            HttpServer server = HttpServer.create(new InetSocketAddress(InetAddress.getLocalHost().getHostAddress(),8000), 0);
 			//add members from racers.txt
 
             // create a context to get the request for the POST
@@ -38,7 +38,7 @@ public class Server{
             // get it going
             System.out.println("Server Online.");
             server.start();
-			System.out.println("addresss: " +InetAddress.getLocalHost().getHostAddress() + ":80/results");
+			System.out.println("addresss: " +InetAddress.getLocalHost().getHostAddress() + ":8000/results");
         }
 
          static class PostHandler implements HttpHandler {

@@ -45,7 +45,7 @@ public class ChronoTimer {
      * Takes in command from TimingSystem.Simulation and executes it.
      */
     public void execute(String command, String value,String value2){
-        Simulation.execute("PRINT", " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString()+ " runCalled " + runCalled + " eventCalled " + eventCalled);
+        Simulation.execute("PRINT", " COMMAND: "+ command + "  VALUE: " + value);
         switch(command.toUpperCase())
         {
             case "SAVE":
@@ -142,7 +142,7 @@ public class ChronoTimer {
      * Takes in command from TimingSystem.Simulation and executes it.
      */
     public void execute(String time, String command, String value, String value2){
-        Simulation.execute("PRINT",time + " COMMAND: "+ command + " VALUE: " + value + " STATE: " + curState.toString() + " runCalled " + runCalled + " eventCalled " + eventCalled);
+        Simulation.execute("PRINT",time + "  COMMAND: "+ command + "  VALUE: " + value);
         switch(command.toUpperCase())
         {
             case "SAVE":

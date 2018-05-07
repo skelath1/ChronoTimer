@@ -25,7 +25,7 @@ public class ChronoClient {
     private void start() {
 
         try {
-            site = new URL("http://" + InetAddress.getLocalHost().getHostAddress()+":80/sendresults");
+            site = new URL("http://" + InetAddress.getLocalHost().getHostAddress()+":8000/sendresults");
             connected = true;
 
         } catch (Exception e) {
