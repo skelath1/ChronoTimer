@@ -564,7 +564,9 @@ public class ChronoTimer {
         }catch(NumberFormatException ex){
             Simulation.execute("ERROR","Invalid run number.");
         }
-        return null;
+        String data = "INPROGRESS:\n";
+        data +="\n\nFINISHED:\n";
+        return data;
     }
 
     /**

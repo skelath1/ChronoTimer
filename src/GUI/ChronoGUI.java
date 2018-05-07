@@ -470,11 +470,8 @@ public class ChronoGUI {
                         }
                     }
                     //need to check if there is a value associated with the command
-                    else {
-
+                    else
                         printPane.setText(printPane.getText() + "\n\n" + chronoTimer.getResults(value));
-
-                    }
                 }
 
 
@@ -520,7 +517,6 @@ public class ChronoGUI {
 
         Simulation sim = new Simulation(chronoTimer);
         sim.doInput();
-
     }
 
 

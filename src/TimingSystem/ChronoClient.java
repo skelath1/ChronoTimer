@@ -43,7 +43,7 @@ public class ChronoClient {
         if(!connected) {
             start();
         }
-
+        if(connected) {
             try {
 
 
@@ -75,15 +75,17 @@ public class ChronoClient {
                 e.printStackTrace();
                 Simulation.execute("ERROR", "COULD NOT SEND RUN TO SERVER");
             }
+        }
 
     }
     public void clear(){
         String post = "clear";
-        if(!connected) {
+
             if (!connected) {
                 start();
             }
-        }
+
+        if(connected) {
             try {
 
                 conn = (HttpURLConnection) site.openConnection();
@@ -116,6 +118,6 @@ public class ChronoClient {
                 Simulation.execute("ERROR", "COULD NOT SEND RUN TO SERVER");
                 e.printStackTrace();
             }
-
+        }
     }
 }
