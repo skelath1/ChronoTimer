@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ChronoSever/ChronoServer.iml" filepath="$PROJECT_DIR$/ChronoSever/ChronoServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ChronoSever/ChronoSever.iml" filepath="$PROJECT_DIR$/ChronoSever/ChronoSever.iml" />
       <module fileurl="file://$PROJECT_DIR$/ChronoTimer.iml" filepath="$PROJECT_DIR$/ChronoTimer.iml" />
     </modules>
   </component>

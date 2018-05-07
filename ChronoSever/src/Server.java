@@ -33,6 +33,7 @@ public class Server{
             server.createContext("/sendresults",new PostHandler());
             server.createContext("/results", new DirectoryHandler());
             server.createContext("/results/style.css", new StyleHandler());
+            server.createContext("/results/index.js", new ScriptHandler());
             //create a context to display employees
             server.setExecutor(null); // creates a default executor
             // get it going
@@ -159,6 +160,23 @@ public class Server{
                     }
                 }
                // System.out.println(response);
+                t.sendResponseHeaders(200, response.length());
+                OutputStream os = t.getResponseBody();
+                os.write(response.getBytes());
+                os.flush();
+                os.close();
+            }
+        }
+        static class ScriptHandler implements HttpHandler{
+            public void handle(HttpExchange t) throws IOException{
+                String response = "";
+                //System.out.println("css handler working...");
+                try(Scanner fr = new Scanner(new File("ChronoSever/src/js/index.js"))){
+                    while(fr.hasNextLine()){
+                        response += fr.nextLine();
+                    }
+                }
+                // System.out.println(response);
                 t.sendResponseHeaders(200, response.length());
                 OutputStream os = t.getResponseBody();
                 os.write(response.getBytes());
