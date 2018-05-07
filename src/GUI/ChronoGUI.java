@@ -471,7 +471,7 @@ public class ChronoGUI {
                     }
                     //need to check if there is a value associated with the command
                     else {
-                        System.out.println("trying to get into getRestults(value)");
+
                         printPane.setText(printPane.getText() + "\n\n" + chronoTimer.getResults(value));
 
                     }

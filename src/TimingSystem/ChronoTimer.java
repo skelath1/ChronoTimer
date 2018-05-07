@@ -366,19 +366,21 @@ public class ChronoTimer {
      * @param value String
      */
     private void print(String value){
+        if(!(curState.equals(State.OFF))) {
 
-        if(event != null) {
+            if (event != null) {
 
-            if (value != null) {
-                try {
-                    Simulation.execute("PRINT", event.printResults(Integer.parseInt(value)));
+                if (value != null) {
+                    try {
+                        Simulation.execute("PRINT", event.printResults(Integer.parseInt(value)));
 
-                } catch (NumberFormatException nfm) {
-                    Simulation.execute("ERROR", "Invalid argument for Print value = (" + value + ")");
+                    } catch (NumberFormatException nfm) {
+                        Simulation.execute("ERROR", "Invalid argument for Print value = (" + value + ")");
+                    }
+                } else {
+                    //print the most recent run
+                    Simulation.execute("PRINT", event.printResults());
                 }
-            } else {
-                //print the most recent run
-                Simulation.execute("PRINT", event.printResults());
             }
         }
 
@@ -392,7 +394,7 @@ public class ChronoTimer {
      */
     private void export(String value){
         //checking whether event run exists to be exported
-        if(!eventList.isEmpty() && (curState == State.EVENT || curState == State.ON)){
+        if(!eventList.isEmpty() && !(curState.equals(State.OFF))){
             //get all the runs if value is null
             if(value == null){
                     Simulation.export(event.sendRuns());
