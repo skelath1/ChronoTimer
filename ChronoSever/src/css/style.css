@@ -8,6 +8,7 @@ table {
 td, th {
     border: 1px solid #000000;
     padding: 8px;
+
 }
 
 th {
@@ -19,3 +20,6 @@ th {
 
 tr:nth-child(even){background-color: #2d7ebc;}
 tr:nth-child(odd){background-color: #aecce2;}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
