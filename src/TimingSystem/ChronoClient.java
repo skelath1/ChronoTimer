@@ -70,9 +70,8 @@ public class ChronoClient {
                 while ((nextChar = inputStr.read()) > -1) {
                     sb = sb.append((char) nextChar);
                 }
-                //System.out.println("Return String: " + sb);
             } catch (Exception e) {
-                e.printStackTrace();
+
                 Simulation.execute("ERROR", "COULD NOT SEND RUN TO SERVER");
             }
         }
@@ -113,10 +112,8 @@ public class ChronoClient {
                 while ((nextChar = inputStr.read()) > -1) {
                     sb = sb.append((char) nextChar);
                 }
-                //System.out.println("Return String: " + sb);
             } catch (Exception e) {
                 Simulation.execute("ERROR", "COULD NOT SEND RUN TO SERVER");
-                e.printStackTrace();
             }
         }
     }

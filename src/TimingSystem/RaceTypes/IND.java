@@ -207,13 +207,13 @@ public class IND implements RaceType {
 
         //changed from racer to racerQueue
         long t = System.currentTimeMillis();
-        if(!runs.isEmpty() && null != runs.get(runs.size()-1)) {
-
-            if (inProg) {
-                for (Racer r : _racerQueue) {
-                    s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), t) + "\n";
-                }
-            } else {
+//        if(!runs.isEmpty() && null != runs.get(runs.size()-1)) {
+//
+//            if (inProg) {
+//                for (Racer r : _racerQueue) {
+//                    s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), t) + "\n";
+//                }
+//            } else {
                 if (runs.isEmpty()) {
                     for (Racer r : _finished) {
                         s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + "\n";
@@ -224,8 +224,8 @@ public class IND implements RaceType {
                         s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
                     }
                 }
-            }
-        }
+          //  }
+        //}
         return s;
     }
 

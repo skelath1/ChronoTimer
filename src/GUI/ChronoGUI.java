@@ -494,6 +494,7 @@ public class ChronoGUI {
                 if(printOn) {
                     printOn = false;
                     printerPowerButton.setBackground(offColor);
+                    printPane.setText("");
                 }
                 else {
                     printOn = true;
@@ -504,12 +505,12 @@ public class ChronoGUI {
     }
     public static void main(String[] args) {
 
-        JFrame frame = new JFrame("ChronoGoo");
+        JFrame frame = new JFrame("ChronoTimer 1009");
         frame.setContentPane(new ChronoGUI().panel1);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(1260, 768));
         frame.setLocation(new Point(0,0));
-        ImageIcon image = new ImageIcon("src/logo.png");
+        ImageIcon image = new ImageIcon("icons/logo.png");
         frame.setIconImage(image.getImage());
 
         frame.pack();

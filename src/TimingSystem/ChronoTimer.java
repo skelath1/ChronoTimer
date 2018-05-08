@@ -36,7 +36,7 @@ public class ChronoTimer {
         }
         eventList = new ArrayList<>();
         //connecting to the server
-        //client = new ChronoClient();
+        client = new ChronoClient();
     }
 
     /**
@@ -269,7 +269,7 @@ public class ChronoTimer {
     private void newRun(){
         if(!curState.equals(State.OFF)){
             runCalled =true;
-            if(client == null) client = new ChronoClient();
+            //if(client == null) client = new ChronoClient();
         }
 
     }
@@ -532,14 +532,18 @@ public class ChronoTimer {
                return data;
            }
        }
-       //printing out the current race
-       String data = "INPROGRESS:\n";
-       data += event.getData("running");
-       data +="\n\nFINISHED:\n";
-       data += event.getData("finished");
-       //Simulation.execute("Print", data);
+       if(event != null) {
+           //printing out the current race
+           String data = "INPROGRESS:\n";
+           data += event.getData("running");
+           data += "\n\nFINISHED:\n";
+           data += event.getData("finished");
+           return data;
+       }
+       //if event is null
+       return "INPROGRESS:\n\n\nFINISHED:\n";
 
-       return data;
+
    }
     public String getResults(String runNumber){
         //need to check if the run is over and then get the most recent run if it is

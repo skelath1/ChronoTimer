@@ -21,7 +21,7 @@ public class Server{
 
         static String value = null;
         static Run theRuns = new Run();
-        static Members mem = new Members("ChronoSever/src/racers.txt");
+        static Members mem = new Members("src/racers.txt");
 
 	public static void main(String[] args) throws Exception {
 
@@ -111,7 +111,7 @@ public class Server{
                 //add the event type to the html string with javascript
                 String response = "";
                 ArrayList<Result> db = theRuns.getResults();
-                response += readContents("ChronoSever/src/index.txt");
+                response += readContents("src/index.txt");
                 int count = 1;
                 for(Result r: db){
                 	String name =mem.getName(r.get_bib());
@@ -155,7 +155,7 @@ public class Server{
             public void handle(HttpExchange t) throws IOException{
                 String response = "";
                 //System.out.println("css handler working...");
-                try(Scanner fr = new Scanner(new File("ChronoSever/src/css/style.css"))){
+                try(Scanner fr = new Scanner(new File("src/css/style.css"))){
                     while(fr.hasNextLine()){
                         response += fr.nextLine();
                     }
@@ -172,7 +172,7 @@ public class Server{
             public void handle(HttpExchange t) throws IOException{
                 String response = "";
                 //System.out.println("css handler working...");
-                try(Scanner fr = new Scanner(new File("ChronoSever/src/js/index.js"))){
+                try(Scanner fr = new Scanner(new File("src/js/index.js"))){
                     while(fr.hasNextLine()){
                         response += fr.nextLine();
                     }
@@ -195,7 +195,7 @@ public class Server{
                 }
                 in.close();
             } catch (IOException e) {
-                System.out.println("couldn't get file");
+                System.out.println("Couldn't get file: " + filename);
             }
             return responseBuilder.toString();
         }

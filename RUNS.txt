@@ -1,1 +1,0 @@
-[{"eventType":"IND","results":[{"_bib":12,"_time":"00:00:00.520"}]}]

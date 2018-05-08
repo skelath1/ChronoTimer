@@ -9,8 +9,12 @@ public class Members {
 	public Members(){
 		bibMap = new HashMap<>();
 	}
-	public Members(String filename){//parse file text and put into hashmap
-		System.out.println(new File(".").getAbsoluteFile());
+
+	/**
+	 * parse file text and put into hashmap
+	 * @param filename
+	 */
+	public Members(String filename){
 		bibMap = new HashMap<>();
 		File file = new File(filename);
 		try{
@@ -24,12 +28,13 @@ public class Members {
 				bibMap.put(Integer.parseInt(number), name);
 			}
 		}catch(IOException exc){
-			System.out.println("File not found.");
+			System.out.println("File not found: " + filename);
 		}
 	}
 	public String getName(int bibNum){//if null then not found
 		return bibMap.get(bibNum);
 	}
+
 	public void print(){
 		System.out.println("Bib Number=name: " + bibMap.toString());
 	}

@@ -239,11 +239,11 @@ public class GRP implements RaceType{
     public String printResults() {
         String s = "";
         long t = System.currentTimeMillis();
-        if(inProg){
+        /*if(inProg){
             for(Racer r : _racerQueue){
                 s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), t) +"\n";
             }
-        } else {
+        } else {*/
             if(runs.isEmpty()){
                 for(Racer r : _finished){
                     s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) +"\n";
@@ -255,7 +255,7 @@ public class GRP implements RaceType{
                     s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
                 }
             }
-        }
+       // }
         return s;
     }
 

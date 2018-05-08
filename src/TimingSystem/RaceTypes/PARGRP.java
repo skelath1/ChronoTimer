@@ -159,16 +159,16 @@ public class PARGRP implements RaceType {
     public String printResults() {
         String s = "";
         long t = System.currentTimeMillis();
-        if(inProg){
-            for(Racer r : _racers){
-                s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), t) + "\n";
-            }
-        } else {
+//        if(inProg){
+//            for(Racer r : _racers){
+//                s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), t) + "\n";
+//            }
+//        } else {
             Run r = runs.get(runs.size()-1);
             for(Result res : r.getResults()){
                 s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
             }
-        }
+        //}
         return s;
     }
 

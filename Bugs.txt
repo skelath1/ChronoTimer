@@ -8,3 +8,5 @@
 
 Sprint 4 Bugs
 1.) toggling the channels before the connecting of sensors causes them to be turned off                     completed
+2.) Group race needs a racer in the queue in order to start
+    - you should just be able to  have anon racers finishing racers
