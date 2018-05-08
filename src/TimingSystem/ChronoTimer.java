@@ -36,7 +36,7 @@ public class ChronoTimer {
         }
         eventList = new ArrayList<>();
         //connecting to the server
-        client = new ChronoClient();
+        //client = new ChronoClient();
     }
 
     /**
@@ -69,7 +69,7 @@ public class ChronoTimer {
                 num(value);
                 break;
             case "TRIG":
-                if(runCalled || (event != null && event.toString().equals("GRP"))){
+                if(runCalled){
                     try {
                         int channelNum = Integer.parseInt(value);
                         if(channels[channelNum-1].isReady()) {
@@ -83,14 +83,14 @@ public class ChronoTimer {
                 break;
             //same as TRIG 1
             case "START":
-                if(runCalled || (event != null && event.toString().equals("GRP"))){
+                if(runCalled){
                     if(channels[0].isReady())
                         event.setTime(System.currentTimeMillis(),1);
                 }
                 break;
             //same as TRIG 2
             case "FINISH":
-                if(runCalled || (event != null && event.toString().equals("GRP"))){
+                if(runCalled){
                     if(channels[1].isReady())
                         event.setTime(System.currentTimeMillis(),2);
                 }
@@ -166,8 +166,8 @@ public class ChronoTimer {
                 num(value);
                 break;
             case "TRIG":
-                if(runCalled || (event != null && event.toString().equals("GRP"))) {
-
+                if(runCalled) {
+                    if (runCalled) {
                         try {
                             int channelNum = Integer.parseInt(value);
                             //if it is odd then it is the start
@@ -177,19 +177,19 @@ public class ChronoTimer {
                         } catch (NumberFormatException ex) {
                             Simulation.execute("ERROR", " " + value + " not valid.");
                         }
-
+                    }
                 }
                 break;
             //same as TRIG 1
             case "START":
-                if(runCalled || (event != null && event.toString().equals("GRP"))){
+                if(runCalled){
                     if(channels[0].isReady())
                         event.setTime(Time.stringToMilliseconds(time),1);
                 }
                 break;
             //same as TRIG 2
             case "FINISH":
-                if(runCalled || (event != null && event.toString().equals("GRP"))){
+                if(runCalled){
                     if(channels[1].isReady())
                         event.setTime(Time.stringToMilliseconds(time),2);
                 }
@@ -269,7 +269,7 @@ public class ChronoTimer {
     private void newRun(){
         if(!curState.equals(State.OFF)){
             runCalled =true;
-            //if(client == null) client = new ChronoClient();
+            if(client == null) client = new ChronoClient();
         }
 
     }
@@ -532,18 +532,14 @@ public class ChronoTimer {
                return data;
            }
        }
-       if(event != null) {
-           //printing out the current race
-           String data = "INPROGRESS:\n";
-           data += event.getData("running");
-           data += "\n\nFINISHED:\n";
-           data += event.getData("finished");
-           return data;
-       }
-       //if event is null
-       return "INPROGRESS:\n\n\nFINISHED:\n";
+       //printing out the current race
+       String data = "INPROGRESS:\n";
+       data += event.getData("running");
+       data +="\n\nFINISHED:\n";
+       data += event.getData("finished");
+       //Simulation.execute("Print", data);
 
-
+       return data;
    }
     public String getResults(String runNumber){
         //need to check if the run is over and then get the most recent run if it is

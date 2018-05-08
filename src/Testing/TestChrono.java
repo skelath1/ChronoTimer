@@ -249,19 +249,130 @@ public class TestChrono {
 
     }@Test
     public void test10(){
-    }@Test
+        ct.execute("event",null,null);
+        getEventCalled();
+        getState();
+        assertTrue(state.equalsIgnoreCase("off"));
+        assertFalse(eventCalled);
+
+        ct.execute("power",null,null);
+        ct.execute("event",null,null);
+        getEventCalled();
+        getState();
+        assertTrue(state.equalsIgnoreCase("event"));
+        assertTrue(eventCalled);
+
+        ct.execute("event",null,null);
+        getState();
+        getEventCalled();
+        assertTrue(state.equalsIgnoreCase("event"));
+        assertTrue(eventCalled);
+    }
+    @Test
     public void test11(){
+
+        ct.execute("newrun",null,null);
+        getRunCalled();
+        assertFalse(runCalled);
+        ct.execute("power",null,null);
+        ct.execute("newrun",null,null);
+        getRunCalled();
+        assertTrue(runCalled);
+
     }
     @Test
     public void test12(){
-
+        ct.execute("endrun",null,null);
+        getState();
+        getRunCalled();
+        getEventCalled();
+        assertTrue(state.equalsIgnoreCase("off"));
+        assertFalse(eventCalled);
+        assertFalse(runCalled);
+        ct.execute("power", null,null);
+        ct.execute("endrun",null,null);
+        getState();
+        getRunCalled();
+        getEventCalled();
+        assertTrue(state.equalsIgnoreCase("on"));
+        assertFalse(eventCalled);
+        assertFalse(runCalled);
+        ct.execute("newrun",null,null);
+        ct.execute("endrun",null,null);
+        getState();
+        getEventCalled();
+        getRunCalled();
+        assertTrue(state.equalsIgnoreCase("on"));
+        assertFalse(eventCalled);
+        assertTrue(runCalled);
+        ct.execute("newrun",null,null);
+        ct.execute("event",null,null);
+        ct.execute("endrun",null,null);
+        getState();
+        getEventCalled();
+        getRunCalled();
+        assertTrue(state.equalsIgnoreCase("on"));
+        assertFalse(eventCalled);
+        assertFalse(runCalled);
     }
     @Test
     public void test13(){
+        ct.execute("power", null,null);
+        ct.execute("print",null,null);
+
+        ct.execute("event",null,null);
+        ct.execute("newrun",null,null);
+        ct.execute("CONN", "GATE", "1");
+        ct.execute("CONN", "GATE", "2");
+        ct.execute("num","10",null);
+        ct.execute("tog","1",null);
+        ct.execute("tog","2",null);
+        ct.execute("trig","1",null);
+        ct.execute("print",null,null);
+
+        ct.execute("reset",null,null);
+        ct.execute("event",null,null);
+        ct.execute("newrun",null,null);
+        ct.execute("CONN", "GATE", "1");
+        ct.execute("CONN", "GATE", "3");
+        ct.execute("num","10",null);
+        ct.execute("tog","1",null);
+        ct.execute("tog","2",null);
+        ct.execute("trig","1",null);
+        ct.execute("trig","2",null);
+        ct.execute("endrun",null,null);
+        ct.execute("print",null,null);
+
+
+
+        ct.execute("newrun",null,null);
+        ct.execute("num","12",null);
+        ct.execute("num","13",null);
+        ct.execute("tog","1",null);
+        ct.execute("tog","2",null);
+        ct.execute("trig","1",null);
+        ct.execute("trig","2",null);
+        ct.execute("trig","1",null);
+        ct.execute("trig","2",null);
+        ct.execute("endrun",null,null);
+        ct.execute("print","1",null);
 
     }@Test
     public void test14(){
-
+        ct.execute("power", null,null);
+        ct.execute("event",null,null);
+        ct.execute("newrun",null,null);
+        ct.execute("num","45",null);
+        ct.execute("num","167",null);
+        ct.execute("tog","1",null);
+        ct.execute("tog","2",null);
+        ct.execute("trig","1",null);
+        ct.execute("trig","2",null);
+        ct.execute("trig","1",null);
+        ct.execute("trig","2",null);
+        ct.execute("endrun",null,null);
+        ct.execute("export",null,null);
+        ct.execute("export","1",null);
     }
     @Test
     public void test15(){
@@ -362,6 +473,15 @@ public class TestChrono {
     }
     @Test
     public void test21(){
+        ct.execute("power", null,null);
+        ct.execute("event",null,null);
+        ct.execute("newrun",null,null);
+        ct.execute("num","4",null);
+        ct.execute("tog","1",null);
+        ct.execute("tog","2",null);
+        ct.execute("0","trig","1",null);
+        ct.execute("finish","2",null);
+
 
     }
 
