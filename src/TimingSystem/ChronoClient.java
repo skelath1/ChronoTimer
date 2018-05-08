@@ -99,8 +99,6 @@ public class ChronoClient {
                     out.flush();
                     out.close();
                 }
-                System.out.println("clear sent to server");
-
 
                 InputStreamReader inputStr = new InputStreamReader(conn.getInputStream());
 
