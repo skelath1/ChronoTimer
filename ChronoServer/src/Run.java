@@ -39,9 +39,19 @@ public class Run {
 		results.clear();
 	}
 	public ArrayList<Result> getResults() {
+		//added
+		int cnt = 0;
+		for (Result res : results) {
+			++cnt;
+			String time = res.get_time();
+			if (time.equals("0")) {
+				time = "00:00:00:00";
+			} else if (time.equals("-1")) {
+				time = "DNF";
+			}
+		}//added
 		return results;
 	}
-
 	public String getEventType(){
 		return eventType;
 	}
