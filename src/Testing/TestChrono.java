@@ -471,7 +471,7 @@ public class TestChrono {
         assertFalse(channels[0].isReady());
         assertFalse(raceType.getRuns().isEmpty());
     }
-    @Test
+  /*  @Test
     public void test21(){
         ct.execute("power", null,null);
         ct.execute("event",null,null);
@@ -484,7 +484,7 @@ public class TestChrono {
 
 
     }
-
+*/
     private void getState(){
         try {
             m = ct.getClass().getDeclaredMethod("getState");
