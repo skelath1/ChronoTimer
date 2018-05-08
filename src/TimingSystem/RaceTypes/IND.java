@@ -6,6 +6,7 @@ import TimingSystem.Run;
 import Util.Time;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -192,10 +193,56 @@ public class IND implements RaceType {
     @Override
     public void saveRun(){
         Run r = new Run(this.toString());
-        r.addResults(_racers);
+        ArrayList<Racer> temp = new ArrayList<>();
+        ArrayList<Racer> dn = new ArrayList<>();
         this.dnf();
-        r.addResults(_finished);
+        for(Racer ra : _finished){
+            if(ra.getStartTime() == -1){
+                dn.add(ra);
+            } else {
+                temp.add(ra);
+            }
+        }
+
+        Comp c = new Comp();
+        if(temp.size() > 0){
+            for(int i = 0; i < temp.size()-1; ++i){
+                int j = i+1;
+                while(j < temp.size()){
+                    if(c.compare(temp.get(i), temp.get(j)) >= 0){
+                        Racer rTemp = temp.get(i);
+                        temp.set(i, temp.get(j));
+                        temp.set(j, rTemp);
+                    }
+                    ++j;
+                }
+            }
+        }
+
+        r.addResults(temp);
+        r.addResults(_racers);
+        r.addResults(dn);
+
         runs.add(r);
+    }
+
+    public class Comp implements Comparator{
+
+        @Override
+        public int compare(Object o1, Object o2) {
+            if(o1 instanceof Racer && o2 instanceof Racer) {
+                Racer r1 = (Racer) o1;
+                Racer r2 = (Racer) o2;
+                long t = (r1.getFinishTime()-r1.getStartTime()) - (r2.getFinishTime() - r2.getStartTime());
+                if(t == 0)
+                    return 0;
+                else if(t < 0)
+                    return -1;
+                else
+                    return 1;
+            }
+            return -5;
+        }
     }
 
     /**

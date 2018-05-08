@@ -33,7 +33,7 @@ public class Server{
             server.createContext("/sendresults",new PostHandler());
             server.createContext("/results", new DirectoryHandler());
             server.createContext("/results/style.css", new StyleHandler());
-            server.createContext("/results/index.js", new ScriptHandler());
+//            server.createContext("/results/index.js", new ScriptHandler());
             //create a context to display employees
             server.setExecutor(null); // creates a default executor
             // get it going
