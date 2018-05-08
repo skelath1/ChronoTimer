@@ -78,7 +78,6 @@ public class Server{
                 if(parts.length == 1){
                     command = parts[0];
                     value = null;
-                    System.out.println("command " + command);
                     if(command.equals("clear")){
 						theRuns.clear();
                     }

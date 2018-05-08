@@ -69,7 +69,7 @@ public class ChronoTimer {
                 num(value);
                 break;
             case "TRIG":
-                if(runCalled){
+                if(runCalled || (event != null && event.toString().equals("GRP"))){
                     try {
                         int channelNum = Integer.parseInt(value);
                         if(channels[channelNum-1].isReady()) {
@@ -83,14 +83,14 @@ public class ChronoTimer {
                 break;
             //same as TRIG 1
             case "START":
-                if(runCalled){
+                if(runCalled || (event != null && event.toString().equals("GRP"))){
                     if(channels[0].isReady())
                         event.setTime(System.currentTimeMillis(),2);
                 }
                 break;
             //same as TRIG 2
             case "FINISH":
-                if(runCalled){
+                if(runCalled || (event != null && event.toString().equals("GRP"))){
                     if(channels[1].isReady())
                         event.setTime(System.currentTimeMillis(),2);
                 }
@@ -166,8 +166,8 @@ public class ChronoTimer {
                 num(value);
                 break;
             case "TRIG":
-                if(runCalled) {
-                    if (runCalled) {
+                if(runCalled || (event != null && event.toString().equals("GRP"))) {
+
                         try {
                             int channelNum = Integer.parseInt(value);
                             //if it is odd then it is the start
@@ -177,19 +177,19 @@ public class ChronoTimer {
                         } catch (NumberFormatException ex) {
                             Simulation.execute("ERROR", " " + value + " not valid.");
                         }
-                    }
+
                 }
                 break;
             //same as TRIG 1
             case "START":
-                if(runCalled){
+                if(runCalled || (event != null && event.toString().equals("GRP"))){
                     if(channels[0].isReady())
                         event.setTime(Time.stringToMilliseconds(time),1);
                 }
                 break;
             //same as TRIG 2
             case "FINISH":
-                if(runCalled){
+                if(runCalled || (event != null && event.toString().equals("GRP"))){
                     if(channels[1].isReady())
                         event.setTime(Time.stringToMilliseconds(time),2);
                 }
