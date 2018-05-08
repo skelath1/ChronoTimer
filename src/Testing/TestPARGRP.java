@@ -28,6 +28,7 @@ public class TestPARGRP {
             Field f = event.getClass().getDeclaredField("_racetype");
             f.setAccessible(true);
             race = (PARGRP) f.get(event);
+            assertTrue(race.toString().equalsIgnoreCase("PARGRP"));
         } catch(Exception ex){}
     }
 

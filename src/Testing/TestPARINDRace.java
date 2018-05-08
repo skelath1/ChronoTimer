@@ -35,11 +35,12 @@ public class TestPARINDRace {
             channels[i] = new Channel(i + 1);
         }
         event = new Event("PARIND");
-
         try{
             Field f = event.getClass().getDeclaredField("_racetype");
             f.setAccessible(true);
             race = (PARIND) f.get(event);
+            assertTrue(race.toString().equalsIgnoreCase("PARIND"));
+
         } catch(Exception ex){
             ex.printStackTrace();
         }

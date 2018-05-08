@@ -242,11 +242,14 @@ public class PARGRP implements RaceType {
     public void dnf() {
         if(_racerMap.isEmpty()) return;
         Set<Integer> keys = _racerMap.keySet();
-        for(int key : keys){
-            Racer r  = _racerMap.remove(key);
+        Iterator<HashMap.Entry<Integer, Racer>> it = _racerMap.entrySet().iterator();
+        while( it.hasNext()){
+            HashMap.Entry<Integer, Racer> entry = it.next();
+            Racer r = entry.getValue();
             r.setFinishTime(-1);
             r.setStartTime(-1);
             _finished.add(r);
+            it.remove();
         }
     }
 

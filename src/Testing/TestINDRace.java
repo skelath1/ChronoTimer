@@ -30,6 +30,8 @@ public class TestINDRace {
             Field f = event.getClass().getDeclaredField("_racetype");
             f.setAccessible(true);
             race = (IND) f.get(event);
+            assertTrue(race.toString().equalsIgnoreCase("IND"));
+
         } catch(Exception ex){
             ex.printStackTrace();
         }

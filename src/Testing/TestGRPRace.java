@@ -32,6 +32,7 @@ public class TestGRPRace {
             Field f = event.getClass().getDeclaredField("_racetype");
             f.setAccessible(true);
             race = (GRP) f.get(event);
+            assertTrue(race.toString().equalsIgnoreCase("GRP"));
         } catch(Exception ex){
             ex.printStackTrace();
         }

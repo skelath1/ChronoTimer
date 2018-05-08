@@ -85,7 +85,7 @@ public class ChronoTimer {
             case "START":
                 if(runCalled || (event != null && event.toString().equals("GRP"))){
                     if(channels[0].isReady())
-                        event.setTime(System.currentTimeMillis(),2);
+                        event.setTime(System.currentTimeMillis(),1);
                 }
                 break;
             //same as TRIG 2

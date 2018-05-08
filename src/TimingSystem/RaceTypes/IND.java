@@ -180,8 +180,8 @@ public class IND implements RaceType {
         if(_racerQueue.size() >= 2) {
             Racer r1 = _racerQueue.removeFirst();
             Racer r2 = _racerQueue.removeFirst();
-            _racerQueue.add(r2);
-            _racerQueue.add(r1);
+            _racerQueue.addFirst(r1);
+            _racerQueue.addFirst(r2);
         }
     }
 

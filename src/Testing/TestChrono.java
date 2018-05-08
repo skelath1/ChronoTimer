@@ -365,16 +365,6 @@ public class TestChrono {
 
     }
 
-
-
-
-
-
-
-
-
-
-
     private void getState(){
         try {
             m = ct.getClass().getDeclaredMethod("getState");
