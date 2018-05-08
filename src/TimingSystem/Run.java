@@ -34,6 +34,7 @@ public class Run {
         for(Result res: results){
             ++cnt;
             String time = res.get_time();
+            System.out.println("time = " + time);
             if(time.equals("0")) {
                 time = "00:00:00:00";
             } else if(time.equals("-1")){

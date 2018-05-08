@@ -36,7 +36,7 @@ public class ChronoTimer {
         }
         eventList = new ArrayList<>();
         //connecting to the server
-        //client = new ChronoClient();
+        client = new ChronoClient();
     }
 
     /**
@@ -269,7 +269,7 @@ public class ChronoTimer {
     private void newRun(){
         if(!curState.equals(State.OFF)){
             runCalled =true;
-            if(client == null) client = new ChronoClient();
+            //if(client == null) client = new ChronoClient();
         }
 
     }
@@ -590,8 +590,10 @@ public class ChronoTimer {
      * @return String gets finished times of the racers
      */
    public String getFinishedTime(){
-       if(event != null)
-           return event.getData("finished");
+       if(event != null) {
+          return event.getData("finished");
+
+       }
        return null;
    }
 

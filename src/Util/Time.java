@@ -55,7 +55,11 @@ public class Time {
      * @return: a string with elapsed time
      */
     public static String getElapsed(long start, long finish){
-        long resultMilli = finish-start;
+        long resultMilli = 0;
+        if(start != -1)
+            resultMilli = finish-start;
+        else
+            return "-1";
         //get components of time
         long hours = (resultMilli/(1000*3600));
         long minutes = (resultMilli / (1000 * 60)) % 60;

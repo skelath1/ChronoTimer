@@ -1,3 +1,5 @@
+import Util.Time;
+
 public class Result {
     private int _bib;
     private String _time;
@@ -14,4 +16,6 @@ public class Result {
     public String get_time(){
         return _time;
     }
+
+
 }

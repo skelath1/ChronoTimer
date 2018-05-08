@@ -266,10 +266,18 @@ public class PARGRP implements RaceType {
         for(Racer r : list){
             s += r.getBibNumber() + ": ";
             if(!q){
-                if (finished)
-                    s += Time.getElapsed(r.getStartTime(), r.getFinishTime());
-                else
-                    s += Time.getElapsed(r.getStartTime(), cTime);
+                if (finished) {
+                    String time =Time.getElapsed(r.getStartTime(), r.getFinishTime());
+                    if(time.equals("-1"))
+                        time = "DNF";
+                    s += time;
+                }
+                else {
+                    String time =Time.getElapsed(r.getStartTime(), cTime);
+                    if(time.equals("-1"))
+                        time = "DNF";
+                    s += time;
+                }
             }
             s += "\n";
         }

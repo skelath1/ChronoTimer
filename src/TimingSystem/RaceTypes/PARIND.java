@@ -366,17 +366,27 @@ public class PARIND implements RaceType {
     private String listToString(Deque<Racer> list1, Deque<Racer> list2, boolean finished){
         String s = "";
         for(Racer r : list1) {
-            if(finished)
-                s += r.getBibNumber() + ": " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + " \n";
-            else
+            if(finished) {
+                String time =Time.getElapsed(r.getStartTime(), r.getFinishTime());
+                if(time.equals("-1"))
+                    time = "DNF";
+                s += r.getBibNumber() + ": " +  time + " \n";
+            }
+            else {
                 s += r.getBibNumber() + "\n";
+            }
         }
         if(list2 != null) {
             for (Racer r : list2) {
-                if (finished)
-                    s += r.getBibNumber() + ": " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + " \n";
-                else
+                if (finished) {
+                    String time =Time.getElapsed(r.getStartTime(), r.getFinishTime());
+                    if(time.equals("-1"))
+                        time = "DNF";
+                    s += r.getBibNumber() + ": " + time + " \n";
+                }
+                else {
                     s += r.getBibNumber() + "\n";
+                }
             }
         }
         return s;

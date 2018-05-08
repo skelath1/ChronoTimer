@@ -110,7 +110,7 @@ public class Server{
                 //add the event type to the html string with javascript
                 String response = "";
                 ArrayList<Result> db = theRuns.getResults();
-                response += readContents("ChronoServer/src/index.txt");
+                response += readContents("src/index.txt");
                 int count = 1;
                 for(Result r: db){
                 	String name =mem.getName(r.get_bib());
@@ -154,7 +154,7 @@ public class Server{
             public void handle(HttpExchange t) throws IOException{
                 String response = "";
                 //System.out.println("css handler working...");
-                try(Scanner fr = new Scanner(new File("ChronoServer/src/css/style.css"))){
+                try(Scanner fr = new Scanner(new File("src/css/style.css"))){
                     while(fr.hasNextLine()){
                         response += fr.nextLine() + "\n";
                     }
@@ -171,7 +171,7 @@ public class Server{
             public void handle(HttpExchange t) throws IOException{
                 String response = "";
                 //System.out.println("css handler working...");
-                try(Scanner fr = new Scanner(new File("ChronoServer/src/js/index.js"))){
+                try(Scanner fr = new Scanner(new File("src/js/index.js"))){
                     while(fr.hasNextLine()){
                         response += fr.nextLine() + "\n";
                     }

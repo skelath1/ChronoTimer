@@ -66,6 +66,7 @@ public class IND implements RaceType {
         r.setStartTime(-1);
         r.setFinishTime(-1);
         _finished.add(r);
+
     }
 
     /**
@@ -216,11 +217,17 @@ public class IND implements RaceType {
 //            } else {
                 if (runs.isEmpty()) {
                     for (Racer r : _finished) {
-                        s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + Time.getElapsed(r.getStartTime(), r.getFinishTime()) + "\n";
+                        String time = Time.getElapsed(r.getStartTime(), r.getFinishTime());
+                        if(time.trim().equals("-1"))
+                            time = "DNF";
+                        s += "TimingSystem.Racer: " + r.getBibNumber() + " : " + time + "\n";
                     }
                 } else {
                     Run r = runs.get(runs.size() - 1);
                     for (Result res : r.getResults()) {
+                        String time = res.get_time();
+                        if(time.trim().equals("-1"))
+                            time = "DNF";
                         s += "TimingSystem.Racer: " + res.get_bib() + " : " + res.get_time() + "\n";
                     }
                 }
@@ -287,10 +294,18 @@ public class IND implements RaceType {
         long cTime = System.currentTimeMillis();
         for(Racer r : e){
             data += r.getBibNumber() + ": ";
-            if(running)
-                data += Time.getElapsed(r.getStartTime(), cTime);
-            if(finished)
-                data += Time.getElapsed(r.getStartTime(), r.getFinishTime());
+            if(running) {
+                String time = Time.getElapsed(r.getStartTime(), cTime);
+                if(time.equals("-1"))
+                    time = "DNF";
+                data += time;
+            }
+            if(finished) {
+                String time = Time.getElapsed(r.getStartTime(), r.getFinishTime());
+                if(time.equals("-1"))
+                    time = "DNF";
+                data += time;
+            }
             data += " \n";
         }
 
