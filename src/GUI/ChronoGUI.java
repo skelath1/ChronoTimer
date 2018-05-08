@@ -181,7 +181,8 @@ public class ChronoGUI {
                 }
             }catch(InterruptedException  | ConcurrentModificationException cme){
                 JOptionPane.showMessageDialog(null,"Slow Down","Slow Down",JOptionPane.ERROR_MESSAGE);
-                System.out.println("done updating");
+                Simulation.execute("ERROR", "Going to fast caused CME");
+
             }
         };
         Thread running = new Thread(updateRunning);
@@ -198,7 +199,7 @@ public class ChronoGUI {
                 }
             }catch(InterruptedException  | ConcurrentModificationException cme){
                 JOptionPane.showMessageDialog(null,"Slow Down","Slow Down",JOptionPane.ERROR_MESSAGE);
-                System.out.println("done updating");
+               Simulation.execute("ERROR", "Going to fast caused CME");
             }
         };
         Thread queue = new Thread(updateQueue);
@@ -218,7 +219,7 @@ public class ChronoGUI {
                 }
             }catch(InterruptedException | ConcurrentModificationException cme){
                 JOptionPane.showMessageDialog(null,"Slow Down","Slow Down",JOptionPane.ERROR_MESSAGE);
-                System.out.println("done updating");
+                Simulation.execute("ERROR", "Going to fast caused CME");
             }
         };
         Thread finishTime= new Thread(updateFinishedTime);

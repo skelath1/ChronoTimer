@@ -114,16 +114,21 @@ public class Server{
                 int count = 1;
                 for(Result r: db){
                 	String name =mem.getName(r.get_bib());
+                    String time = r.get_time();
+                    if(time.equals("-1"))
+                        time = "DNF";
                 	if(name !=null){
+
+
 						response += "<tr> <th>" + count +"</th>" +
 							"<th>" + r.get_bib() +"</th>"+
 							"<th>" + name +"</th>" +
-							"<th>" + r.get_time() +"</th></tr>";
+							"<th>" + time +"</th></tr>";
 					}else{
 						response += "<tr> <th>" + count +"</th>" +
 							"<th>" + r.get_bib() +"</th>"+
 							"<th>" + "</th>" +
-							"<th>" + r.get_time() +"</th></tr>";
+							"<th>" + time +"</th></tr>";
 					}
                     ++count;
                 }
@@ -135,8 +140,7 @@ public class Server{
                 response += " </tbody></table>" +"<script>\n" +
                         "\tdocument.getElementById(\"event\").innerHTML = \""+ eventName+"\";\n" +
                         "</script>"+
-                        "</div><script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>" +
-                        "<script src=\"results/index.js\"></script>" +
+                        "<script src=\"index.js\"></script>" +
 					    " <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>" +
                         "</body>" +
                         "</html>";

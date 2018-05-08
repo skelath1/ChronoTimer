@@ -541,6 +541,12 @@ public class ChronoTimer {
 
        return data;
    }
+
+    /**
+     * overloaded method with the run Number
+     * @param runNumber
+     * @return
+     */
     public String getResults(String runNumber){
         //need to check if the run is over and then get the most recent run if it is
         try{

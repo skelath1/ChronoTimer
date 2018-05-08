@@ -16,7 +16,7 @@ public class ChronoClient {
     boolean connected;
 
 
-//
+
     public ChronoClient(){
         start();
         connected = false;
